@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="CentOS 7 网络配置">
+<meta name="description" content="CentOS 7 网络配置 问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用  先检查ifconfig命令无法使用的原因      使用echo $PATH命令，检查$PATH是否配置正确，结果显示如下：   12[root@localhost ~]# ehco $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 7网络配置">
 <meta property="og:url" content="http://blog.rylee.fun/2019/03/14/centos-network-configuration/index.html">
 <meta property="og:site_name" content="Lee的后花园">
-<meta property="og:description" content="CentOS 7 网络配置">
+<meta property="og:description" content="CentOS 7 网络配置 问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用  先检查ifconfig命令无法使用的原因      使用echo $PATH命令，检查$PATH是否配置正确，结果显示如下：   12[root@localhost ~]# ehco $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-14T07:33:59.460Z">
+<meta property="og:updated_time" content="2019-03-14T07:49:50.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 7网络配置">
-<meta name="twitter:description" content="CentOS 7 网络配置">
+<meta name="twitter:description" content="CentOS 7 网络配置 问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用  先检查ifconfig命令无法使用的原因      使用echo $PATH命令，检查$PATH是否配置正确，结果显示如下：   12[root@localhost ~]# ehco $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin">
 
 
 
@@ -410,7 +410,15 @@
       
 
       
-        <h2 id="CentOS-7-网络配置"><a href="#CentOS-7-网络配置" class="headerlink" title="CentOS 7 网络配置"></a>CentOS 7 网络配置</h2>
+        <h2 id="CentOS-7-网络配置"><a href="#CentOS-7-网络配置" class="headerlink" title="CentOS 7 网络配置"></a>CentOS 7 网络配置</h2><blockquote>
+<p>问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用</p>
+<ol>
+<li>先检查<code>ifconfig</code>命令无法使用的原因</li>
+</ol>
+</blockquote>
+<p>   使用<code>echo $PATH</code>命令，检查<code>$PATH</code>是否配置正确，结果显示如下：<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# ehco $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure></p>
+<p>   从返回的结果来看，系统的bin目录已经包含在内，可以推测出，CentOS的最小安装模式默认没有<code>ifconfig</code>命令。因此，我们需要先想办法将虚拟机连接至网络，再通过yum源来安装ifconfig命令</p>
+
       
     </div>
     

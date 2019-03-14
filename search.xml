@@ -15,7 +15,7 @@
   <entry>
     <title><![CDATA[CentOS 7网络配置]]></title>
     <url>%2F2019%2F03%2F14%2Fcentos-network-configuration%2F</url>
-    <content type="text"><![CDATA[CentOS 7 网络配置]]></content>
+    <content type="text"><![CDATA[CentOS 7 网络配置 问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用 先检查ifconfig命令无法使用的原因 使用echo $PATH命令，检查$PATH是否配置正确，结果显示如下： 12[root@localhost ~]# ehco $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin 从返回的结果来看，系统的bin目录已经包含在内，可以推测出，CentOS的最小安装模式默认没有ifconfig命令。因此，我们需要先想办法将虚拟机连接至网络，再通过yum源来安装ifconfig命令]]></content>
       <categories>
         <category>linux</category>
         <category>CentOS</category>
