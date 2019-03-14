@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CentOS 7 安装Python 3]]></title>
+    <url>%2F2019%2F03%2F14%2Fcentos-install-python3%2F</url>
+    <content type="text"><![CDATA[CentOS 7 安装Python3 CentOS 7 默认值安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装12345sudo yum updatesudo yum install yum-utilssudo yum groupinstall developmentsudo yum install https://centos7.iuscommunity.org/ius-release.rpmsudo yum install python36u]]></content>
+      <categories>
+        <category>linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CentOS 7网络配置]]></title>
     <url>%2F2019%2F03%2F14%2Fcentos-network-configuration%2F</url>
     <content type="text"><![CDATA[CentOS 7 网络配置]]></content>
