@@ -1,3 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
+  <entry>
+    <title><![CDATA[centos_network_configuration]]></title>
+    <url>%2F2019%2F03%2F14%2Fcentos-network-configuration%2F</url>
+    <content type="text"><![CDATA[CentOS 7 网络配置]]></content>
+      <categories>
+        <category>linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.rylee.fun/2019/03/14/centos-network-configuration/</loc>
+    
+    <lastmod>2019-03-14T07:12:37.590Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rylee.fun/tags/index.html</loc>
     
     <lastmod>2019-03-13T09:16:28.059Z</lastmod>
