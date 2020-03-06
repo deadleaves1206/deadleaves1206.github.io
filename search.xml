@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Markdown的一些用法]]></title>
-    <url>%2F2019%2F03%2F14%2Fmarkdown-usage%2F</url>
-    <content type="text"><![CDATA[记录了本人在使用markdown过程中遇到的一些小疑问 换行 使用&lt;br/&gt;标签 在末尾使用两个空格，然后回车 首行缩进使用特殊占位符123&amp;ensp;或&amp;#8194; //半角&amp;emsp;或&amp;#8195; //全角&amp;nbsp;或&amp;#160; 注意不要少了;]]></content>
+    <title>Markdown的一些用法</title>
+    <url>/2019/03/14/markdown-usage/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
+<li>使用<code>&lt;br/&gt;</code>标签</li>
+<li>在末尾使用两个空格，然后回车</li>
+</ol>
+<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&amp;ensp;或&amp;#8194; &#x2F;&#x2F;半角</span><br><span class="line">&amp;emsp;或&amp;#8195; &#x2F;&#x2F;全角</span><br><span class="line">&amp;nbsp;或&amp;#160;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意不要少了<code>;</code></p>
+</blockquote>
+]]></content>
       <categories>
         <category>markdown</category>
       </categories>
@@ -12,9 +26,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[CentOS 7 安装Python 3]]></title>
-    <url>%2F2019%2F03%2F14%2Fcentos-install-python3%2F</url>
-    <content type="text"><![CDATA[CentOS 7 安装Python3 CentOS 7 默认值安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装 12345sudo yum updatesudo yum install yum-utilssudo yum groupinstall developmentsudo yum install https://centos7.iuscommunity.org/ius-release.rpmsudo yum install python36u]]></content>
+    <title>CentOS 7 安装Python 3</title>
+    <url>/2019/03/14/centos-install-python3/</url>
+    <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><blockquote>
+<p>CentOS 7 默认值安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装</p>
+</blockquote>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum groupinstall development</span><br><span class="line">sudo yum install https:&#x2F;&#x2F;centos7.iuscommunity.org&#x2F;ius-release.rpm</span><br><span class="line">sudo yum install python36u</span><br></pre></td></tr></table></figure>
+]]></content>
       <categories>
         <category>linux</category>
         <category>CentOS</category>
@@ -24,9 +44,41 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[CentOS 7网络配置]]></title>
-    <url>%2F2019%2F03%2F14%2Fcentos-network-configuration%2F</url>
-    <content type="text"><![CDATA[CentOS 7 网络配置 问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用 先检查ifconfig命令无法使用的原因使用echo $PATH命令，检查$PATH是否配置正确，结果显示如下： 12[root@localhost ~]# ehco $PATH/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin 从返回的结果来看，系统的bin目录已经包含在内，可以推测出，CentOS的最小安装模式默认没有ifconfig命令。因此，我们需要先想办法将虚拟机连接至网络，再通过yum源来安装ifconfig命令 设置虚拟机网络连接使用ip addr命令，查看网卡当前设置，结果如下： 123456789[root@localhost ~]# ip addr1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever prefered_lft forever inet6 ::1/128 scope host valid_lft forever prefered_lft forever2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000 link/ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff 在这里，可以看到enp0s3这块网卡，应该就是虚拟机的网卡，但是这块网卡当前并未分配IP地址。既然没有ip地址，那直接去/etc/sysconfig/network-scripts目录中看一下的网卡ip信息的配置文件名吧。 12345678910[root@localhost ~]# ls /etc/sysconfig/network-scriptsifcfg-enp0s3 ifdown-ppp ifup-eth ifup-sitifcfg-lo ifdown-routes ifup-ippp ifup-Teamifdown ifdown-sit ifup-ipv6 ifup-TeamPortifdown-dnep ifdown-Team ifup-isdn ifup-tunnelifdown-eth ifdown-TeamPort ifup-plip ifup-wirelessifdown-ippp ifdown-tunnel ifup-plusb init.ipv6-globalifdown-ipv6 ifup ifup-post network-functionsifdown-isdn ifup-aliases ifup-ppp network-functions-ipv6ifdown-post ifup-bnep ifup-routes 从显示的结果来看，网卡的配置文件应当为ifcfg-enp0s3，查看该文件内容： 12345678910111213141516[root@centos1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-enp2s0TYPE=EthernetPROXY_METHOD=noneBROWSER_ONLY=noBOOTPROTO=dhcpDEFROUTE=yesIPV4_FAILURE_FATAL=noIPV6INIT=yesIPV6_AUTOCONF=yesIPV6_DEFROUTE=yesIPV6_FAILURE_FATAL=noIPV6_FAILURE_FATAL=noIPV6_ADDR_GEN_MODE=stable-privacyNAME=enp0s3UUID=13cbc11b-fdc9-4663-ab1a-fbc3e279c85cONBOOT=no 可以看到，BOOTPROTO=dhcp已经将IP地址的获取设置为dhcp模式，但是ONBOOT=no将网卡随开机启动设置为关闭状态，所以我们要将其设置为ONBOOT=yes。设置完成后，可以使用ifup enp0s3命令，启动网卡，也可以用shutdown -r命令，重启系统。重启系统之后，再用ip addr命令查看其网卡设置： 12345678910111213[root@localhost ~]# ip addr1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000 link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00 inet 127.0.0.1/8 scope host lo valid_lft forever preferred_lft forever inet6 ::1/128 scope host valid_lft forever preferred_lft forever2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000 link/ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff inet 10.0.2.15/24 brd 10.0.2.255 scope global noprefixroute dynamic enp0s3 valid_lft 86257sec preferred_lft 86257sec inet6 fe80::facf:7da3:d61b:6a39/64 scope link noprefixroute valid_lft forever preferred_lft forever 因为以最小模式安装CentOS 7，就已经默认安装并启动了ssh，因此就可以通过ssh连接虚拟机，愉快的玩耍了。 安装ipconfig命令通过ping命令，可以查看现在虚拟机是否已经连接外网： 1234[root@localhost ~]# ping www.baidu.comPING www.a.shifen.com (112.34.112.40) 56(84) bytes of data.64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq=1 ttl=63 time=19.2 ms64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq=2 ttl=63 time=19.8 ms 如上所示，已经能够成功连接外网，下面所要做的就是利用yum install net-tools命令，安装ipconfig。安装完成后，即可使用ifconfig命令： 123456789101112131415161718[root@localhost ~]# ifconfigenp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt; mtu 1500 inet 10.0.2.15 netmask 255.255.255.0 broadcast 10.0.2.255 inet6 fe80::facf:7da3:d61b:6a39 prefixlen 64 scopeid 0x20&lt;link&gt; ether 08:00:27:0f:d6:f6 txqueuelen 1000 (Ethernet) RX packets 7827 bytes 10002300 (9.5 MiB) RX errors 0 dropped 0 overruns 0 frame 0 TX packets 3324 bytes 220777 (215.6 KiB) TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt; mtu 65536 inet 127.0.0.1 netmask 255.0.0.0 inet6 ::1 prefixlen 128 scopeid 0x10&lt;host&gt; loop txqueuelen 1000 (Local Loopback) RX packets 0 bytes 0 (0.0 B) RX errors 0 dropped 0 overruns 0 frame 0 TX packets 0 bytes 0 (0.0 B) TX errors 0 dropped 0 overruns 0 carrier 0 collisions 0 linux 系统下网卡启动与关闭命令汇总 ifup | ifdown {interface}：&emsp;&emsp;ifup与ifdown真是太简单了。这两个程序其实是script而已，它会直接到 /etc/ sysconfig/network-scripts目录下搜索对应的配置文件，例如ifup eth0，它会找出ifcfg-eth0这个文件的内容，然后加以设置。不过，由于这两个程序主要是搜索设置文件（ifcfg-ethx）来进行启动与关闭的，所以在使用前请确定ifcfg-ethx是否真的存在于正确的目录内，否则会启动失败。另外，如果以ifconfig eth0来设置或者是修改了网络接口后，就无法再以ifdown eth0的方式来关闭了。因为ifdown会分析比较目前的网络参数与ifcfg-eth0是否相符，不符的话，就会放弃这次操作。因此，使用ifconfig修改完毕后，应该要以ifconfig eth0 down才能够关闭该接口。 /etc/init.d/network start | stop | restart service network start | stop | restart]]></content>
+    <title>CentOS 7网络配置</title>
+    <url>/2019/03/14/centos-network-configuration/</url>
+    <content><![CDATA[<h2 id="CentOS-7-网络配置"><a href="#CentOS-7-网络配置" class="headerlink" title="CentOS 7 网络配置"></a>CentOS 7 网络配置</h2><blockquote>
+<p>问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用</p>
+</blockquote>
+<a id="more"></a>
+
+<ol>
+<li><p>先检查<code>ifconfig</code>命令无法使用的原因<br>使用<code>echo $PATH</code>命令，检查<code>$PATH</code>是否配置正确，结果显示如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ehco $PATH</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;sbin:&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;root&#x2F;bin</span><br></pre></td></tr></table></figure>
+<p>从返回的结果来看，系统的bin目录已经包含在内，可以推测出，CentOS的最小安装模式默认没有<code>ifconfig</code>命令。因此，我们需要先想办法将虚拟机连接至网络，再通过yum源来安装ifconfig命令</p>
+</li>
+<li><p>设置虚拟机网络连接<br>使用<code>ip addr</code>命令，查看网卡当前设置，结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link&#x2F;loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1&#x2F;8 scope host lo</span><br><span class="line">       valid_lft forever prefered_lft forever</span><br><span class="line">    inet6 ::1&#x2F;128 scope host</span><br><span class="line">       valid_lft forever prefered_lft forever</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link&#x2F;ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff</span><br></pre></td></tr></table></figure>
+<p>在这里，可以看到enp0s3这块网卡，应该就是虚拟机的网卡，但是这块网卡当前并未分配IP地址。既然没有ip地址，那直接去<code>/etc/sysconfig/network-scripts</code>目录中看一下的网卡ip信息的配置文件名吧。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ls &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts</span><br><span class="line">ifcfg-enp0s3     ifdown-ppp          ifup-eth        ifup-sit</span><br><span class="line">ifcfg-lo         ifdown-routes       ifup-ippp       ifup-Team</span><br><span class="line">ifdown           ifdown-sit          ifup-ipv6       ifup-TeamPort</span><br><span class="line">ifdown-dnep      ifdown-Team         ifup-isdn       ifup-tunnel</span><br><span class="line">ifdown-eth       ifdown-TeamPort     ifup-plip       ifup-wireless</span><br><span class="line">ifdown-ippp      ifdown-tunnel       ifup-plusb      init.ipv6-global</span><br><span class="line">ifdown-ipv6      ifup                ifup-post       network-functions</span><br><span class="line">ifdown-isdn      ifup-aliases        ifup-ppp        network-functions-ipv6</span><br><span class="line">ifdown-post      ifup-bnep           ifup-routes</span><br></pre></td></tr></table></figure>
+<p>从显示的结果来看，网卡的配置文件应当为<code>ifcfg-enp0s3</code>，查看该文件内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos1 ~]# cat &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-enp2s0</span><br><span class="line">TYPE&#x3D;Ethernet</span><br><span class="line">PROXY_METHOD&#x3D;none</span><br><span class="line">BROWSER_ONLY&#x3D;no</span><br><span class="line">BOOTPROTO&#x3D;dhcp</span><br><span class="line">DEFROUTE&#x3D;yes</span><br><span class="line">IPV4_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6INIT&#x3D;yes</span><br><span class="line">IPV6_AUTOCONF&#x3D;yes</span><br><span class="line">IPV6_DEFROUTE&#x3D;yes</span><br><span class="line">IPV6_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6_ADDR_GEN_MODE&#x3D;stable-privacy</span><br><span class="line">NAME&#x3D;enp0s3</span><br><span class="line">UUID&#x3D;13cbc11b-fdc9-4663-ab1a-fbc3e279c85c</span><br><span class="line">ONBOOT&#x3D;no</span><br></pre></td></tr></table></figure>
+<p>可以看到，<code>BOOTPROTO=dhcp</code>已经将IP地址的获取设置为dhcp模式，但是<code>ONBOOT=no</code>将网卡随开机启动设置为关闭状态，所以我们要将其设置为<code>ONBOOT=yes</code>。设置完成后，可以使用<code>ifup enp0s3</code>命令，启动网卡，也可以用<code>shutdown -r</code>命令，重启系统。重启系统之后，再用<code>ip addr</code>命令查看其网卡设置：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link&#x2F;loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1&#x2F;8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1&#x2F;128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link&#x2F;ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.0.2.15&#x2F;24 brd 10.0.2.255 scope global noprefixroute dynamic enp0s3</span><br><span class="line">       valid_lft 86257sec preferred_lft 86257sec</span><br><span class="line">    inet6 fe80::facf:7da3:d61b:6a39&#x2F;64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<p>因为以最小模式安装CentOS 7，就已经默认安装并启动了ssh，因此就可以通过ssh连接虚拟机，愉快的玩耍了。</p>
+</li>
+<li><p>安装<code>ipconfig</code>命令<br>通过<code>ping</code>命令，可以查看现在虚拟机是否已经连接外网：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ping www.baidu.com</span><br><span class="line">PING www.a.shifen.com (112.34.112.40) 56(84) bytes of data.</span><br><span class="line">64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq&#x3D;1 ttl&#x3D;63 time&#x3D;19.2 ms</span><br><span class="line">64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq&#x3D;2 ttl&#x3D;63 time&#x3D;19.8 ms</span><br></pre></td></tr></table></figure>
+<p>如上所示，已经能够成功连接外网，下面所要做的就是利用<code>yum install net-tools</code>命令，安装<code>ipconfig</code>。安装完成后，即可使用<code>ifconfig</code>命令：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">enp0s3: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255</span><br><span class="line">        inet6 fe80::facf:7da3:d61b:6a39  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 08:00:27:0f:d6:f6  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 7827  bytes 10002300 (9.5 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 3324  bytes 220777 (215.6 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags&#x3D;73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+<h2 id="linux-系统下网卡启动与关闭命令汇总"><a href="#linux-系统下网卡启动与关闭命令汇总" class="headerlink" title="linux 系统下网卡启动与关闭命令汇总"></a>linux 系统下网卡启动与关闭命令汇总</h2></li>
+<li><p>ifup | ifdown {interface}：<br>&emsp;&emsp;ifup与ifdown真是太简单了。这两个程序其实是script而已，它会直接到 /etc/ sysconfig/network-scripts目录下搜索对应的配置文件，例如ifup eth0，它会找出ifcfg-eth0这个文件的内容，然后加以设置。不过，由于这两个程序主要是搜索设置文件（ifcfg-ethx）来进行启动与关闭的，所以在使用前请确定ifcfg-ethx是否真的存在于正确的目录内，否则会启动失败。另外，如果以ifconfig eth0来设置或者是修改了网络接口后，就无法再以ifdown eth0的方式来关闭了。因为ifdown会分析比较目前的网络参数与ifcfg-eth0是否相符，不符的话，就会放弃这次操作。因此，使用ifconfig修改完毕后，应该要以ifconfig eth0 down才能够关闭该接口。</p>
+</li>
+<li><p>/etc/init.d/network start | stop | restart</p>
+</li>
+<li><p>service network start | stop | restart</p>
+</li>
+</ol>
+]]></content>
       <categories>
         <category>linux</category>
         <category>CentOS</category>
