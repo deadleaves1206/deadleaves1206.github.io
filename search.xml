@@ -1,31 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Markdown的一些用法</title>
-    <url>/2019/03/14/markdown-usage/</url>
-    <content><![CDATA[<blockquote>
-<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
-<li>使用<code>&lt;br/&gt;</code>标签</li>
-<li>在末尾使用两个空格，然后回车</li>
-</ol>
-<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&amp;ensp;或&amp;#8194; &#x2F;&#x2F;半角</span><br><span class="line">&amp;emsp;或&amp;#8195; &#x2F;&#x2F;全角</span><br><span class="line">&amp;nbsp;或&amp;#160;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>注意不要少了<code>;</code></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS 7 安装Python 3</title>
     <url>/2019/03/14/centos-install-python3/</url>
     <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><blockquote>
@@ -33,7 +8,7 @@
 </blockquote>
 <a id="more"></a>
 
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum groupinstall development</span><br><span class="line">sudo yum install https:&#x2F;&#x2F;centos7.iuscommunity.org&#x2F;ius-release.rpm</span><br><span class="line">sudo yum install python36u</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum groupinstall development</span><br><span class="line">sudo yum install https://centos7.iuscommunity.org/ius-release.rpm</span><br><span class="line">sudo yum install python36u</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>linux</category>
@@ -53,24 +28,33 @@
 
 <ol>
 <li><p>先检查<code>ifconfig</code>命令无法使用的原因<br>使用<code>echo $PATH</code>命令，检查<code>$PATH</code>是否配置正确，结果显示如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ehco $PATH</span><br><span class="line">&#x2F;usr&#x2F;local&#x2F;sbin:&#x2F;usr&#x2F;local&#x2F;bin:&#x2F;usr&#x2F;sbin:&#x2F;usr&#x2F;bin:&#x2F;root&#x2F;bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ehco $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
+
 <p>从返回的结果来看，系统的bin目录已经包含在内，可以推测出，CentOS的最小安装模式默认没有<code>ifconfig</code>命令。因此，我们需要先想办法将虚拟机连接至网络，再通过yum源来安装ifconfig命令</p>
 </li>
 <li><p>设置虚拟机网络连接<br>使用<code>ip addr</code>命令，查看网卡当前设置，结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link&#x2F;loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1&#x2F;8 scope host lo</span><br><span class="line">       valid_lft forever prefered_lft forever</span><br><span class="line">    inet6 ::1&#x2F;128 scope host</span><br><span class="line">       valid_lft forever prefered_lft forever</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link&#x2F;ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever prefered_lft forever</span><br><span class="line">    inet6 ::1/128 scope host</span><br><span class="line">       valid_lft forever prefered_lft forever</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff</span><br></pre></td></tr></table></figure>
+
 <p>在这里，可以看到enp0s3这块网卡，应该就是虚拟机的网卡，但是这块网卡当前并未分配IP地址。既然没有ip地址，那直接去<code>/etc/sysconfig/network-scripts</code>目录中看一下的网卡ip信息的配置文件名吧。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ls &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts</span><br><span class="line">ifcfg-enp0s3     ifdown-ppp          ifup-eth        ifup-sit</span><br><span class="line">ifcfg-lo         ifdown-routes       ifup-ippp       ifup-Team</span><br><span class="line">ifdown           ifdown-sit          ifup-ipv6       ifup-TeamPort</span><br><span class="line">ifdown-dnep      ifdown-Team         ifup-isdn       ifup-tunnel</span><br><span class="line">ifdown-eth       ifdown-TeamPort     ifup-plip       ifup-wireless</span><br><span class="line">ifdown-ippp      ifdown-tunnel       ifup-plusb      init.ipv6-global</span><br><span class="line">ifdown-ipv6      ifup                ifup-post       network-functions</span><br><span class="line">ifdown-isdn      ifup-aliases        ifup-ppp        network-functions-ipv6</span><br><span class="line">ifdown-post      ifup-bnep           ifup-routes</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ls /etc/sysconfig/network-scripts</span><br><span class="line">ifcfg-enp0s3     ifdown-ppp          ifup-eth        ifup-sit</span><br><span class="line">ifcfg-lo         ifdown-routes       ifup-ippp       ifup-Team</span><br><span class="line">ifdown           ifdown-sit          ifup-ipv6       ifup-TeamPort</span><br><span class="line">ifdown-dnep      ifdown-Team         ifup-isdn       ifup-tunnel</span><br><span class="line">ifdown-eth       ifdown-TeamPort     ifup-plip       ifup-wireless</span><br><span class="line">ifdown-ippp      ifdown-tunnel       ifup-plusb      init.ipv6-global</span><br><span class="line">ifdown-ipv6      ifup                ifup-post       network-functions</span><br><span class="line">ifdown-isdn      ifup-aliases        ifup-ppp        network-functions-ipv6</span><br><span class="line">ifdown-post      ifup-bnep           ifup-routes</span><br></pre></td></tr></table></figure>
+
 <p>从显示的结果来看，网卡的配置文件应当为<code>ifcfg-enp0s3</code>，查看该文件内容：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@centos1 ~]# cat &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-enp2s0</span><br><span class="line">TYPE&#x3D;Ethernet</span><br><span class="line">PROXY_METHOD&#x3D;none</span><br><span class="line">BROWSER_ONLY&#x3D;no</span><br><span class="line">BOOTPROTO&#x3D;dhcp</span><br><span class="line">DEFROUTE&#x3D;yes</span><br><span class="line">IPV4_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6INIT&#x3D;yes</span><br><span class="line">IPV6_AUTOCONF&#x3D;yes</span><br><span class="line">IPV6_DEFROUTE&#x3D;yes</span><br><span class="line">IPV6_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6_ADDR_GEN_MODE&#x3D;stable-privacy</span><br><span class="line">NAME&#x3D;enp0s3</span><br><span class="line">UUID&#x3D;13cbc11b-fdc9-4663-ab1a-fbc3e279c85c</span><br><span class="line">ONBOOT&#x3D;no</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@centos1 ~]# cat /etc/sysconfig/network-scripts/ifcfg-enp2s0</span><br><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=dhcp</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s3</span><br><span class="line">UUID=13cbc11b-fdc9-4663-ab1a-fbc3e279c85c</span><br><span class="line">ONBOOT=no</span><br></pre></td></tr></table></figure>
+
 <p>可以看到，<code>BOOTPROTO=dhcp</code>已经将IP地址的获取设置为dhcp模式，但是<code>ONBOOT=no</code>将网卡随开机启动设置为关闭状态，所以我们要将其设置为<code>ONBOOT=yes</code>。设置完成后，可以使用<code>ifup enp0s3</code>命令，启动网卡，也可以用<code>shutdown -r</code>命令，重启系统。重启系统之后，再用<code>ip addr</code>命令查看其网卡设置：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link&#x2F;loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1&#x2F;8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1&#x2F;128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link&#x2F;ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.0.2.15&#x2F;24 brd 10.0.2.255 scope global noprefixroute dynamic enp0s3</span><br><span class="line">       valid_lft 86257sec preferred_lft 86257sec</span><br><span class="line">    inet6 fe80::facf:7da3:d61b:6a39&#x2F;64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ip addr</span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    link/ether 08:00:27:0f:d6:f6 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 10.0.2.15/24 brd 10.0.2.255 scope global noprefixroute dynamic enp0s3</span><br><span class="line">       valid_lft 86257sec preferred_lft 86257sec</span><br><span class="line">    inet6 fe80::facf:7da3:d61b:6a39/64 scope link noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
 <p>因为以最小模式安装CentOS 7，就已经默认安装并启动了ssh，因此就可以通过ssh连接虚拟机，愉快的玩耍了。</p>
 </li>
 <li><p>安装<code>ipconfig</code>命令<br>通过<code>ping</code>命令，可以查看现在虚拟机是否已经连接外网：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ping www.baidu.com</span><br><span class="line">PING www.a.shifen.com (112.34.112.40) 56(84) bytes of data.</span><br><span class="line">64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq&#x3D;1 ttl&#x3D;63 time&#x3D;19.2 ms</span><br><span class="line">64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq&#x3D;2 ttl&#x3D;63 time&#x3D;19.8 ms</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ping www.baidu.com</span><br><span class="line">PING www.a.shifen.com (112.34.112.40) 56(84) bytes of data.</span><br><span class="line">64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq=1 ttl=63 time=19.2 ms</span><br><span class="line">64 bytes from 112.34.112.40 (112.34.112.40): icmp_seq=2 ttl=63 time=19.8 ms</span><br></pre></td></tr></table></figure>
+
 <p>如上所示，已经能够成功连接外网，下面所要做的就是利用<code>yum install net-tools</code>命令，安装<code>ipconfig</code>。安装完成后，即可使用<code>ifconfig</code>命令：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">enp0s3: flags&#x3D;4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255</span><br><span class="line">        inet6 fe80::facf:7da3:d61b:6a39  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 08:00:27:0f:d6:f6  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 7827  bytes 10002300 (9.5 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 3324  bytes 220777 (215.6 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags&#x3D;73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
-<h2 id="linux-系统下网卡启动与关闭命令汇总"><a href="#linux-系统下网卡启动与关闭命令汇总" class="headerlink" title="linux 系统下网卡启动与关闭命令汇总"></a>linux 系统下网卡启动与关闭命令汇总</h2></li>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ifconfig</span><br><span class="line">enp0s3: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255</span><br><span class="line">        inet6 fe80::facf:7da3:d61b:6a39  prefixlen 64  scopeid 0x20&lt;link&gt;</span><br><span class="line">        ether 08:00:27:0f:d6:f6  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 7827  bytes 10002300 (9.5 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 3324  bytes 220777 (215.6 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        inet6 ::1  prefixlen 128  scopeid 0x10&lt;host&gt;</span><br><span class="line">        loop  txqueuelen 1000  (Local Loopback)</span><br><span class="line">        RX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 0  bytes 0 (0.0 B)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="linux-系统下网卡启动与关闭命令汇总"><a href="#linux-系统下网卡启动与关闭命令汇总" class="headerlink" title="linux 系统下网卡启动与关闭命令汇总"></a>linux 系统下网卡启动与关闭命令汇总</h2><ol>
 <li><p>ifup | ifdown {interface}：<br>&emsp;&emsp;ifup与ifdown真是太简单了。这两个程序其实是script而已，它会直接到 /etc/ sysconfig/network-scripts目录下搜索对应的配置文件，例如ifup eth0，它会找出ifcfg-eth0这个文件的内容，然后加以设置。不过，由于这两个程序主要是搜索设置文件（ifcfg-ethx）来进行启动与关闭的，所以在使用前请确定ifcfg-ethx是否真的存在于正确的目录内，否则会启动失败。另外，如果以ifconfig eth0来设置或者是修改了网络接口后，就无法再以ifdown eth0的方式来关闭了。因为ifdown会分析比较目前的网络参数与ifcfg-eth0是否相符，不符的话，就会放弃这次操作。因此，使用ifconfig修改完毕后，应该要以ifconfig eth0 down才能够关闭该接口。</p>
 </li>
 <li><p>/etc/init.d/network start | stop | restart</p>
@@ -85,6 +69,86 @@
       </categories>
       <tags>
         <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>next主题的个性配置</title>
+    <url>/2020/06/16/next-setting/</url>
+    <content><![CDATA[<blockquote>
+<p>记录next中的一些个性设置，保证每次更新next主题都能够快速完成主题的个性化设置</p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="配置data-file"><a href="#配置data-file" class="headerlink" title="配置data_file"></a>配置data_file</h2><blockquote>
+<p>data_file是hexo的一个特性，能够利用data_file，保存个性化的配置文件，不用再更改next的配置文件_config.yml，从而保证每次使用git pull都可以顺利拉取更新文件</p>
+</blockquote>
+<ol>
+<li><p>在<code>hexo/source/_data</code>目录下创建<code>next.yml</code>文件（如果没有_data目录，则手动创建即可）</p>
+</li>
+<li><p>将原本配置在主题配置文件<code>next/_config.yml</code>文件中的配置，拷贝到上一步创建的<code>next.yml</code>文件中</p>
+</li>
+<li><p>在<code>next.yml</code>文件中，有一个配置项：<code>override: false</code>，如果需要每次更新后，用<code>next.yml</code>完全替代主题配置文件<code>next/_config.yml</code>中的全部配置项，而不是合并配置项，那么可以改为将该配置改为<code>true</code></p>
+</li>
+</ol>
+<h2 id="配置版权签名信息"><a href="#配置版权签名信息" class="headerlink" title="配置版权签名信息"></a>配置版权签名信息</h2><ol>
+<li><p>创建版权信息模板：</p>
+<p>在<code>next/layout/_partials/post</code>目录下创建<code>my-copyright.swig</code>文件，文件内容编辑如下：</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post_my_copyright"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- JS库 可修改路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/sweetalert/dist/sweetalert.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>本文标题:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; url_for(page.path) &#125;&#125;"</span>&gt;</span>&#123;&#123; page.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>文章作者:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span> <span class="attr">title</span>=<span class="string">"访问 &#123;&#123; theme.author &#125;&#125; 的个人博客"</span>&gt;</span>&#123;&#123; theme.author &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>发布时间:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; page.date.format("YYYY年MM月DD日 - HH:MM") &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>最后更新:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; page.updated.format("YYYY年MM月DD日 - HH:MM") &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>原始链接:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; url_for(page.path) &#125;&#125;"</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; page.title &#125;&#125;"</span>&gt;</span>&#123;&#123; page.permalink &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"copy-path"</span>  <span class="attr">title</span>=<span class="string">"点击复制文章链接"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-clipboard"</span> <span class="attr">data-clipboard-text</span>=<span class="string">"&#123;&#123; page.permalink &#125;&#125;"</span>  <span class="attr">aria-label</span>=<span class="string">"复制成功！"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>许可协议:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-creative-commons"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"license"</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/licenses/by-nc-nd/4.0/"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">title</span>=<span class="string">"Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)"</span>&gt;</span>署名-非商业性使用-禁止演绎 4.0 国际<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 转载请保留原文链接及作者。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.fa-clipboard'</span>);</span></span><br><span class="line"><span class="javascript">    $(<span class="string">".fa-clipboard"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="actionscript">    clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line">        swal(&#123;</span><br><span class="line"><span class="actionscript">        title: <span class="string">""</span>,</span></span><br><span class="line"><span class="actionscript">        text: <span class="string">'复制成功'</span>,</span></span><br><span class="line"><span class="actionscript">        icon: <span class="string">"success"</span>,</span></span><br><span class="line"><span class="actionscript">        showConfirmButton: <span class="literal">true</span></span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    &#125;);  </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置版权信息模板的样式</p>
+<p> 在<code>next/source/css/_common/components/post</code>目录下创建<code>post-my-copyright.styl</code>文件，文件内容编辑如下：</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post_my_copyright</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">85%</span>;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">45em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2.8em</span> auto <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.5em</span> <span class="number">1.0em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#d3d3d3</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">0.93rem</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.6em</span>;</span><br><span class="line">    <span class="attribute">word-break</span>: break-all;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.4</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">p</span>&#123; <span class="attribute">margin</span>:<span class="number">0</span>; &#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5.2em</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#b5b5b5</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.raw</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#808080</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#a3d2a3</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.fa-clipboard</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.post-url</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.copy-path</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1em</span>;</span><br><span class="line">    +mobile()&#123; display:none; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.copy-path</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#808080</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置<code>next/layout/_macro/post.swig</code>文件</p>
+<p> 找到文件内以下位置：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;### END POST BODY ###&#125;</span><br><span class="line">&#123;#####################&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在该内容的下方，找到</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%- if not is_index %&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在该<code>if</code>片段内合适位置，添加：</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.copyright %&#125;</span><br><span class="line">  &#123;&#123; partial('_partials/post/my-copyright.swig') &#125;&#125;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入版权信息样式配置：</p>
+<p>在<code>next/source/css/_common/components/post/post.styl</code>文件末尾，添加<code>@import &quot;post-my-copyright&quot;</code></p>
+</li>
+</ol>
+<h2 id="设置主题字体大小"><a href="#设置主题字体大小" class="headerlink" title="设置主题字体大小"></a>设置主题字体大小</h2><p>打开<code>next/source/css/_variables/base.styl</code>文件，找到<code>Font size</code>部分，修改字体大小：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">$font-size-base           = (hexo-config('font.enable') and hexo-config('font.global.size') is a 'unit') ? unit(hexo-config('font.global.size'), em) : 0.85em;</span><br><span class="line">$font-size-smallest       = .75em;</span><br><span class="line">$font-size-smaller        = .8125em;</span><br><span class="line">$font-size-small          = .875em;</span><br><span class="line">$font-size-medium         = 1em;</span><br><span class="line">$font-size-large          = 1.125em;</span><br><span class="line">$font-size-larger         = 1.25em;</span><br><span class="line">$font-size-largest        = 1.375em;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>next</category>
+      </categories>
+      <tags>
+        <tag>next</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown的一些用法</title>
+    <url>/2019/03/14/markdown-usage/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
+<li><p>使用<code>&lt;br/&gt;</code>标签</p>
+</li>
+<li><p>在末尾使用两个空格，然后回车</p>
+</li>
+</ol>
+<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意不要少了<code>;</code></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
       </tags>
   </entry>
 </search>

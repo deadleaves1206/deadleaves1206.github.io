@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.rylee.fun/2019/03/14/centos-install-python3/</loc>
+    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
     
-    <lastmod>2019-03-26T03:53:06.374Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/2019/03/14/centos-network-configuration/</loc>
-    
-    <lastmod>2019-03-26T03:50:19.830Z</lastmod>
+    <lastmod>2020-06-17T02:38:45.620Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
     
-    <lastmod>2019-03-26T03:50:10.276Z</lastmod>
+    <lastmod>2020-06-16T12:00:18.095Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/2019/03/14/centos-install-python3/</loc>
+    
+    <lastmod>2020-06-16T11:23:08.763Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/2019/03/14/centos-network-configuration/</loc>
+    
+    <lastmod>2020-06-16T11:22:56.582Z</lastmod>
     
   </url>
   
