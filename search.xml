@@ -1,52 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>CentOS 7 安装Python 3</title>
-    <url>/2019/03/14/centos-install-python3/</url>
-    <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><blockquote>
-<p>CentOS 7 默认值安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装</p>
-</blockquote>
-<a id="more"></a>
-
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum groupinstall development</span><br><span class="line">sudo yum install https://centos7.iuscommunity.org/ius-release.rpm</span><br><span class="line">sudo yum install python36u</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>linux</category>
-        <category>CentOS</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown的一些用法</title>
-    <url>/2019/03/14/markdown-usage/</url>
-    <content><![CDATA[<blockquote>
-<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
-<li><p>使用<code>&lt;br/&gt;</code>标签</p>
-</li>
-<li><p>在末尾使用两个空格，然后回车</p>
-</li>
-</ol>
-<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意不要少了<code>;</code></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>next主题的个性配置</title>
     <url>/2020/06/16/next-setting/</url>
     <content><![CDATA[<blockquote>
@@ -65,6 +19,9 @@
 <li><p>在<code>next.yml</code>文件中，有一个配置项：<code>override: false</code>，如果需要每次更新后，用<code>next.yml</code>完全替代主题配置文件<code>next/_config.yml</code>中的全部配置项，而不是合并配置项，那么可以改为将该配置改为<code>true</code></p>
 </li>
 </ol>
+<blockquote>
+<p>注意，部分模块的配置可能没法使用该方法，因为这些模块只会从hexo的config中读取配置，例如<code>hexo-server</code></p>
+</blockquote>
 <h2 id="配置版权签名信息"><a href="#配置版权签名信息" class="headerlink" title="配置版权签名信息"></a>配置版权签名信息</h2><ol>
 <li><p>创建版权信息模板：</p>
 <p>在<code>next/layout/_partials/post</code>目录下创建<code>my-copyright.swig</code>文件，文件内容编辑如下：</p>
@@ -95,7 +52,35 @@
         <category>next</category>
       </categories>
       <tags>
-        <tag>next</tag>
+        <tag>next, data_file, setting</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Markdown的一些用法</title>
+    <url>/2019/03/14/markdown-usage/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
+<li><p>使用<code>&lt;br/&gt;</code>标签</p>
+</li>
+<li><p>在末尾使用两个空格，然后回车</p>
+</li>
+</ol>
+<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意不要少了<code>;</code></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -142,6 +127,24 @@
 <li><p>service network start | stop | restart</p>
 </li>
 </ol>
+]]></content>
+      <categories>
+        <category>linux</category>
+        <category>CentOS</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS 7 安装Python 3</title>
+    <url>/2019/03/14/centos-install-python3/</url>
+    <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><blockquote>
+<p>CentOS 7 默认值安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装</p>
+</blockquote>
+<a id="more"></a>
+
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum groupinstall development</span><br><span class="line">sudo yum install https://centos7.iuscommunity.org/ius-release.rpm</span><br><span class="line">sudo yum install python36u</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>linux</category>
