@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
+    <lastmod>2020-06-17</lastmod>
+  </url>  <url>
     <loc>http://blog.rylee.fun/2019/03/14/centos-network-configuration/</loc>
     <lastmod>2020-06-17</lastmod>
   </url>  <url>
     <loc>http://blog.rylee.fun/2019/03/14/centos-install-python3/</loc>
-    <lastmod>2020-06-17</lastmod>
-  </url>  <url>
-    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
     <lastmod>2020-06-17</lastmod>
   </url>  <url>
     <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
