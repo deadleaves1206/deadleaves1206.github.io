@@ -19,6 +19,34 @@
       </tags>
   </entry>
   <entry>
+    <title>Markdown的一些用法</title>
+    <url>/2019/03/14/markdown-usage/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
+<li><p>使用<code>&lt;br/&gt;</code>标签</p>
+</li>
+<li><p>在末尾使用两个空格，然后回车</p>
+</li>
+</ol>
+<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意不要少了<code>;</code></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>next主题的个性配置</title>
     <url>/2020/06/16/next-setting/</url>
     <content><![CDATA[<blockquote>
@@ -121,34 +149,6 @@
       </categories>
       <tags>
         <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown的一些用法</title>
-    <url>/2019/03/14/markdown-usage/</url>
-    <content><![CDATA[<blockquote>
-<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
-<li><p>使用<code>&lt;br/&gt;</code>标签</p>
-</li>
-<li><p>在末尾使用两个空格，然后回车</p>
-</li>
-</ol>
-<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意不要少了<code>;</code></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
       </tags>
   </entry>
 </search>
