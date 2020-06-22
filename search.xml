@@ -19,34 +19,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Markdown的一些用法</title>
-    <url>/2019/03/14/markdown-usage/</url>
-    <content><![CDATA[<blockquote>
-<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
-<li><p>使用<code>&lt;br/&gt;</code>标签</p>
-</li>
-<li><p>在末尾使用两个空格，然后回车</p>
-</li>
-</ol>
-<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意不要少了<code>;</code></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS 7网络配置</title>
     <url>/2019/03/14/centos-network-configuration/</url>
     <content><![CDATA[<h2 id="CentOS-7-网络配置"><a href="#CentOS-7-网络配置" class="headerlink" title="CentOS 7 网络配置"></a>CentOS 7 网络配置</h2><blockquote>
@@ -157,19 +129,31 @@
       </tags>
   </entry>
   <entry>
-    <title>微信小程序使用component来制作自定义导航栏</title>
-    <url>/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</url>
+    <title>Markdown的一些用法</title>
+    <url>/2019/03/14/markdown-usage/</url>
     <content><![CDATA[<blockquote>
-<p>最近在制作微信小程序的时候，遇到了一个需求：希望能够根据用户角色不同，显示不同的导航栏。最初想到的方案，是利用component制作一个导航栏，然后在每个需要导航栏的page，引用这个component，</p>
+<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
+<li><p>使用<code>&lt;br/&gt;</code>标签</p>
+</li>
+<li><p>在末尾使用两个空格，然后回车</p>
+</li>
+</ol>
+<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意不要少了<code>;</code></p>
 </blockquote>
 ]]></content>
       <categories>
-        <category>wechat-miniprogram</category>
+        <category>markdown</category>
       </categories>
       <tags>
-        <tag>wechat</tag>
-        <tag>miniprogram</tag>
-        <tag>component</tag>
+        <tag>markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -203,6 +187,22 @@
       </tags>
   </entry>
   <entry>
+    <title>微信小程序使用component来制作自定义导航栏</title>
+    <url>/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</url>
+    <content><![CDATA[<blockquote>
+<p>最近在制作微信小程序的时候，遇到了一个需求：希望能够根据用户角色不同，显示不同的导航栏。最初想到的方案，是利用component制作一个导航栏，然后在每个需要导航栏的page，引用这个component，</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>wechat-miniprogram</category>
+      </categories>
+      <tags>
+        <tag>wechat</tag>
+        <tag>miniprogram</tag>
+        <tag>component</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>科学上网-Trojan搭建指南</title>
     <url>/2020/06/21/trojan-config/</url>
     <content><![CDATA[<blockquote>
@@ -217,7 +217,7 @@
 <h2 id="2-购买域名"><a href="#2-购买域名" class="headerlink" title="2. 购买域名"></a>2. 购买域名</h2><p>  过程略，大家可以根据自己需求，选择国外的域名服务商，购买域名，不推荐国内的域名服务商。我个人使用的是<a href="https://www.namecheap.com/" target="_blank" rel="noopener">namecheap</a>，也可以使用<a href="http://www.freenom.com" target="_blank" rel="noopener">freenom</a>（特定几个域名后缀，比如ga，提供最长12个月的免费服务，而且可以在时间快要到期的时候继续延时）。不过我不使用freenom的原因是因为freenom的网页实在是太难连接了！！！namecheap购买的域名，最便宜可以到 $3.88/yr ，可以买10年，而且有些特价域名，可能不到 $1/yr。</p>
 <h2 id="3-构建DNS解析服务"><a href="#3-构建DNS解析服务" class="headerlink" title="3. 构建DNS解析服务"></a>3. 构建DNS解析服务</h2><p>  使用<a href="https://www.cloudflare.com/" target="_blank" rel="noopener">cloudflare</a>进行DNS解析，好处是可以进行IP伪装，掩盖云服务器的真实IP地址。</p>
 <h3 id="3-1-注册cloudflare会员"><a href="#3-1-注册cloudflare会员" class="headerlink" title="3.1 注册cloudflare会员"></a>3.1 注册cloudflare会员</h3><p>  注册过程略</p>
-<h3 id="3-2-添加站点"><a href="#3-2-添加站点" class="headerlink" title="3.2 添加站点"></a>3.2 添加站点</h3><p>  注册之后，登录cloudflare，应该会显示如下页面：<br>  <a href="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" alt="cloudflare 用户控制面板"></a><br>  点击添加站点，在输入框里填入刚才第二步中购买的域名，然后点击添加站点：<br>  <a href="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" alt="添加站点"></a><br>  在名称那一栏填写路径，这里的路径就是域名前面的那一段，比如<a href="http://www.baidu.com这里的www，在IPv4地址那一栏填写刚才第一步购买的云服务器的IP地址，将小云朵点成灰色。然后点击添加记录，点击继续。" target="_blank" rel="noopener">www.baidu.com这里的www，在IPv4地址那一栏填写刚才第一步购买的云服务器的IP地址，将小云朵点成灰色。然后点击添加记录，点击继续。</a><br>  <a href="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" alt="添加DNS解析记录"></a></p>
+<h3 id="3-2-添加站点"><a href="#3-2-添加站点" class="headerlink" title="3.2 添加站点"></a>3.2 添加站点</h3><p>  注册之后，登录cloudflare，应该会显示如下页面：<br>  <a href="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" alt="cloudflare 用户控制面板"></a><br>  点击添加站点，在输入框里填入刚才第二步中购买的域名，然后点击添加站点：<br>  <a href="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" alt="添加站点"></a><br>  在名称那一栏填写路径，这里的路径就是域名前面的那一段，比如<code>www.baidu.com</code>这里的<code>www</code>，在IPv4地址那一栏填写刚才第一步购买的云服务器的IP地址，将小云朵点成灰色。然后点击添加记录，点击继续。<br>  <a href="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" alt="添加DNS解析记录"></a></p>
 <blockquote>
 <p>注意：这里我们通常添加两个解析，名称里一个是域名，一个是<code>www</code>，IPv4里都是云服务器的IP地址。另外，那个小云朵一定要点成灰色，不要橘色，否则会导致SSL错误，无法正常代理。</p>
 </blockquote>
