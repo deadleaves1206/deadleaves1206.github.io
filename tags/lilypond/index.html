@@ -25,14 +25,14 @@
   <meta name="description" content="捧一卷书卷，泡一杯清茗，于冬日暖阳下静静读书。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Lee的后花园">
-<meta property="og:url" content="http://blog.rylee.fun/archives/2020/07/index.html">
+<meta property="og:url" content="http://blog.rylee.fun/tags/lilypond/index.html">
 <meta property="og:site_name" content="Lee的后花园">
 <meta property="og:description" content="捧一卷书卷，泡一杯清茗，于冬日暖阳下静静读书。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="ry Lee">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://blog.rylee.fun/archives/2020/07/">
+<link rel="canonical" href="http://blog.rylee.fun/tags/lilypond/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>归档 | Lee的后花园</title>
+  <title>标签: lilypond | Lee的后花园</title>
   
 
 
@@ -163,7 +163,7 @@
         <div class="content-wrap">
           
 
-          <div class="content archive">
+          <div class="content tag">
             
 
   
@@ -172,7 +172,9 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 8 篇日志。 继续努力。</span>
+        <h2 class="collection-header">lilypond
+          <small>标签</small>
+        </h2>
       </div>
 
       
@@ -185,21 +187,20 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2020-07-02T11:40:28+08:00"
-              content="2020-07-02">
-          07-02
+              datetime="2020-08-12T15:26:44+08:00"
+              content="2020-08-12">
+          08-12
         </time>
       </div>
 
       <div class="post-title">
-          <a class="post-title-link" href="/2020/07/02/Course/course-androidbasic-contentprovider/" itemprop="url">
-            <span itemprop="name">使用内容提供者共享数据</span>
+          <a class="post-title-link" href="/2020/08/12/lilypond-configure/" itemprop="url">
+            <span itemprop="name">lilypond配置</span>
           </a>
       </div>
 
     </header>
   </article>
-
 
     </div>
   </div>
@@ -274,7 +275,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -287,7 +288,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -331,12 +332,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">26k</span>
+    <span title="站点总字数">27k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">24 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -406,6 +407,19 @@
 
 
 
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'neutral',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
 
 
   
