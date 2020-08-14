@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://blog.rylee.fun/2020/06/21/trojan-config/</loc>
-    <lastmod>2020-06-22</lastmod>
+    <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
+    <lastmod>2020-07-04</lastmod>
+  </url>  <url>
+    <loc>http://blog.rylee.fun/2020/07/02/Course/course-androidbasic-contentprovider/</loc>
+    <lastmod>2020-07-04</lastmod>
   </url>  <url>
     <loc>http://blog.rylee.fun/2020/06/21/ubuntu-no-longer-supported/</loc>
-    <lastmod>2020-06-21</lastmod>
+    <lastmod>2020-06-22</lastmod>
+  </url>  <url>
+    <loc>http://blog.rylee.fun/2020/06/21/trojan-config/</loc>
+    <lastmod>2020-06-22</lastmod>
   </url>  <url>
     <loc>http://blog.rylee.fun/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</loc>
     <lastmod>2020-06-21</lastmod>
@@ -17,9 +23,6 @@
     <lastmod>2020-06-17</lastmod>
   </url>  <url>
     <loc>http://blog.rylee.fun/2019/03/14/centos-install-python3/</loc>
-    <lastmod>2020-06-17</lastmod>
-  </url>  <url>
-    <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
     <lastmod>2020-06-17</lastmod>
   </url>
 </urlset>

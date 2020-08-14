@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Markdown的一些用法</title>
+    <url>/2019/03/14/markdown-usage/</url>
+    <content><![CDATA[<blockquote>
+<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="1-换行"><a href="#1-换行" class="headerlink" title="1. 换行"></a>1. 换行</h2><ol>
+<li><p>使用<code>&lt;br/&gt;</code>标签</p>
+</li>
+<li><p>在末尾使用两个空格，然后回车</p>
+</li>
+</ol>
+<h2 id="2-首行缩进"><a href="#2-首行缩进" class="headerlink" title="2. 首行缩进"></a>2. 首行缩进</h2><p>使用特殊占位符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意不要少了<code>;</code></p>
+</blockquote>
+<h2 id="3-自定义锚点"><a href="#3-自定义锚点" class="headerlink" title="3. 自定义锚点"></a>3. 自定义锚点</h2><blockquote>
+<p>正常情况下，Markdown支持页内跳转，但是只支持针对标题的页内跳转，但是我们可以通过html标签的形式，自定义id，从而实现跳转到自定义锚点</p>
+</blockquote>
+<p>在需要锚点的地方添加如下代码</p>
+<span id='test-id' />
+
+<figure class="highlight html"><figcaption><span>自定义锚点</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">'test-id'</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在需要跳转的地方只需要参照Markdown页内跳转的基本用法即可，如：</p>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">[<span class="string">测试页内跳转</span>](<span class="link">#test-id</span>)</span><br></pre></td></tr></table></figure>
+
+<p>实际效果：<br><a href="#test-id">测试页内跳转</a></p>
+<h2 id="4-hexo-next主题中内建标签的使用"><a href="#4-hexo-next主题中内建标签的使用" class="headerlink" title="4. hexo next主题中内建标签的使用"></a>4. hexo next主题中内建标签的使用</h2><blockquote>
+<p>本条目仅针对使用hexo搭建blog，且使用的是next主题情况下的内建标签的使用</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>markdown</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 安装Python 3</title>
     <url>/2019/03/14/centos-install-python3/</url>
     <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><blockquote>
@@ -126,34 +169,6 @@
         <tag>next</tag>
         <tag>data_file</tag>
         <tag>setting</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Markdown的一些用法</title>
-    <url>/2019/03/14/markdown-usage/</url>
-    <content><![CDATA[<blockquote>
-<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ol>
-<li><p>使用<code>&lt;br/&gt;</code>标签</p>
-</li>
-<li><p>在末尾使用两个空格，然后回车</p>
-</li>
-</ol>
-<h2 id="首行缩进"><a href="#首行缩进" class="headerlink" title="首行缩进"></a>首行缩进</h2><p>使用特殊占位符</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&amp;ensp; 或&amp;#8194; //半角</span><br><span class="line">&amp;emsp; 或&amp;#8195; //全角</span><br><span class="line">&amp;nbsp; 或&amp;#160;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>注意不要少了<code>;</code></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>markdown</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
       </tags>
   </entry>
   <entry>
@@ -453,6 +468,93 @@
       <tags>
         <tag>Trojan</tag>
         <tag>科学上网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用内容提供者共享数据</title>
+    <url>/2020/07/02/Course/course-androidbasic-contentprovider/</url>
+    <content><![CDATA[<blockquote>
+<p>学习目标：</p>
+<ol>
+<li>掌握内容提供者的创建，并会使用内容提供者操作数据</li>
+<li>了解内容观察者的使用，学会使用内容观察者观察其他程序的数据变化</li>
+</ol>
+</blockquote>
+<a id="more"></a>
+
+<h2 id="1-内容提供者概述"><a href="#1-内容提供者概述" class="headerlink" title="1. 内容提供者概述"></a>1. 内容提供者概述</h2><blockquote>
+<p>场景举例：  </p>
+<ol>
+<li>微信、微博等APP中，有在其他应用中打开功能</li>
+<li>APP中需要填写短信验证码，然后在收到短信的时候，可以自动填写</li>
+</ol>
+</blockquote>
+<p>在Android系统中，程序之间是相互独立的，分别运行在自己的进程当中，若应用程序之间需要共享数据，则需要用到ContentProvider（内容提供者），ContentProvider是Android系统的四大组件之一。</p>
+<h3 id="1-1-数据模型"><a href="#1-1-数据模型" class="headerlink" title="1.1 数据模型"></a>1.1 数据模型</h3><blockquote>
+<p>ContentProvider相当于一个中间者的角色，更像是数据的搬运工，真正的数据来源还是各种数据库、数据文件、网络等等。在搬运的过程中，ContentProvider将各种不同来源的数据进行规整，以相对比较统一的格式，提供给各个应用程序使用。</p>
+</blockquote>
+<p>ContentProvider主要以<code>表格形式</code>组织数据。<br>在该表格中，每一行表示一条数据，每一列则是一个字段，用于存储具体的数据，并且每一条数据都含有一个名为<code>_ID</code>的字段标识每一条数据。</p>
+<h3 id="1-2-URI（统一资源标识符）"><a href="#1-2-URI（统一资源标识符）" class="headerlink" title="1.2 URI（统一资源标识符）"></a>1.2 URI（统一资源标识符）</h3><p>Uniform Resource Identifier，即统一资源标识符，作用是唯一标识ContentProvider以及其中的数据。</p>
+<p>用法：</p>
+<ul>
+<li>外界进程通过 URI 找到对应的ContentProvider &amp; 其中的数据，再进行数据操作</li>
+<li>URI分为 系统预置 &amp; 自定义，分别对应系统内置的数据（如通讯录、日程表等等）和自定义数据库</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>ContentProvider中URI的基本语法</span></figcaption><table><tr><td class="code"><pre><span class="line">[scheme:][&#x2F;&#x2F;authority][path][?query][#fragment]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><figcaption><span>这是一个自定义URI示例</span></figcaption><table><tr><td class="code"><pre><span class="line"> scheme       authority     path</span><br><span class="line">┌───┴───┐┌───────┴────────┐┌─┴──┐</span><br><span class="line">content:&#x2F;&#x2F;com.lee.provider&#x2F;person</span><br></pre></td></tr></table></figure>
+
+<p>对照URI语法，可以看到：</p>
+<ul>
+<li><code>content:</code> 被称为<code>协议名(scheme)</code>。因为URI并不只是用在Android系统中，而是有更多更为广阔的用途，比如我们常用的网址，<a href="https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D%E7%AC%A6" target="_blank" rel="noopener">统一资源定位符(URL)</a>就是一种URI。所以在这里，我们需要根据用途，指定URI的协议，而在ContentProvider中，统一要求这里必须使用content作为协议名</li>
+<li><code>//com.lee.provider</code>被称为<code>认证信息(authority)</code>。因为在Android系统中，同一时间可能由不同程序提供了多个ContentProvider，所以需要对不同的ContentProvider进行标识，以保证不会出现冲突。</li>
+<li><code>/person</code>被称为<code>路径(path)</code>。在一个ContentProvider中，可能提供了多张数据表，比如person是用户信息，book是图书信息，这个时候，我们需要通过<code>path</code>，去获取指定数据表的信息。</li>
+<li>示例中没有<code>[?query][#fragment]</code>部分，其中<code>[?query]</code>是<code>查询参数</code>，例如：<code>?key=value&amp;key2=value2</code>，可以指定在获取数据表中数据的时候的查询参数，<code>[#fragment]</code>是<code>片段ID</code>，这些都可以参考数据库相关查询语句的用法，此处不再详细讲解。</li>
+</ul>
+<h3 id="1-3-MIME数据类型"><a href="#1-3-MIME数据类型" class="headerlink" title="1.3 MIME数据类型"></a>1.3 MIME数据类型</h3><p><code>MIME数据类型</code>的作用是指定某个扩展名的文件用某种应用程序打开。比如<code>.txt</code>后缀的文件用记事本打开，<code>.doc</code>后缀的文件用MS office word或者WPS打开等等。<br>每种MIME数据类型都由两部分组成，即<code>类型/子类型</code>，例如<code>text/css</code>、<code>text/html</code>、<code>application/pdf</code>  </p>
+<h2 id="2-创建内容提供者"><a href="#2-创建内容提供者" class="headerlink" title="2. 创建内容提供者"></a>2. 创建内容提供者</h2><p>如果想要创建一个内容提供者，就需要创建一个类，继承抽象类ContentProvider，重写该类中的<code>onCreate()</code>、<code>getType()</code>、<code>insert()</code>、<code>delete()</code>、<code>update()</code>、<code>query()</code>方法</p>
+<ul>
+<li><code>onCreate()</code>：在创建内容提供者时会被调用。只能用在程序主线程中。</li>
+<li><code>getType()</code>：获取指定URI代表的MIME数据类型</li>
+<li><code>insert()</code>、<code>delete()</code>、<code>update()</code>、<code>query()</code>：分别是数据的增、删、改、查。</li>
+</ul>
+<div class="note warning">
+            <p>Warning: 数据操作方法（例如：insert()、delete() 等），因为可以用在子线程中，因此有可能同时被多次调用，并且同时访问相同的数据，因此在使用的时候一定要注意进行线程安全、数据安全方面的保护。但是诸如onCreate()之类的方法，因为只能在主线程中调用，因此就不用有这方面的考量。</p>
+          </div>
+
+<h3 id="2-1-创建程序"><a href="#2-1-创建程序" class="headerlink" title="2.1 创建程序"></a>2.1 创建程序</h3><p>创建一个名为ContentProvider的程序，指定包名为：cn.hnpi.contentprovider</p>
+<h3 id="2-2-创建MyContentProvider类"><a href="#2-2-创建MyContentProvider类" class="headerlink" title="2.2 创建MyContentProvider类"></a>2.2 创建MyContentProvider类</h3><p>在程序包名处右击选择【New】-&gt;【Other】-&gt;【Content Provider】，在弹出窗口中输入内容提供者的<code>Class Name</code>和<code>URI Authorities</code>，点击【Finish】，内容提供者的创建就完成了，自动生成的代码如<a href="#MyContentProvider.java">MyContentProvider.java</a>所示。</p>
+<blockquote>
+<p>因为我们的程序中，只用到了一个ContentProvider，所以这里的URI Authorities我们只用包名即可，如果我们的程序需要用到多个ContentProvider，则根据各个ContentProvider不同的功能，可以在包名的基础上，添加更多的信息，以使URI Authorities唯一。</p>
+</blockquote>
+<span id='MyContentProvider.java' />
+<details>
+  <summary>MyContentProvider.java</summary>
+
+  <figure class="highlight java"><figcaption><span>MyContentProvider.java</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.hnpi.contentprovider;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.content.ContentProvider;</span><br><span class="line"><span class="keyword">import</span> android.content.ContentValues;</span><br><span class="line"><span class="keyword">import</span> android.database.Cursor;</span><br><span class="line"><span class="keyword">import</span> android.net.Uri;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyContentProvider</span> <span class="keyword">extends</span> <span class="title">ContentProvider</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyContentProvider</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(Uri uri, String selection, String[] selectionArgs)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Implement this to handle requests to delete one or more rows.</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getType</span><span class="params">(Uri uri)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement this to handle requests for the MIME type of the data</span></span><br><span class="line">        <span class="comment">// at the given URI.</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Uri <span class="title">insert</span><span class="params">(Uri uri, ContentValues values)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement this to handle requests to insert a new row.</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement this to initialize your content provider on startup.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Cursor <span class="title">query</span><span class="params">(Uri uri, String[] projection, String selection,</span></span></span><br><span class="line"><span class="function"><span class="params">                        String[] selectionArgs, String sortOrder)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement this to handle query requests from clients.</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">update</span><span class="params">(Uri uri, ContentValues values, String selection,</span></span></span><br><span class="line"><span class="function"><span class="params">                      String[] selectionArgs)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// <span class="doctag">TODO:</span> Implement this to handle requests to update one or more rows.</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Not yet implemented"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<p>内容提供者创建完成后，Android Studio会自动在<code>AndroidManifest.xml</code>文件中对内容提供者进行注册，具体代码如<a href="#AndroidManifest.xml">AndroidManifest.xml</a>所示。</p>
+<span id='AndroidManifest.xml' />
+<details>
+  <summary>AndroidManifest.xml</summary>
+
+  <figure class="highlight xml"><figcaption><span>AndroidManifest.xml</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"cn.hnpi.contentprovider"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">"@mipmap/ic_launcher_round"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">provider</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:name</span>=<span class="string">".MyContentProvider"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:authorities</span>=<span class="string">"cn.hnpi.contentprovider"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:enabled</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:exported</span>=<span class="string">"true"</span>&gt;</span><span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".MainActivity"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</details>
+
+
+]]></content>
+      <categories>
+        <category>教学笔记</category>
+        <category>Android</category>
+        <category>基础教程</category>
+      </categories>
+      <tags>
+        <tag>教学笔记</tag>
+        <tag>Android</tag>
+        <tag>ContentProvider</tag>
       </tags>
   </entry>
 </search>
