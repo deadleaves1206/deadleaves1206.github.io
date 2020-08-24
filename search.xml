@@ -59,14 +59,14 @@
 <p>此外，我们还可以使用<code>docker search mysql</code>命令来查看可用的版本：</p>
 <figure class="highlight zsh"><figcaption><span>命令查看MySQL可用版本</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker search mysql</span><br><span class="line">NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">mysql                             MySQL is a widely used, open-source relation…   9876                [OK]</span><br><span class="line">mariadb                           MariaDB is a community-developed fork of MyS…   3611                [OK]</span><br><span class="line">mysql/mysql-server                Optimized MySQL Server Docker images. Create…   721                                     [OK]</span><br><span class="line">percona                           Percona Server is a fork of the MySQL relati…   503                 [OK]</span><br><span class="line">centos/mysql-57-centos7           MySQL 5.7 SQL database server                   81</span><br><span class="line">mysql/mysql-cluster               Experimental MySQL Cluster Docker images. Cr…   74</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-拉取MySQL镜像"><a href="#2-拉取MySQL镜像" class="headerlink" title="2. 拉取MySQL镜像"></a>2. 拉取MySQL镜像</h2><p>这里我们拉取官方的最新版本的镜像，使用命令<code>docker pull mysql:latest</code>，其中<code>latest</code>表示最新版本镜像</p>
+<h2 id="2-拉取MySQL镜像"><a href="#2-拉取MySQL镜像" class="headerlink" title="2. 拉取MySQL镜像"></a>2. 拉取MySQL镜像</h2><p>这里我们拉取官方的最新版本的镜像，使用命令<code>docker pull mysql:latest</code>，其中<code>latest</code>表示最新版本镜像：</p>
 <figure class="highlight zsh"><figcaption><span>拉取MySQL镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker pull mysql:latest</span><br><span class="line">latest: Pulling from library/mysql</span><br><span class="line">bf5952930446: Pull complete</span><br><span class="line">8254623a9871: Pull complete</span><br><span class="line">938e3e06dac4: Pull complete</span><br><span class="line">ea28ebf28884: Pull complete</span><br><span class="line">f3cef38785c2: Pull complete</span><br><span class="line">894f9792565a: Pull complete</span><br><span class="line">1d8a57523420: Pull complete</span><br><span class="line">6c676912929f: Pull complete</span><br><span class="line">ff39fdb566b4: Pull complete</span><br><span class="line">fff872988aba: Pull complete</span><br><span class="line">4d34e365ae68: Pull complete</span><br><span class="line">7886ee20621e: Pull complete</span><br><span class="line">Digest: sha256:c358e72e100ab493a0304bda35e6f239db2ec8c9bb836d8a427ac34307d074ed</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> mysql:latest</span><br><span class="line">docker.io/library/mysql:latest</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-查看本地镜像"><a href="#3-查看本地镜像" class="headerlink" title="3. 查看本地镜像"></a>3. 查看本地镜像</h2><p>使用<code>docker image ls</code>命令来查看已经安装的本地镜像</p>
+<h2 id="3-查看本地镜像"><a href="#3-查看本地镜像" class="headerlink" title="3. 查看本地镜像"></a>3. 查看本地镜像</h2><p>使用<code>docker image ls</code>命令来查看已经安装的本地镜像：</p>
 <figure class="highlight zsh"><figcaption><span>查看本地镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker image ls</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">mysql               latest              0d64f46acfd1        2 weeks ago         544MB</span><br></pre></td></tr></table></figure>
 
 <p>可以看到，第3行显示了我们安装好的mysql，TAG显示为<code>latest</code>。</p>
-<h2 id="4-运行容器"><a href="#4-运行容器" class="headerlink" title="4. 运行容器"></a>4. 运行容器</h2><p>安装完成后，执行如下命令，运行容器</p>
+<h2 id="4-运行容器"><a href="#4-运行容器" class="headerlink" title="4. 运行容器"></a>4. 运行容器</h2><p>安装完成后，执行如下命令，运行容器：</p>
 <figure class="highlight zsh"><figcaption><span>运行容器</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br><span class="line">07940f9545a3f7bbc0d5f22e1b2366cca3709b6851dbe466c5a09de9eaa3cba4</span><br></pre></td></tr></table></figure>
 
 <p>参数说明：</p>
@@ -79,6 +79,18 @@
 <li><strong>-e MYSQL_ROOT_PASSWORD=123456:</strong> <code>-e</code>参数的作用是指定容器的环境变量，这里是指定<code>MYSQL_ROOT_PASSWORD=123456</code>，即指定 MySQL 的 root 密码是 <code>123456</code>；</li>
 <li><strong>mysql:</strong> 最后的这个mysql即为要运行的镜像。</li>
 </ul>
+<h2 id="5-安装成功"><a href="#5-安装成功" class="headerlink" title="5. 安装成功"></a>5. 安装成功</h2><p>通过<code>docker ps</code>来查看是否成功运行容器：</p>
+<figure class="highlight zsh"><figcaption><span>查看是否成功运行容器</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">07940f9545a3        mysql               <span class="string">"docker-entrypoint.s…"</span>   About an hour ago   Up About an hour    0.0.0.0:3306-&gt;3306/tcp, 33060/tcp   mysql-test</span><br></pre></td></tr></table></figure>
+
+<p>在宿主机上通过<code>root</code>用户和密码<code>123456</code>访问MySQL服务：</p>
+<ul>
+<li>配置Navicat链接：</li>
+</ul>
+<p><img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824181848138.png" alt="在Navicat中配置MySQL链接"></p>
+<ul>
+<li>链接MySQL：</li>
+</ul>
+<p><img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824182335787.png" alt="使用Navicat链接mysql"></p>
 ]]></content>
       <categories>
         <category>docker</category>
@@ -140,81 +152,6 @@
       </tags>
   </entry>
   <entry>
-    <title>lilypond配置</title>
-    <url>/2020/08/12/lilypond-configure/</url>
-    <content><![CDATA[<p>摘要：编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
-<a id="more"></a>
-
-<h2 id="1-配置命令行启动lilypond"><a href="#1-配置命令行启动lilypond" class="headerlink" title="1. 配置命令行启动lilypond"></a>1. 配置命令行启动lilypond</h2><p>  正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html" target="_blank" rel="noopener">提示</a>，配置命令行启用lilypond。</p>
-<h3 id="1-1-创建执行脚本"><a href="#1-1-创建执行脚本" class="headerlink" title="1.1. 创建执行脚本"></a>1.1. 创建执行脚本</h3><p>  在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
-  <figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure>
-
-<p>  除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
-<h3 id="1-2-添加权限"><a href="#1-2-添加权限" class="headerlink" title="1.2. 添加权限"></a>1.2. 添加权限</h3><p>  为上一步中创建的执行脚本添加可执行权限</p>
-  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure>
-
-<p>  同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
-<h2 id="2-lilypond中文乱码"><a href="#2-lilypond中文乱码" class="headerlink" title="2. lilypond中文乱码"></a>2. lilypond中文乱码</h2><blockquote>
-<p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
-</blockquote>
-<p>  编译过程出现的错误信息如下：</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Converting to &#96;玩够了没有.pdf&#39;...</span><br><span class="line">warning: &#96;(gs -q -dSAFER -dDEVICEWIDTHPOINTS&#x3D;595.28 -dDEVICEHEIGHTPOINTS&#x3D;841.89 -dCompatibilityLevel&#x3D;1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE&#x3D;pdfwrite -dAutoRotatePages&#x3D;&#x2F;None -dPrinted&#x3D;false -sOutputFile&#x3D;玩够了没有.pdf -c.setpdfwrite -f&#x2F;var&#x2F;folders&#x2F;3p&#x2F;zr3fwznx0pq01hp6c6p1tscr0000gp&#x2F;T&#x2F;&#x2F;lilypond-7gvJNc)&#39; failed (256)</span><br></pre></td></tr></table></figure>
-
-<p>  该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
-  <figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">"<span class="variable">$@</span>"</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">"ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]"</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">"<span class="variable">$ARGS</span> <span class="variable">$i</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$FILE_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"[ERROR] File not exists"</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>lilypond</category>
-      </categories>
-      <tags>
-        <tag>lilypond</tag>
-        <tag>中文字体</tag>
-        <tag>Catalina</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>在macOS中配置zsh作为shell</title>
-    <url>/2020/08/11/macos-zsh-configure/</url>
-    <content><![CDATA[<p>摘要：随着macOS更新新版本，在打开终端的时候，提示让使用zsh作为shell，本文内容主要是调整为zsh之后的一些配置</p>
-<a id="more"></a>
-
-<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>  前段时间更新了以下macOS，更新之后发现打开终端之后，会有如下提示：</p>
-  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The default interactive shell is now zsh.</span><br><span class="line">To update your account to use zsh, please run `chsh -s /bin/zsh`.</span><br><span class="line">For more details, please visit https://support.apple.com/kb/HT208050.</span><br></pre></td></tr></table></figure>
-
-<p>  根据提示内容，新版本的终端会默认使用zsh替代以前的bash。本文就是记录一下zsh的配置过程。</p>
-<blockquote>
-<ul>
-<li>本文内容均基于macOS 10.15 (Catalina)</li>
-<li>zsh配置文件的路径为：<code>~/.zshrc</code></li>
-</ul>
-</blockquote>
-<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>  macOS默认已经安装过zsh，以下为更新方法：</p>
-  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看zsh版本</span></span><br><span class="line">zsh --version</span><br><span class="line"><span class="comment"># 更新zsh</span></span><br><span class="line">brew install zsh zsh-completions</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-使用oh-my-zsh"><a href="#3-使用oh-my-zsh" class="headerlink" title="3. 使用oh my zsh"></a>3. 使用oh my zsh</h2><p>  oh my zsh以下简称omz</p>
-<h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1. 安装"></a>3.1. 安装</h3><p>  安装omz可以使用<code>curl</code>或者<code>wget</code>，方法如下：</p>
-  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用curl</span></span><br><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用wget</span></span><br><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
-
-<p>  安装完成后会自动生效，如果没有生效，可以重启shell。</p>
-<h3 id="3-2-安装主题"><a href="#3-2-安装主题" class="headerlink" title="3.2. 安装主题"></a>3.2. 安装主题</h3><p>  这里选择的主题是<code>powerlevel10k</code></p>
-<h4 id="3-2-1-安装powerlevel10k"><a href="#3-2-1-安装powerlevel10k" class="headerlink" title="3.2.1. 安装powerlevel10k"></a>3.2.1. 安装<code>powerlevel10k</code></h4>  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-2-2-更改zsh配置"><a href="#3-2-2-更改zsh配置" class="headerlink" title="3.2.2. 更改zsh配置"></a>3.2.2. 更改zsh配置</h4><p>  修改zsh配置文件<code>~/.zshrc</code>，设置主题为<code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code></p>
-<p>  使用<code>p10k configure</code>命令，进行设置</p>
-<h4 id="3-2-3-导入系统命令"><a href="#3-2-3-导入系统命令" class="headerlink" title="3.2.3. 导入系统命令"></a>3.2.3. 导入系统命令</h4><p>  更新zsh之后，原有的命令可能无法使用，找到以前的<code>~/.bash_profile</code>文件，将其中的内容选择需要的粘贴在<code>~/.zshrc</code>中。</p>
-<h4 id="3-2-4-VS-Code中设置Terminal"><a href="#3-2-4-VS-Code中设置Terminal" class="headerlink" title="3.2.4. VS Code中设置Terminal"></a>3.2.4. VS Code中设置Terminal</h4><p>  打开VS Code的设置，修改配置</p>
-<p>  <code>&quot;terminal.integrated.shell.osx&quot;: &quot;zsh&quot;</code></p>
-]]></content>
-      <categories>
-        <category>macOS</category>
-      </categories>
-      <tags>
-        <tag>macOS</tag>
-        <tag>zsh</tag>
-        <tag>configure</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使hexo(next)支持流程图</title>
     <url>/2020/08/12/hexo-flowchart-mermaid/</url>
     <content><![CDATA[<p>摘要：使hexo支持流程图，该方案基于<code>mermaid.js</code></p>
@@ -245,6 +182,39 @@
         <tag>next</tag>
         <tag>flowchart</tag>
         <tag>mermaid</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>lilypond配置</title>
+    <url>/2020/08/12/lilypond-configure/</url>
+    <content><![CDATA[<p>摘要：编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
+<a id="more"></a>
+
+<h2 id="1-配置命令行启动lilypond"><a href="#1-配置命令行启动lilypond" class="headerlink" title="1. 配置命令行启动lilypond"></a>1. 配置命令行启动lilypond</h2><p>  正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html" target="_blank" rel="noopener">提示</a>，配置命令行启用lilypond。</p>
+<h3 id="1-1-创建执行脚本"><a href="#1-1-创建执行脚本" class="headerlink" title="1.1. 创建执行脚本"></a>1.1. 创建执行脚本</h3><p>  在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
+  <figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure>
+
+<p>  除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
+<h3 id="1-2-添加权限"><a href="#1-2-添加权限" class="headerlink" title="1.2. 添加权限"></a>1.2. 添加权限</h3><p>  为上一步中创建的执行脚本添加可执行权限</p>
+  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure>
+
+<p>  同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
+<h2 id="2-lilypond中文乱码"><a href="#2-lilypond中文乱码" class="headerlink" title="2. lilypond中文乱码"></a>2. lilypond中文乱码</h2><blockquote>
+<p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
+</blockquote>
+<p>  编译过程出现的错误信息如下：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Converting to &#96;玩够了没有.pdf&#39;...</span><br><span class="line">warning: &#96;(gs -q -dSAFER -dDEVICEWIDTHPOINTS&#x3D;595.28 -dDEVICEHEIGHTPOINTS&#x3D;841.89 -dCompatibilityLevel&#x3D;1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE&#x3D;pdfwrite -dAutoRotatePages&#x3D;&#x2F;None -dPrinted&#x3D;false -sOutputFile&#x3D;玩够了没有.pdf -c.setpdfwrite -f&#x2F;var&#x2F;folders&#x2F;3p&#x2F;zr3fwznx0pq01hp6c6p1tscr0000gp&#x2F;T&#x2F;&#x2F;lilypond-7gvJNc)&#39; failed (256)</span><br></pre></td></tr></table></figure>
+
+<p>  该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
+  <figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">"<span class="variable">$@</span>"</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">"ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]"</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">"<span class="variable">$ARGS</span> <span class="variable">$i</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$FILE_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"[ERROR] File not exists"</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>lilypond</category>
+      </categories>
+      <tags>
+        <tag>lilypond</tag>
+        <tag>中文字体</tag>
+        <tag>Catalina</tag>
       </tags>
   </entry>
   <entry>
@@ -338,6 +308,90 @@
       </tags>
   </entry>
   <entry>
+    <title>在macOS中配置zsh作为shell</title>
+    <url>/2020/08/11/macos-zsh-configure/</url>
+    <content><![CDATA[<p>摘要：随着macOS更新新版本，在打开终端的时候，提示让使用zsh作为shell，本文内容主要是调整为zsh之后的一些配置</p>
+<a id="more"></a>
+
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>  前段时间更新了以下macOS，更新之后发现打开终端之后，会有如下提示：</p>
+  <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">The default interactive shell is now zsh.</span><br><span class="line">To update your account to use zsh, please run `chsh -s /bin/zsh`.</span><br><span class="line">For more details, please visit https://support.apple.com/kb/HT208050.</span><br></pre></td></tr></table></figure>
+
+<p>  根据提示内容，新版本的终端会默认使用zsh替代以前的bash。本文就是记录一下zsh的配置过程。</p>
+<blockquote>
+<ul>
+<li>本文内容均基于macOS 10.15 (Catalina)</li>
+<li>zsh配置文件的路径为：<code>~/.zshrc</code></li>
+</ul>
+</blockquote>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>  macOS默认已经安装过zsh，以下为更新方法：</p>
+  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查看zsh版本</span></span><br><span class="line">zsh --version</span><br><span class="line"><span class="comment"># 更新zsh</span></span><br><span class="line">brew install zsh zsh-completions</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-使用oh-my-zsh"><a href="#3-使用oh-my-zsh" class="headerlink" title="3. 使用oh my zsh"></a>3. 使用oh my zsh</h2><p>  oh my zsh以下简称omz</p>
+<h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1. 安装"></a>3.1. 安装</h3><p>  安装omz可以使用<code>curl</code>或者<code>wget</code>，方法如下：</p>
+  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用curl</span></span><br><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用wget</span></span><br><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
+
+<p>  安装完成后会自动生效，如果没有生效，可以重启shell。</p>
+<h3 id="3-2-安装主题"><a href="#3-2-安装主题" class="headerlink" title="3.2. 安装主题"></a>3.2. 安装主题</h3><p>  这里选择的主题是<code>powerlevel10k</code></p>
+<h4 id="3-2-1-安装powerlevel10k"><a href="#3-2-1-安装powerlevel10k" class="headerlink" title="3.2.1. 安装powerlevel10k"></a>3.2.1. 安装<code>powerlevel10k</code></h4>  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-2-更改zsh配置"><a href="#3-2-2-更改zsh配置" class="headerlink" title="3.2.2. 更改zsh配置"></a>3.2.2. 更改zsh配置</h4><p>  修改zsh配置文件<code>~/.zshrc</code>，设置主题为<code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code></p>
+<p>  使用<code>p10k configure</code>命令，进行设置</p>
+<h4 id="3-2-3-导入系统命令"><a href="#3-2-3-导入系统命令" class="headerlink" title="3.2.3. 导入系统命令"></a>3.2.3. 导入系统命令</h4><p>  更新zsh之后，原有的命令可能无法使用，找到以前的<code>~/.bash_profile</code>文件，将其中的内容选择需要的粘贴在<code>~/.zshrc</code>中。</p>
+<h4 id="3-2-4-VS-Code中设置Terminal"><a href="#3-2-4-VS-Code中设置Terminal" class="headerlink" title="3.2.4. VS Code中设置Terminal"></a>3.2.4. VS Code中设置Terminal</h4><p>  打开VS Code的设置，修改配置</p>
+<p>  <code>&quot;terminal.integrated.shell.osx&quot;: &quot;zsh&quot;</code></p>
+]]></content>
+      <categories>
+        <category>macOS</category>
+      </categories>
+      <tags>
+        <tag>macOS</tag>
+        <tag>zsh</tag>
+        <tag>configure</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>更改源以更新不再支持的Ubuntu旧版本</title>
+    <url>/2020/06/21/ubuntu-no-longer-supported/</url>
+    <content><![CDATA[<p>摘要：今天更新Ubuntu的时候，发现无法通过<code>apt</code>更新，提示是该Ubuntu版本已经不再支持，然而更新版本也好，更新软件也好，都无法使用apt的话，也就无法更新到新的Ubuntu版本，进入了一个死循环</p>
+<a id="more"></a>
+
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>  Ubuntu 对各个版本的技术支持时间是不同的，在<a href="https://ubuntu.com/about/release-cycle" target="_blank" rel="noopener">Ubuntu Release生命周期</a>页面上，有近期常用Ubuntu版本的支持情况，比如：<br>  <a href="https://pic.downk.cc/item/5eeeefd914195aa5941cba06.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeeefd914195aa5941cba06.jpg" alt="Ubuntu Release生命周期"></a><br>  对于已经不再支持的版本，会将其更新源统一转移至Old-Release中进行管理</p>
+<h2 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h2><p>  编辑<code>/etc/apt/sources.list</code>文件<br>  将<code>deb http://us.archive.ubuntu.com/ubuntu eoan-security main restricted</code>类似于这样的语句中的<code>us.archive</code>都修改为<code>old-releases</code>，修改后类似于：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-security main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-updates main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-proposed main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-backports main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-security main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-updates main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
+
+<p>  其中xxxx部分，是各个Ubuntu版本的代号，可以使用命令<code>lsb_release -a</code>查看，例如：</p>
+  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@vultr:~# lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description: Ubuntu 19.10</span><br><span class="line">Release: 19.10</span><br><span class="line">Codename: eoan</span><br></pre></td></tr></table></figure>
+
+<p>  这里的<code>eoan</code>，就是版本代号</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>source</tag>
+        <tag>源更改</tag>
+        <tag>no-longer-supported</tag>
+        <tag>old-releases</tag>
+        <tag>旧版本</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微信小程序使用component来制作自定义导航栏</title>
+    <url>/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</url>
+    <content><![CDATA[<p>摘要：最近在制作微信小程序的时候，遇到了一个需求：希望能够根据用户角色不同，显示不同的导航栏。最初想到的方案，是利用component制作一个导航栏，然后在每个需要导航栏的page，引用这个component，</p>
+]]></content>
+      <categories>
+        <category>wechat-miniprogram</category>
+      </categories>
+      <tags>
+        <tag>wechat</tag>
+        <tag>miniprogram</tag>
+        <tag>component</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>next主题的个性配置</title>
     <url>/2020/06/16/next-setting/</url>
     <content><![CDATA[<p>摘要：记录next中的一些个性设置，保证每次更新next主题都能够快速完成主题的个性化设置</p>
@@ -391,48 +445,6 @@
         <tag>next</tag>
         <tag>data_file</tag>
         <tag>setting</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>更改源以更新不再支持的Ubuntu旧版本</title>
-    <url>/2020/06/21/ubuntu-no-longer-supported/</url>
-    <content><![CDATA[<p>摘要：今天更新Ubuntu的时候，发现无法通过<code>apt</code>更新，提示是该Ubuntu版本已经不再支持，然而更新版本也好，更新软件也好，都无法使用apt的话，也就无法更新到新的Ubuntu版本，进入了一个死循环</p>
-<a id="more"></a>
-
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>  Ubuntu 对各个版本的技术支持时间是不同的，在<a href="https://ubuntu.com/about/release-cycle" target="_blank" rel="noopener">Ubuntu Release生命周期</a>页面上，有近期常用Ubuntu版本的支持情况，比如：<br>  <a href="https://pic.downk.cc/item/5eeeefd914195aa5941cba06.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeeefd914195aa5941cba06.jpg" alt="Ubuntu Release生命周期"></a><br>  对于已经不再支持的版本，会将其更新源统一转移至Old-Release中进行管理</p>
-<h2 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h2><p>  编辑<code>/etc/apt/sources.list</code>文件<br>  将<code>deb http://us.archive.ubuntu.com/ubuntu eoan-security main restricted</code>类似于这样的语句中的<code>us.archive</code>都修改为<code>old-releases</code>，修改后类似于：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-security main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-updates main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-proposed main restricted universe multiverse</span><br><span class="line">deb http://old-releases.ubuntu.com/ubuntu/ xxxx-backports main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-security main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-updates main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://old-releases.ubuntu.com/ubuntu/ xxxx-backports main restricted universe multiverse</span><br></pre></td></tr></table></figure>
-
-<p>  其中xxxx部分，是各个Ubuntu版本的代号，可以使用命令<code>lsb_release -a</code>查看，例如：</p>
-  <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@vultr:~# lsb_release -a</span><br><span class="line">No LSB modules are available.</span><br><span class="line">Distributor ID: Ubuntu</span><br><span class="line">Description: Ubuntu 19.10</span><br><span class="line">Release: 19.10</span><br><span class="line">Codename: eoan</span><br></pre></td></tr></table></figure>
-
-<p>  这里的<code>eoan</code>，就是版本代号</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>source</tag>
-        <tag>源更改</tag>
-        <tag>no-longer-supported</tag>
-        <tag>old-releases</tag>
-        <tag>旧版本</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>微信小程序使用component来制作自定义导航栏</title>
-    <url>/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</url>
-    <content><![CDATA[<p>摘要：最近在制作微信小程序的时候，遇到了一个需求：希望能够根据用户角色不同，显示不同的导航栏。最初想到的方案，是利用component制作一个导航栏，然后在每个需要导航栏的page，引用这个component，</p>
-]]></content>
-      <categories>
-        <category>wechat-miniprogram</category>
-      </categories>
-      <tags>
-        <tag>wechat</tag>
-        <tag>miniprogram</tag>
-        <tag>component</tag>
       </tags>
   </entry>
   <entry>

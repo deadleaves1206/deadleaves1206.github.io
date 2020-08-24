@@ -144,48 +144,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/lilypond/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/Catalina/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/macOS/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/zsh/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/configure/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://blog.rylee.fun/tags/hexo/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
@@ -214,6 +172,27 @@
   </url>
   
   <url>
+    <loc>http://blog.rylee.fun/tags/lilypond/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/Catalina/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.rylee.fun/tags/markdown/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
@@ -221,14 +200,21 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/data-file/</loc>
+    <loc>http://blog.rylee.fun/tags/macOS/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/setting/</loc>
+    <loc>http://blog.rylee.fun/tags/zsh/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/configure/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -298,6 +284,20 @@
   </url>
   
   <url>
+    <loc>http://blog.rylee.fun/tags/data-file/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/setting/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.rylee.fun/tags/Trojan/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
@@ -328,7 +328,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/categories/Linux/CentOS/</loc>
+    <loc>http://blog.rylee.fun/categories/hexo/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -342,14 +342,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/categories/macOS/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/hexo/</loc>
+    <loc>http://blog.rylee.fun/categories/Linux/CentOS/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -357,6 +350,13 @@
   
   <url>
     <loc>http://blog.rylee.fun/categories/markdown/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/macOS/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
