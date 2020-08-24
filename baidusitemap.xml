@@ -1,43 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.rylee.fun/2020/08/23/install-mysql-in-docker/</loc>
+    <lastmod>2020-08-24</lastmod>
+  </url>
+  <url>
     <loc>http://blog.rylee.fun/2020/08/12/lilypond-configure/</loc>
-    <lastmod>2020-08-14</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/08/12/hexo-flowchart-mermaid/</loc>
-    <lastmod>2020-08-12</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
-    <lastmod>2020-08-12</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/08/11/macos-zsh-configure/</loc>
-    <lastmod>2020-08-12</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2019/03/14/centos-network-configuration/</loc>
-    <lastmod>2020-08-11</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
-    <lastmod>2020-08-11</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/06/21/ubuntu-no-longer-supported/</loc>
-    <lastmod>2020-06-22</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/06/21/trojan-config/</loc>
-    <lastmod>2020-06-22</lastmod>
+    <lastmod>2020-08-23</lastmod>
   </url>
   <url>
     <loc>http://blog.rylee.fun/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</loc>
-    <lastmod>2020-06-21</lastmod>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/06/21/ubuntu-no-longer-supported/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/06/21/trojan-config/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/08/11/macos-zsh-configure/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/08/12/hexo-flowchart-mermaid/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2019/03/14/centos-network-configuration/</loc>
+    <lastmod>2020-08-23</lastmod>
   </url>
   <url>
     <loc>http://blog.rylee.fun/2019/03/14/centos-install-python3/</loc>
-    <lastmod>2020-06-17</lastmod>
+    <lastmod>2020-08-23</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/08/23/add-registry-mirror-to-docker/</loc>
+    <lastmod>2020-08-23</lastmod>
   </url>
 </urlset> 

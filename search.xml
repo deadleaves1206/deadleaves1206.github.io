@@ -1,11 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>使用Docker安装MySQL</title>
+    <url>/2020/08/23/install-mysql-in-docker/</url>
+    <content><![CDATA[<p>摘要：本文讲解了如何使用Docker安装MySQL</p>
+<a id="more"></a>
+
+<h2 id="1-查看可用MySQL可用版本"><a href="#1-查看可用MySQL可用版本" class="headerlink" title="1. 查看可用MySQL可用版本"></a>1. 查看可用MySQL可用版本</h2><p>Docker中<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">MySQL镜像库</a>，如图：</p>
+<p><img src="https://raw.githubusercontent.com/deadleaves1206/pic/master/install-mysql-in-docker-20200824172838916.png?token=ABTSWZHN6N3QNJ42IUM4PCK7IOEJW" alt="MySQL镜像库"></p>
+<p>此外，我们还可以使用<code>docker search mysql</code>命令来查看可用的版本：</p>
+<figure class="highlight zsh"><figcaption><span>命令查看MySQL可用版本</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker search mysql</span><br><span class="line">NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">mysql                             MySQL is a widely used, open-source relation…   9876                [OK]</span><br><span class="line">mariadb                           MariaDB is a community-developed fork of MyS…   3611                [OK]</span><br><span class="line">mysql/mysql-server                Optimized MySQL Server Docker images. Create…   721                                     [OK]</span><br><span class="line">percona                           Percona Server is a fork of the MySQL relati…   503                 [OK]</span><br><span class="line">centos/mysql-57-centos7           MySQL 5.7 SQL database server                   81</span><br><span class="line">mysql/mysql-cluster               Experimental MySQL Cluster Docker images. Cr…   74</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-拉取MySQL镜像"><a href="#2-拉取MySQL镜像" class="headerlink" title="2. 拉取MySQL镜像"></a>2. 拉取MySQL镜像</h2><p>这里我们拉取官方的最新版本的镜像，使用命令<code>docker pull mysql:latest</code>，其中<code>latest</code>表示最新版本镜像</p>
+<figure class="highlight zsh"><figcaption><span>拉取MySQL镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker pull mysql:latest</span><br><span class="line">latest: Pulling from library/mysql</span><br><span class="line">bf5952930446: Pull complete</span><br><span class="line">8254623a9871: Pull complete</span><br><span class="line">938e3e06dac4: Pull complete</span><br><span class="line">ea28ebf28884: Pull complete</span><br><span class="line">f3cef38785c2: Pull complete</span><br><span class="line">894f9792565a: Pull complete</span><br><span class="line">1d8a57523420: Pull complete</span><br><span class="line">6c676912929f: Pull complete</span><br><span class="line">ff39fdb566b4: Pull complete</span><br><span class="line">fff872988aba: Pull complete</span><br><span class="line">4d34e365ae68: Pull complete</span><br><span class="line">7886ee20621e: Pull complete</span><br><span class="line">Digest: sha256:c358e72e100ab493a0304bda35e6f239db2ec8c9bb836d8a427ac34307d074ed</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> mysql:latest</span><br><span class="line">docker.io/library/mysql:latest</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-查看本地镜像"><a href="#3-查看本地镜像" class="headerlink" title="3. 查看本地镜像"></a>3. 查看本地镜像</h2><p>使用<code>docker image ls</code>命令来查看已经安装的本地镜像</p>
+<figure class="highlight zsh"><figcaption><span>查看本地镜像</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker image ls</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">mysql               latest              0d64f46acfd1        2 weeks ago         544MB</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，第3行显示了我们安装好的mysql，TAG显示为<code>latest</code>。</p>
+<h2 id="4-运行容器"><a href="#4-运行容器" class="headerlink" title="4. 运行容器"></a>4. 运行容器</h2><p>安装完成后，执行如下命令，运行容器</p>
+<figure class="highlight zsh"><figcaption><span>运行容器</span></figcaption><table><tr><td class="code"><pre><span class="line">❯ docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br><span class="line">07940f9545a3f7bbc0d5f22e1b2366cca3709b6851dbe466c5a09de9eaa3cba4</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><strong>-i:</strong> 以交互模式运行容器，通常与<code>-t</code>同时使用；</li>
+<li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与<code>-i</code>同时使用；</li>
+<li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
+<li><strong>–name mysql-test:</strong> 指定容器的名称；</li>
+<li><strong>-p 3306:3306:</strong> 映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过<code>宿主机ip:3306</code>访问到 MySQL 的服务；</li>
+<li><strong>-e MYSQL_ROOT_PASSWORD=123456:</strong> <code>-e</code>参数的作用是指定容器的环境变量，这里是指定<code>MYSQL_ROOT_PASSWORD=123456</code>，即指定 MySQL 的 root 密码是 <code>123456</code>；</li>
+<li><strong>mysql:</strong> 最后的这个mysql即为要运行的镜像。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CentOS 7 安装Python 3</title>
     <url>/2019/03/14/centos-install-python3/</url>
-    <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><blockquote>
-<p>CentOS 7 默认值安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装</p>
-</blockquote>
+    <content><![CDATA[<h2 id="CentOS-7-安装Python3"><a href="#CentOS-7-安装Python3" class="headerlink" title="CentOS 7 安装Python3"></a>CentOS 7 安装Python3</h2><p>摘要：CentOS 7 默认只安装有Python 2.x 解释器，并不含有Python 3的解释器，需要单独安装，本文讲解了如何在CentOS 7 中安装Python 3</p>
 <a id="more"></a>
 
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum update</span><br><span class="line">sudo yum install yum-utils</span><br><span class="line">sudo yum groupinstall development</span><br><span class="line">sudo yum install https://centos7.iuscommunity.org/ius-release.rpm</span><br><span class="line">sudo yum install python36u</span><br></pre></td></tr></table></figure>
@@ -21,12 +59,10 @@
   <entry>
     <title>CentOS 7网络配置</title>
     <url>/2019/03/14/centos-network-configuration/</url>
-    <content><![CDATA[<h2 id="CentOS-7-网络配置"><a href="#CentOS-7-网络配置" class="headerlink" title="CentOS 7 网络配置"></a>CentOS 7 网络配置</h2><blockquote>
-<p>问题描述：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用</p>
-</blockquote>
+    <content><![CDATA[<p>摘要：以最小模式安装好CentOS 7后，发现无法连接网络，ifconfig命令也无法使用，本文记录了以最小模式安装CentOS 7之后进行网络配置的过程</p>
 <a id="more"></a>
 
-<ol>
+<h2 id="CentOS-7-网络配置"><a href="#CentOS-7-网络配置" class="headerlink" title="CentOS 7 网络配置"></a>CentOS 7 网络配置</h2><ol>
 <li><p>先检查<code>ifconfig</code>命令无法使用的原因<br>使用<code>echo $PATH</code>命令，检查<code>$PATH</code>是否配置正确，结果显示如下：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]# ehco $PATH</span><br><span class="line">/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin</span><br></pre></td></tr></table></figure>
 
@@ -72,46 +108,41 @@
       </tags>
   </entry>
   <entry>
-    <title>lilypond配置</title>
-    <url>/2020/08/12/lilypond-configure/</url>
-    <content><![CDATA[<blockquote>
-<p>编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
-</blockquote>
+    <title>Docker添加国内镜像源</title>
+    <url>/2020/08/23/add-registry-mirror-to-docker/</url>
+    <content><![CDATA[<p>摘要：本文简单讲解了如何配置Docker国内镜像源，提高docker镜像的下载速度</p>
 <a id="more"></a>
 
-<h2 id="1-配置命令行启动lilypond"><a href="#1-配置命令行启动lilypond" class="headerlink" title="1. 配置命令行启动lilypond"></a>1. 配置命令行启动lilypond</h2><p>  正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html" target="_blank" rel="noopener">提示</a>，配置命令行启用lilypond。</p>
-<h3 id="1-1-创建执行脚本"><a href="#1-1-创建执行脚本" class="headerlink" title="1.1. 创建执行脚本"></a>1.1. 创建执行脚本</h3><p>  在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
-  <figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-国内常用源"><a href="#1-国内常用源" class="headerlink" title="1. 国内常用源"></a>1. 国内常用源</h2><ul>
+<li><a href="https://registry.docker-cn.com" target="_blank" rel="noopener">https://registry.docker-cn.com</a> - Docker中国区官方镜像</li>
+<li><a href="https://dockerhub.azk8s.cn" target="_blank" rel="noopener">https://dockerhub.azk8s.cn</a> - Azure镜像</li>
+<li><a href="http://hub-mirror.c.163.com" target="_blank" rel="noopener">http://hub-mirror.c.163.com</a> - 网易镜像</li>
+<li><a href="https://docker.mirrors.ustc.edu.cn" target="_blank" rel="noopener">https://docker.mirrors.ustc.edu.cn</a> - 科大镜像站</li>
+<li>阿里云也有镜像，只不过需要登录<a href="https://cr.console.aliyun.com/" target="_blank" rel="noopener">阿里云控制台</a>后获取自己专属的镜像源。</li>
+</ul>
+<h2 id="2-设置方法"><a href="#2-设置方法" class="headerlink" title="2. 设置方法"></a>2. 设置方法</h2><h3 id="2-1-macOS"><a href="#2-1-macOS" class="headerlink" title="2.1. macOS"></a>2.1. macOS</h3><p>在macOS中配置是比较简单的。<br>点击Docker Desktop小图标，在下来菜单中选择<code>Preferences</code>，打开配置页面。<br>打开<code>Docker Engine</code>选项卡，修改右侧配置文件，添加<code>registry-mirrors</code>配置项。</p>
+<figure class="highlight json"><figcaption><span>原文件</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"experimental"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"debug"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>  除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
-<h3 id="1-2-添加权限"><a href="#1-2-添加权限" class="headerlink" title="1.2. 添加权限"></a>1.2. 添加权限</h3><p>  为上一步中创建的执行脚本添加可执行权限</p>
-  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><figcaption><span>添加registry-mirrors配置项</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"experimental"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">    <span class="string">"https://registry.docker-cn.com"</span>,</span><br><span class="line">    <span class="string">"https://docker.mirrors.ustc.edu.cn"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"debug"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>  同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
-<h2 id="2-lilypond中文乱码"><a href="#2-lilypond中文乱码" class="headerlink" title="2. lilypond中文乱码"></a>2. lilypond中文乱码</h2><blockquote>
-<p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
-</blockquote>
-<p>  编译过程出现的错误信息如下：</p>
-  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Converting to &#96;玩够了没有.pdf&#39;...</span><br><span class="line">warning: &#96;(gs -q -dSAFER -dDEVICEWIDTHPOINTS&#x3D;595.28 -dDEVICEHEIGHTPOINTS&#x3D;841.89 -dCompatibilityLevel&#x3D;1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE&#x3D;pdfwrite -dAutoRotatePages&#x3D;&#x2F;None -dPrinted&#x3D;false -sOutputFile&#x3D;玩够了没有.pdf -c.setpdfwrite -f&#x2F;var&#x2F;folders&#x2F;3p&#x2F;zr3fwznx0pq01hp6c6p1tscr0000gp&#x2F;T&#x2F;&#x2F;lilypond-7gvJNc)&#39; failed (256)</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-Linux"><a href="#2-2-Linux" class="headerlink" title="2.2. Linux"></a>2.2. Linux</h3><h4 id="2-2-1-修改配置文件"><a href="#2-2-1-修改配置文件" class="headerlink" title="2.2.1. 修改配置文件"></a>2.2.1. 修改配置文件</h4><p>打开Docker配置文件，Linux下的默认配置文件是<code>/etc/docker/daemon.json</code>，添加<code>registry-mirrors</code>配置项</p>
+<figure class="highlight json"><figcaption><span>daemon.json</span></figcaption><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [<span class="string">"https://&lt;my-docker-mirror-host&gt;"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>  该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
-  <figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">"<span class="variable">$@</span>"</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">"ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]"</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">"<span class="variable">$ARGS</span> <span class="variable">$i</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$FILE_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"[ERROR] File not exists"</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-2-以参数方式启动Docker"><a href="#2-2-2-以参数方式启动Docker" class="headerlink" title="2.2.2. 以参数方式启动Docker"></a>2.2.2. 以参数方式启动Docker</h4><p>手动启动dockerd的时候，添加<code>--registry-mirror</code>参数</p>
+<figure class="highlight bash"><figcaption><span>以参数方式启动Docker</span></figcaption><table><tr><td class="code"><pre><span class="line">dockerd --registry-mirror=https://&lt;my-docker-mirror-host&gt;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>lilypond</category>
+        <category>docker</category>
       </categories>
       <tags>
-        <tag>lilypond</tag>
-        <tag>中文字体</tag>
-        <tag>Catalina</tag>
+        <tag>docker</tag>
+        <tag>镜像源</tag>
       </tags>
   </entry>
   <entry>
     <title>使hexo(next)支持流程图</title>
     <url>/2020/08/12/hexo-flowchart-mermaid/</url>
-    <content><![CDATA[<blockquote>
-<p>使hexo支持流程图，该方案基于<code>mermaid.js</code></p>
-</blockquote>
+    <content><![CDATA[<p>摘要：使hexo支持流程图，该方案基于<code>mermaid.js</code></p>
 <a id="more"></a>
 
 <blockquote>
@@ -142,11 +173,42 @@
       </tags>
   </entry>
   <entry>
+    <title>lilypond配置</title>
+    <url>/2020/08/12/lilypond-configure/</url>
+    <content><![CDATA[<p>摘要：编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
+<a id="more"></a>
+
+<h2 id="1-配置命令行启动lilypond"><a href="#1-配置命令行启动lilypond" class="headerlink" title="1. 配置命令行启动lilypond"></a>1. 配置命令行启动lilypond</h2><p>  正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html" target="_blank" rel="noopener">提示</a>，配置命令行启用lilypond。</p>
+<h3 id="1-1-创建执行脚本"><a href="#1-1-创建执行脚本" class="headerlink" title="1.1. 创建执行脚本"></a>1.1. 创建执行脚本</h3><p>  在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
+  <figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure>
+
+<p>  除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
+<h3 id="1-2-添加权限"><a href="#1-2-添加权限" class="headerlink" title="1.2. 添加权限"></a>1.2. 添加权限</h3><p>  为上一步中创建的执行脚本添加可执行权限</p>
+  <figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure>
+
+<p>  同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
+<h2 id="2-lilypond中文乱码"><a href="#2-lilypond中文乱码" class="headerlink" title="2. lilypond中文乱码"></a>2. lilypond中文乱码</h2><blockquote>
+<p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
+</blockquote>
+<p>  编译过程出现的错误信息如下：</p>
+  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Converting to &#96;玩够了没有.pdf&#39;...</span><br><span class="line">warning: &#96;(gs -q -dSAFER -dDEVICEWIDTHPOINTS&#x3D;595.28 -dDEVICEHEIGHTPOINTS&#x3D;841.89 -dCompatibilityLevel&#x3D;1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE&#x3D;pdfwrite -dAutoRotatePages&#x3D;&#x2F;None -dPrinted&#x3D;false -sOutputFile&#x3D;玩够了没有.pdf -c.setpdfwrite -f&#x2F;var&#x2F;folders&#x2F;3p&#x2F;zr3fwznx0pq01hp6c6p1tscr0000gp&#x2F;T&#x2F;&#x2F;lilypond-7gvJNc)&#39; failed (256)</span><br></pre></td></tr></table></figure>
+
+<p>  该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
+  <figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">"<span class="variable">$@</span>"</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">"ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]"</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">"<span class="variable">$ARGS</span> <span class="variable">$i</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$FILE_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"[ERROR] File not exists"</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>lilypond</category>
+      </categories>
+      <tags>
+        <tag>lilypond</tag>
+        <tag>中文字体</tag>
+        <tag>Catalina</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在macOS中配置zsh作为shell</title>
     <url>/2020/08/11/macos-zsh-configure/</url>
-    <content><![CDATA[<blockquote>
-<p>随着macOS更新新版本，在打开终端的时候，提示让使用zsh作为shell，本文内容主要是调整为zsh之后的一些配置</p>
-</blockquote>
+    <content><![CDATA[<p>摘要：随着macOS更新新版本，在打开终端的时候，提示让使用zsh作为shell，本文内容主要是调整为zsh之后的一些配置</p>
 <a id="more"></a>
 
 <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>  前段时间更新了以下macOS，更新之后发现打开终端之后，会有如下提示：</p>
@@ -186,11 +248,65 @@
       </tags>
   </entry>
   <entry>
+    <title>next主题的个性配置</title>
+    <url>/2020/06/16/next-setting/</url>
+    <content><![CDATA[<p>摘要：记录next中的一些个性设置，保证每次更新next主题都能够快速完成主题的个性化设置</p>
+<a id="more"></a>
+
+<h2 id="配置data-file"><a href="#配置data-file" class="headerlink" title="配置data_file"></a>配置data_file</h2><blockquote>
+<p>data_file是hexo的一个特性，能够利用data_file，保存个性化的配置文件，不用再更改next的配置文件_config.yml，从而保证每次使用git pull都可以顺利拉取更新文件</p>
+</blockquote>
+<ol>
+<li><p>在<code>hexo/source/_data</code>目录下创建<code>next.yml</code>文件（如果没有_data目录，则手动创建即可）</p>
+</li>
+<li><p>将原本配置在主题配置文件<code>next/_config.yml</code>文件中的配置，拷贝到上一步创建的<code>next.yml</code>文件中</p>
+</li>
+<li><p>在<code>next.yml</code>文件中，有一个配置项：<code>override: false</code>，如果需要每次更新后，用<code>next.yml</code>完全替代主题配置文件<code>next/_config.yml</code>中的全部配置项，而不是合并配置项，那么可以改为将该配置改为<code>true</code></p>
+</li>
+</ol>
+<blockquote>
+<p>注意，部分模块的配置可能没法使用该方法，因为这些模块只会从hexo的config中读取配置，例如<code>hexo-server</code></p>
+</blockquote>
+<h2 id="自定义版权签名信息"><a href="#自定义版权签名信息" class="headerlink" title="自定义版权签名信息"></a>自定义版权签名信息</h2><ol>
+<li><p>创建版权信息模板：</p>
+<p>在<code>next/layout/_partials/post</code>目录下创建<code>my-copyright.swig</code>文件，文件内容编辑如下：</p>
+ <figure class="highlight html"><figcaption><span>my-copyright.swig</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post_my_copyright"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- JS库 可修改路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/sweetalert/dist/sweetalert.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>本文标题:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; url_for(page.path) &#125;&#125;"</span>&gt;</span>&#123;&#123; page.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>文章作者:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span> <span class="attr">title</span>=<span class="string">"访问 &#123;&#123; theme.author &#125;&#125; 的个人博客"</span>&gt;</span>&#123;&#123; theme.author &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>发布时间:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; page.date.format("YYYY年MM月DD日 - HH:MM") &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>最后更新:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; page.updated.format("YYYY年MM月DD日 - HH:MM") &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>原始链接:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; url_for(page.path) &#125;&#125;"</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; page.title &#125;&#125;"</span>&gt;</span>&#123;&#123; page.permalink &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"copy-path"</span>  <span class="attr">title</span>=<span class="string">"点击复制文章链接"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-clipboard"</span> <span class="attr">data-clipboard-text</span>=<span class="string">"&#123;&#123; page.permalink &#125;&#125;"</span>  <span class="attr">aria-label</span>=<span class="string">"复制成功！"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>许可协议:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-creative-commons"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"license"</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/licenses/by-nc-nd/4.0/"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">title</span>=<span class="string">"Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)"</span>&gt;</span>署名-非商业性使用-禁止演绎 4.0 国际<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 转载请保留原文链接及作者。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.fa-clipboard'</span>);</span></span><br><span class="line"><span class="javascript">    $(<span class="string">".fa-clipboard"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="actionscript">    clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line">        swal(&#123;</span><br><span class="line"><span class="actionscript">        title: <span class="string">""</span>,</span></span><br><span class="line"><span class="actionscript">        text: <span class="string">'复制成功'</span>,</span></span><br><span class="line"><span class="actionscript">        icon: <span class="string">"success"</span>,</span></span><br><span class="line"><span class="actionscript">        showConfirmButton: <span class="literal">true</span></span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    &#125;);  </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置版权信息模板的样式</p>
+<p> 在<code>next/source/css/_common/components/post</code>目录下创建<code>post-my-copyright.styl</code>文件，文件内容编辑如下：</p>
+ <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post_my_copyright</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">85%</span>;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">45em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2.8em</span> auto <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.5em</span> <span class="number">1.0em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#d3d3d3</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">0.93rem</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.6em</span>;</span><br><span class="line">    <span class="attribute">word-break</span>: break-all;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.4</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">p</span>&#123; <span class="attribute">margin</span>:<span class="number">0</span>; &#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5.2em</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#b5b5b5</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.raw</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#808080</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#a3d2a3</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.fa-clipboard</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.post-url</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.copy-path</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1em</span>;</span><br><span class="line">    +mobile()&#123; display:none; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.copy-path</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#808080</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置<code>next/layout/_macro/post.swig</code>文件</p>
+<p> 找到文件内以下位置：</p>
+ <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;### END POST BODY ###&#125;</span><br><span class="line">&#123;#####################&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在该内容的下方，找到</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%- if not is_index %&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 在该<code>if</code>片段内合适位置，添加：</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.copyright %&#125;</span><br><span class="line">  &#123;&#123; partial('_partials/post/my-copyright.swig') &#125;&#125;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入版权信息样式配置：</p>
+<p>在<code>next/source/css/_common/components/post/post.styl</code>文件末尾，添加<code>@import &quot;post-my-copyright&quot;</code></p>
+</li>
+</ol>
+<h2 id="设置主题字体大小"><a href="#设置主题字体大小" class="headerlink" title="设置主题字体大小"></a>设置主题字体大小</h2><p>打开<code>next/source/css/_variables/base.styl</code>文件，找到<code>Font size</code>部分，修改字体大小：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">$font-size-base           = (hexo-config('font.enable') and hexo-config('font.global.size') is a 'unit') ? unit(hexo-config('font.global.size'), em) : 0.85em;</span><br><span class="line">$font-size-smallest       = .75em;</span><br><span class="line">$font-size-smaller        = .8125em;</span><br><span class="line">$font-size-small          = .875em;</span><br><span class="line">$font-size-medium         = 1em;</span><br><span class="line">$font-size-large          = 1.125em;</span><br><span class="line">$font-size-larger         = 1.25em;</span><br><span class="line">$font-size-largest        = 1.375em;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>hexo</category>
+        <category>next</category>
+      </categories>
+      <tags>
+        <tag>next</tag>
+        <tag>data_file</tag>
+        <tag>setting</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Markdown的一些用法</title>
     <url>/2019/03/14/markdown-usage/</url>
-    <content><![CDATA[<blockquote>
-<p>记录了本人在使用markdown过程中遇到的一些小疑问  </p>
-</blockquote>
+    <content><![CDATA[<p>摘要：记录了本人在使用markdown过程中遇到的一些小疑问  </p>
 <a id="more"></a>
 
 <h2 id="1-换行"><a href="#1-换行" class="headerlink" title="1. 换行"></a>1. 换行</h2><ol>
@@ -278,69 +394,9 @@
       </tags>
   </entry>
   <entry>
-    <title>next主题的个性配置</title>
-    <url>/2020/06/16/next-setting/</url>
-    <content><![CDATA[<blockquote>
-<p>记录next中的一些个性设置，保证每次更新next主题都能够快速完成主题的个性化设置</p>
-</blockquote>
-<a id="more"></a>
-
-<h2 id="配置data-file"><a href="#配置data-file" class="headerlink" title="配置data_file"></a>配置data_file</h2><blockquote>
-<p>data_file是hexo的一个特性，能够利用data_file，保存个性化的配置文件，不用再更改next的配置文件_config.yml，从而保证每次使用git pull都可以顺利拉取更新文件</p>
-</blockquote>
-<ol>
-<li><p>在<code>hexo/source/_data</code>目录下创建<code>next.yml</code>文件（如果没有_data目录，则手动创建即可）</p>
-</li>
-<li><p>将原本配置在主题配置文件<code>next/_config.yml</code>文件中的配置，拷贝到上一步创建的<code>next.yml</code>文件中</p>
-</li>
-<li><p>在<code>next.yml</code>文件中，有一个配置项：<code>override: false</code>，如果需要每次更新后，用<code>next.yml</code>完全替代主题配置文件<code>next/_config.yml</code>中的全部配置项，而不是合并配置项，那么可以改为将该配置改为<code>true</code></p>
-</li>
-</ol>
-<blockquote>
-<p>注意，部分模块的配置可能没法使用该方法，因为这些模块只会从hexo的config中读取配置，例如<code>hexo-server</code></p>
-</blockquote>
-<h2 id="自定义版权签名信息"><a href="#自定义版权签名信息" class="headerlink" title="自定义版权签名信息"></a>自定义版权签名信息</h2><ol>
-<li><p>创建版权信息模板：</p>
-<p>在<code>next/layout/_partials/post</code>目录下创建<code>my-copyright.swig</code>文件，文件内容编辑如下：</p>
- <figure class="highlight html"><figcaption><span>my-copyright.swig</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"post_my_copyright"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- JS库 可修改路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://unpkg.com/sweetalert/dist/sweetalert.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>本文标题:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; url_for(page.path) &#125;&#125;"</span>&gt;</span>&#123;&#123; page.title &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>文章作者:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/"</span> <span class="attr">title</span>=<span class="string">"访问 &#123;&#123; theme.author &#125;&#125; 的个人博客"</span>&gt;</span>&#123;&#123; theme.author &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>发布时间:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; page.date.format("YYYY年MM月DD日 - HH:MM") &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>最后更新:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>&#123;&#123; page.updated.format("YYYY年MM月DD日 - HH:MM") &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>原始链接:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"&#123;&#123; url_for(page.path) &#125;&#125;"</span> <span class="attr">title</span>=<span class="string">"&#123;&#123; page.title &#125;&#125;"</span>&gt;</span>&#123;&#123; page.permalink &#125;&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"copy-path"</span>  <span class="attr">title</span>=<span class="string">"点击复制文章链接"</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-clipboard"</span> <span class="attr">data-clipboard-text</span>=<span class="string">"&#123;&#123; page.permalink &#125;&#125;"</span>  <span class="attr">aria-label</span>=<span class="string">"复制成功！"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>许可协议:<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"fa fa-creative-commons"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span> <span class="tag">&lt;<span class="name">a</span> <span class="attr">rel</span>=<span class="string">"license"</span> <span class="attr">href</span>=<span class="string">"https://creativecommons.org/licenses/by-nc-nd/4.0/"</span> <span class="attr">target</span>=<span class="string">"_blank"</span> <span class="attr">title</span>=<span class="string">"Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)"</span>&gt;</span>署名-非商业性使用-禁止演绎 4.0 国际<span class="tag">&lt;/<span class="name">a</span>&gt;</span> 转载请保留原文链接及作者。<span class="tag">&lt;/<span class="name">p</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> clipboard = <span class="keyword">new</span> Clipboard(<span class="string">'.fa-clipboard'</span>);</span></span><br><span class="line"><span class="javascript">    $(<span class="string">".fa-clipboard"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="actionscript">    clipboard.on(<span class="string">'success'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line">        swal(&#123;</span><br><span class="line"><span class="actionscript">        title: <span class="string">""</span>,</span></span><br><span class="line"><span class="actionscript">        text: <span class="string">'复制成功'</span>,</span></span><br><span class="line"><span class="actionscript">        icon: <span class="string">"success"</span>,</span></span><br><span class="line"><span class="actionscript">        showConfirmButton: <span class="literal">true</span></span></span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    &#125;);  </span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置版权信息模板的样式</p>
-<p> 在<code>next/source/css/_common/components/post</code>目录下创建<code>post-my-copyright.styl</code>文件，文件内容编辑如下：</p>
- <figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-class">.post_my_copyright</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">85%</span>;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">45em</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">2.8em</span> auto <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0.5em</span> <span class="number">1.0em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#d3d3d3</span>;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">0.93rem</span>;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.6em</span>;</span><br><span class="line">    <span class="attribute">word-break</span>: break-all;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>,<span class="number">255</span>,<span class="number">255</span>,<span class="number">0.4</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">p</span>&#123; <span class="attribute">margin</span>:<span class="number">0</span>; &#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5.2em</span>;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#b5b5b5</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.raw</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">5em</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#808080</span>;</span><br><span class="line">    <span class="attribute">border-bottom</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#a3d2a3</span>;</span><br><span class="line">    <span class="attribute">text-decoration</span>: underline;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.fa-clipboard</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.post-url</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">font-weight</span>: normal;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.copy-path</span> &#123;</span><br><span class="line">    <span class="attribute">margin-left</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">1em</span>;</span><br><span class="line">    +mobile()&#123; display:none; &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.post_my_copyright</span> <span class="selector-class">.copy-path</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#808080</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置<code>next/layout/_macro/post.swig</code>文件</p>
-<p> 找到文件内以下位置：</p>
- <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;#####################&#125;</span><br><span class="line">&#123;### END POST BODY ###&#125;</span><br><span class="line">&#123;#####################&#125;</span><br></pre></td></tr></table></figure>
-
-<p> 在该内容的下方，找到</p>
- <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%- if not is_index %&#125;</span><br></pre></td></tr></table></figure>
-
-<p> 在该<code>if</code>片段内合适位置，添加：</p>
- <figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;%- if page.copyright %&#125;</span><br><span class="line">  &#123;&#123; partial('_partials/post/my-copyright.swig') &#125;&#125;</span><br><span class="line">&#123;%- endif %&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>导入版权信息样式配置：</p>
-<p>在<code>next/source/css/_common/components/post/post.styl</code>文件末尾，添加<code>@import &quot;post-my-copyright&quot;</code></p>
-</li>
-</ol>
-<h2 id="设置主题字体大小"><a href="#设置主题字体大小" class="headerlink" title="设置主题字体大小"></a>设置主题字体大小</h2><p>打开<code>next/source/css/_variables/base.styl</code>文件，找到<code>Font size</code>部分，修改字体大小：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">$font-size-base           = (hexo-config('font.enable') and hexo-config('font.global.size') is a 'unit') ? unit(hexo-config('font.global.size'), em) : 0.85em;</span><br><span class="line">$font-size-smallest       = .75em;</span><br><span class="line">$font-size-smaller        = .8125em;</span><br><span class="line">$font-size-small          = .875em;</span><br><span class="line">$font-size-medium         = 1em;</span><br><span class="line">$font-size-large          = 1.125em;</span><br><span class="line">$font-size-larger         = 1.25em;</span><br><span class="line">$font-size-largest        = 1.375em;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>hexo</category>
-        <category>next</category>
-      </categories>
-      <tags>
-        <tag>next</tag>
-        <tag>data_file</tag>
-        <tag>setting</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>更改源以更新不再支持的Ubuntu旧版本</title>
     <url>/2020/06/21/ubuntu-no-longer-supported/</url>
-    <content><![CDATA[<blockquote>
-<p>今天更新Ubuntu的时候，发现无法通过<code>apt</code>更新，提示是该Ubuntu版本已经不再支持，然而更新版本也好，更新软件也好，都无法使用apt的话，也就无法更新到新的Ubuntu版本，进入了一个死循环</p>
-</blockquote>
+    <content><![CDATA[<p>摘要：今天更新Ubuntu的时候，发现无法通过<code>apt</code>更新，提示是该Ubuntu版本已经不再支持，然而更新版本也好，更新软件也好，都无法使用apt的话，也就无法更新到新的Ubuntu版本，进入了一个死循环</p>
 <a id="more"></a>
 
 <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>  Ubuntu 对各个版本的技术支持时间是不同的，在<a href="https://ubuntu.com/about/release-cycle" target="_blank" rel="noopener">Ubuntu Release生命周期</a>页面上，有近期常用Ubuntu版本的支持情况，比如：<br>  <a href="https://pic.downk.cc/item/5eeeefd914195aa5941cba06.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeeefd914195aa5941cba06.jpg" alt="Ubuntu Release生命周期"></a><br>  对于已经不再支持的版本，会将其更新源统一转移至Old-Release中进行管理</p>
@@ -368,9 +424,7 @@
   <entry>
     <title>微信小程序使用component来制作自定义导航栏</title>
     <url>/2020/06/20/wechat-miniprogram-navigation-bar-by-component/</url>
-    <content><![CDATA[<blockquote>
-<p>最近在制作微信小程序的时候，遇到了一个需求：希望能够根据用户角色不同，显示不同的导航栏。最初想到的方案，是利用component制作一个导航栏，然后在每个需要导航栏的page，引用这个component，</p>
-</blockquote>
+    <content><![CDATA[<p>摘要：最近在制作微信小程序的时候，遇到了一个需求：希望能够根据用户角色不同，显示不同的导航栏。最初想到的方案，是利用component制作一个导航栏，然后在每个需要导航栏的page，引用这个component，</p>
 ]]></content>
       <categories>
         <category>wechat-miniprogram</category>
@@ -384,9 +438,7 @@
   <entry>
     <title>科学上网-Trojan搭建指南</title>
     <url>/2020/06/21/trojan-config/</url>
-    <content><![CDATA[<blockquote>
-<p>科学上网，在科学上网的高峰上默默攀登~<br>本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情</p>
-</blockquote>
+    <content><![CDATA[<p>摘要：科学上网，在科学上网的高峰上默默攀登~<br>本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情</p>
 <a id="more"></a>
 
 <blockquote>
