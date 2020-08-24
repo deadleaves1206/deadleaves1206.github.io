@@ -123,7 +123,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/mysql/</loc>
+    <loc>http://blog.rylee.fun/tags/%E9%95%9C%E5%83%8F%E6%BA%90/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -137,35 +137,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/%E9%95%9C%E5%83%8F%E6%BA%90/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/hexo/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/next/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/flowchart/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/mermaid/</loc>
+    <loc>http://blog.rylee.fun/tags/mysql/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -214,6 +186,41 @@
   </url>
   
   <url>
+    <loc>http://blog.rylee.fun/tags/hexo/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/next/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/flowchart/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/mermaid/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/markdown/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.rylee.fun/tags/data-file/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
@@ -222,13 +229,6 @@
   
   <url>
     <loc>http://blog.rylee.fun/tags/setting/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/markdown/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -328,7 +328,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/categories/hexo/</loc>
+    <loc>http://blog.rylee.fun/categories/Linux/CentOS/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -342,13 +342,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/categories/Linux/CentOS/</loc>
-    <lastmod>2020-08-24</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://blog.rylee.fun/categories/macOS/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
@@ -356,7 +349,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/categories/hexo/next/</loc>
+    <loc>http://blog.rylee.fun/categories/hexo/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -378,6 +371,13 @@
   
   <url>
     <loc>http://blog.rylee.fun/categories/wechat-miniprogram/</loc>
+    <lastmod>2020-08-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/hexo/next/</loc>
     <lastmod>2020-08-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
