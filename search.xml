@@ -84,7 +84,7 @@
   <entry>
     <title>使用Docker安装MySQL</title>
     <url>/2020/08/23/install-mysql-in-docker/</url>
-    <content><![CDATA[<p>摘要：本文讲解了如何使用Docker安装MySQL</p>
+    <content><![CDATA[<p>摘要：本文讲解了如何在Docker中安装MySQL</p>
 <a id="more"></a>
 
 <h2 id="1-查看可用MySQL可用版本"><a href="#1-查看可用MySQL可用版本" class="headerlink" title="1. 查看可用MySQL可用版本"></a>1. 查看可用MySQL可用版本</h2><p>Docker中<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">MySQL镜像库</a>，如图：</p>
@@ -651,7 +651,7 @@
 <h3 id="4-9-检查服务器是否配置成功"><a href="#4-9-检查服务器是否配置成功" class="headerlink" title="4.9 检查服务器是否配置成功"></a>4.9 检查服务器是否配置成功</h3><p>  到这里服务器就配置完成了。此时你可以在浏览器里面访问你的网站看是否能够访问，如果你的网站可以访问了，那么就一切正常啦。</p>
 <ul>
 <li>浏览器中使用ip访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener">https://tdom.ml</a>;</li>
-<li>浏览器中使用<a href="https://ip访问：重定向到https://tdom.ml(跳转的时候浏览器可能提示不安全是正常的)">https://ip访问：重定向到https://tdom.ml(跳转的时候浏览器可能提示不安全是正常的)</a>;</li>
+<li>浏览器中使用<a href="https://ip" target="_blank" rel="noopener">https://ip</a>访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener">https://tdom.ml</a>(跳转的时候浏览器可能提示不安全是正常的);</li>
 <li>浏览器中使用tdom.ml访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener">https://tdom.ml</a></li>
 </ul>
 <h3 id="4-10-启动bbr（可选，建议）"><a href="#4-10-启动bbr（可选，建议）" class="headerlink" title="4.10 启动bbr（可选，建议）"></a>4.10 启动bbr（可选，建议）</h3><p>  启动bbr需要Linux内核版本在4.10及以上，如果低于该版本需要自己升级（这不在本教程范围之后）内核版本，保证内核版本不低于4.10。查看系统内核版本命令如下。</p>
@@ -696,6 +696,22 @@
       <tags>
         <tag>Trojan</tag>
         <tag>科学上网</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习 TensorFlow - 第一章 简介</title>
+    <url>/2020/11/28/tensorflow-course-lesson1-intro/</url>
+    <content><![CDATA[<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>TensorFlow 学习笔记，第一章，简介</p>
+<a id="more"></a>
+
+<h2 id="1-MacOS-系统下安装TensorFlow开发环境"><a href="#1-MacOS-系统下安装TensorFlow开发环境" class="headerlink" title="1. MacOS 系统下安装TensorFlow开发环境"></a>1. MacOS 系统下安装TensorFlow开发环境</h2>]]></content>
+      <categories>
+        <category>学习</category>
+        <category>TensorFlow</category>
+      </categories>
+      <tags>
+        <tag>学习</tag>
+        <tag>TensorFlow</tag>
       </tags>
   </entry>
 </search>

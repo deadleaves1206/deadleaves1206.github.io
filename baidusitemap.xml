@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.rylee.fun/2020/11/28/tensorflow-course-lesson1-intro/</loc>
+    <lastmod>2020-11-28</lastmod>
+  </url>
+  <url>
     <loc>http://blog.rylee.fun/2020/08/23/install-mysql-in-docker/</loc>
-    <lastmod>2020-08-25</lastmod>
+    <lastmod>2020-11-28</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2020/06/21/trojan-config/</loc>
+    <lastmod>2020-08-30</lastmod>
   </url>
   <url>
     <loc>http://blog.rylee.fun/2020/08/12/lilypond-configure/</loc>
@@ -14,10 +22,6 @@
   </url>
   <url>
     <loc>http://blog.rylee.fun/2020/06/21/ubuntu-no-longer-supported/</loc>
-    <lastmod>2020-08-23</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/06/21/trojan-config/</loc>
     <lastmod>2020-08-23</lastmod>
   </url>
   <url>
