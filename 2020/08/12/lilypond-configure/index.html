@@ -265,23 +265,23 @@
       
         <p>摘要：编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
 <a id="more"></a>
-
-<h2 id="1-配置命令行启动lilypond"><a href="#1-配置命令行启动lilypond" class="headerlink" title="1. 配置命令行启动lilypond"></a>1. 配置命令行启动lilypond</h2><p>  正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html" target="_blank" rel="noopener">提示</a>，配置命令行启用lilypond。</p>
-<h3 id="1-1-创建执行脚本"><a href="#1-1-创建执行脚本" class="headerlink" title="1.1. 创建执行脚本"></a>1.1. 创建执行脚本</h3><p>  在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
+<h2 id="1-配置命令行启动lilypond"><a class="markdownIt-Anchor" href="#1-配置命令行启动lilypond"></a> 1. 配置命令行启动lilypond</h2>
+<p>正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html" target="_blank" rel="noopener">提示</a>，配置命令行启用lilypond。</p>
+<h3 id="11-创建执行脚本"><a class="markdownIt-Anchor" href="#11-创建执行脚本"></a> 1.1. 创建执行脚本</h3>
+<p>在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
   <figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">"<span class="variable">$@</span>"</span></span><br></pre></td></tr></table></figure>
-
-<p>  除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
-<h3 id="1-2-添加权限"><a href="#1-2-添加权限" class="headerlink" title="1.2. 添加权限"></a>1.2. 添加权限</h3><p>  为上一步中创建的执行脚本添加可执行权限</p>
+<p>除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
+<h3 id="12-添加权限"><a class="markdownIt-Anchor" href="#12-添加权限"></a> 1.2. 添加权限</h3>
+<p>为上一步中创建的执行脚本添加可执行权限</p>
   <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure>
-
-<p>  同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
-<h2 id="2-lilypond中文乱码"><a href="#2-lilypond中文乱码" class="headerlink" title="2. lilypond中文乱码"></a>2. lilypond中文乱码</h2><blockquote>
+<p>同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
+<h2 id="2-lilypond中文乱码"><a class="markdownIt-Anchor" href="#2-lilypond中文乱码"></a> 2. lilypond中文乱码</h2>
+<blockquote>
 <p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
 </blockquote>
-<p>  编译过程出现的错误信息如下：</p>
+<p>编译过程出现的错误信息如下：</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Converting to &#96;玩够了没有.pdf&#39;...</span><br><span class="line">warning: &#96;(gs -q -dSAFER -dDEVICEWIDTHPOINTS&#x3D;595.28 -dDEVICEHEIGHTPOINTS&#x3D;841.89 -dCompatibilityLevel&#x3D;1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE&#x3D;pdfwrite -dAutoRotatePages&#x3D;&#x2F;None -dPrinted&#x3D;false -sOutputFile&#x3D;玩够了没有.pdf -c.setpdfwrite -f&#x2F;var&#x2F;folders&#x2F;3p&#x2F;zr3fwznx0pq01hp6c6p1tscr0000gp&#x2F;T&#x2F;&#x2F;lilypond-7gvJNc)&#39; failed (256)</span><br></pre></td></tr></table></figure>
-
-<p>  该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
+<p>该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
   <figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">"<span class="variable">$@</span>"</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">"ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]"</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">"<span class="variable">$ARGS</span> <span class="variable">$i</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$FILE_PATH</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"[ERROR] File not exists"</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">'&#123;print $1&#125;'</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
     </div>
@@ -397,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置命令行启动lilypond"><span class="nav-text">1. 配置命令行启动lilypond</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-创建执行脚本"><span class="nav-text">1.1. 创建执行脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-添加权限"><span class="nav-text">1.2. 添加权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-lilypond中文乱码"><span class="nav-text">2. lilypond中文乱码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置命令行启动lilypond"><span class="nav-text"> 1. 配置命令行启动lilypond</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-创建执行脚本"><span class="nav-text"> 1.1. 创建执行脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-添加权限"><span class="nav-text"> 1.2. 添加权限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-lilypond中文乱码"><span class="nav-text"> 2. lilypond中文乱码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -420,13 +420,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">28</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -470,12 +470,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">30k</span>
+    <span title="站点总字数">31k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">27 分钟</span>
+    <span title="站点阅读时长">28 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
