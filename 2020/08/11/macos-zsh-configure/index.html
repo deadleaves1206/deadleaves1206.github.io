@@ -265,37 +265,33 @@
       
         <p>摘要：随着macOS更新新版本，在打开终端的时候，提示让使用zsh作为shell，本文内容主要是调整为zsh之后的一些配置</p>
 <a id="more"></a>
-<h2 id="1-前言"><a class="markdownIt-Anchor" href="#1-前言"></a> 1. 前言</h2>
-<p>前段时间更新了以下macOS，更新之后发现打开终端之后，会有如下提示：</p>
+
+<h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h2><p>  前段时间更新了以下macOS，更新之后发现打开终端之后，会有如下提示：</p>
   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The default interactive shell is now zsh.</span><br><span class="line">To update your account to use zsh, please run `chsh -s /bin/zsh`.</span><br><span class="line">For more details, please visit https://support.apple.com/kb/HT208050.</span><br></pre></td></tr></table></figure>
-<p>根据提示内容，新版本的终端会默认使用zsh替代以前的bash。本文就是记录一下zsh的配置过程。</p>
+
+<p>  根据提示内容，新版本的终端会默认使用zsh替代以前的bash。本文就是记录一下zsh的配置过程。</p>
 <blockquote>
 <ul>
 <li>本文内容均基于macOS 10.15 (Catalina)</li>
 <li>zsh配置文件的路径为：<code>~/.zshrc</code></li>
 </ul>
 </blockquote>
-<h2 id="2-安装"><a class="markdownIt-Anchor" href="#2-安装"></a> 2. 安装</h2>
-<p>macOS默认已经安装过zsh，以下为更新方法：</p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>  macOS默认已经安装过zsh，以下为更新方法：</p>
   <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看zsh版本</span></span><br><span class="line">zsh --version</span><br><span class="line"><span class="comment"># 更新zsh</span></span><br><span class="line">brew install zsh zsh-completions</span><br></pre></td></tr></table></figure>
-<h2 id="3-使用oh-my-zsh"><a class="markdownIt-Anchor" href="#3-使用oh-my-zsh"></a> 3. 使用oh my zsh</h2>
-<p>oh my zsh以下简称omz</p>
-<h3 id="31-安装"><a class="markdownIt-Anchor" href="#31-安装"></a> 3.1. 安装</h3>
-<p>安装omz可以使用<code>curl</code>或者<code>wget</code>，方法如下：</p>
+
+<h2 id="3-使用oh-my-zsh"><a href="#3-使用oh-my-zsh" class="headerlink" title="3. 使用oh my zsh"></a>3. 使用oh my zsh</h2><p>  oh my zsh以下简称omz</p>
+<h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1. 安装"></a>3.1. 安装</h3><p>  安装omz可以使用<code>curl</code>或者<code>wget</code>，方法如下：</p>
   <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用curl</span></span><br><span class="line">sh -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用wget</span></span><br><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure>
-<p>安装完成后会自动生效，如果没有生效，可以重启shell。</p>
-<h3 id="32-安装主题"><a class="markdownIt-Anchor" href="#32-安装主题"></a> 3.2. 安装主题</h3>
-<p>这里选择的主题是<code>powerlevel10k</code></p>
-<h4 id="321-安装powerlevel10k"><a class="markdownIt-Anchor" href="#321-安装powerlevel10k"></a> 3.2.1. 安装<code>powerlevel10k</code></h4>
-  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure>
-<h4 id="322-更改zsh配置"><a class="markdownIt-Anchor" href="#322-更改zsh配置"></a> 3.2.2. 更改zsh配置</h4>
-<p>修改zsh配置文件<code>~/.zshrc</code>，设置主题为<code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code></p>
-<p>使用<code>p10k configure</code>命令，进行设置</p>
-<h4 id="323-导入系统命令"><a class="markdownIt-Anchor" href="#323-导入系统命令"></a> 3.2.3. 导入系统命令</h4>
-<p>更新zsh之后，原有的命令可能无法使用，找到以前的<code>~/.bash_profile</code>文件，将其中的内容选择需要的粘贴在<code>~/.zshrc</code>中。</p>
-<h4 id="324-vs-code中设置terminal"><a class="markdownIt-Anchor" href="#324-vs-code中设置terminal"></a> 3.2.4. VS Code中设置Terminal</h4>
-<p>打开VS Code的设置，修改配置</p>
-<p><code>&quot;terminal.integrated.shell.osx&quot;: &quot;zsh&quot;</code></p>
+
+<p>  安装完成后会自动生效，如果没有生效，可以重启shell。</p>
+<h3 id="3-2-安装主题"><a href="#3-2-安装主题" class="headerlink" title="3.2. 安装主题"></a>3.2. 安装主题</h3><p>  这里选择的主题是<code>powerlevel10k</code></p>
+<h4 id="3-2-1-安装powerlevel10k"><a href="#3-2-1-安装powerlevel10k" class="headerlink" title="3.2.1. 安装powerlevel10k"></a>3.2.1. 安装<code>powerlevel10k</code></h4>  <figure class="highlight zsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth=1 https://gitee.com/romkatv/powerlevel10k.git <span class="variable">$&#123;ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom&#125;</span>/themes/powerlevel10k</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-2-更改zsh配置"><a href="#3-2-2-更改zsh配置" class="headerlink" title="3.2.2. 更改zsh配置"></a>3.2.2. 更改zsh配置</h4><p>  修改zsh配置文件<code>~/.zshrc</code>，设置主题为<code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code></p>
+<p>  使用<code>p10k configure</code>命令，进行设置</p>
+<h4 id="3-2-3-导入系统命令"><a href="#3-2-3-导入系统命令" class="headerlink" title="3.2.3. 导入系统命令"></a>3.2.3. 导入系统命令</h4><p>  更新zsh之后，原有的命令可能无法使用，找到以前的<code>~/.bash_profile</code>文件，将其中的内容选择需要的粘贴在<code>~/.zshrc</code>中。</p>
+<h4 id="3-2-4-VS-Code中设置Terminal"><a href="#3-2-4-VS-Code中设置Terminal" class="headerlink" title="3.2.4. VS Code中设置Terminal"></a>3.2.4. VS Code中设置Terminal</h4><p>  打开VS Code的设置，修改配置</p>
+<p>  <code>&quot;terminal.integrated.shell.osx&quot;: &quot;zsh&quot;</code></p>
 
     </div>
 
@@ -410,7 +406,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-text"> 1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装"><span class="nav-text"> 2. 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用oh-my-zsh"><span class="nav-text"> 3. 使用oh my zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-安装"><span class="nav-text"> 3.1. 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-安装主题"><span class="nav-text"> 3.2. 安装主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#321-安装powerlevel10k"><span class="nav-text"> 3.2.1. 安装powerlevel10k</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#322-更改zsh配置"><span class="nav-text"> 3.2.2. 更改zsh配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#323-导入系统命令"><span class="nav-text"> 3.2.3. 导入系统命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#324-vs-code中设置terminal"><span class="nav-text"> 3.2.4. VS Code中设置Terminal</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-前言"><span class="nav-text">1. 前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装"><span class="nav-text">2. 安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用oh-my-zsh"><span class="nav-text">3. 使用oh my zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-安装"><span class="nav-text">3.1. 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-安装主题"><span class="nav-text">3.2. 安装主题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-安装powerlevel10k"><span class="nav-text">3.2.1. 安装powerlevel10k</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-更改zsh配置"><span class="nav-text">3.2.2. 更改zsh配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-导入系统命令"><span class="nav-text">3.2.3. 导入系统命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-VS-Code中设置Terminal"><span class="nav-text">3.2.4. VS Code中设置Terminal</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -426,20 +422,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">28</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -483,12 +479,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">31k</span>
+    <span title="站点总字数">41k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">28 分钟</span>
+    <span title="站点阅读时长">37 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

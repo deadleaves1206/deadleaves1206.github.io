@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-lee.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-lee.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-lee.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.rylee.fun","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"expandIn","post_header":"swoopIn","post_body":"flipXIn","coll_header":"flipBounceYIn","sidebar":"slideLeftIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="0. 摘要TensorFlow 学习笔记，第一章-基本数据结构及运算，主要记录了张量的基本知识、简单用法、随机数生成、张量的常用运算等">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow学习笔记 - 第二章 基本数据结构及运算">
+<meta property="og:url" content="http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/index.html">
+<meta property="og:site_name" content="Lee的后花园">
+<meta property="og:description" content="0. 摘要TensorFlow 学习笔记，第一章-基本数据结构及运算，主要记录了张量的基本知识、简单用法、随机数生成、张量的常用运算等">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-29T02:10:01.000Z">
+<meta property="article:modified_time" content="2020-12-04T10:18:47.395Z">
+<meta property="article:author" content="ry Lee">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="TensorFlow">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>TensorFlow学习笔记 - 第二章 基本数据结构及运算 | Lee的后花园</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lee的后花园</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="ry Lee">
+      <meta itemprop="description" content="捧一卷书卷，泡一杯清茗，于冬日暖阳下静静读书。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lee的后花园">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TensorFlow学习笔记 - 第二章 基本数据结构及运算
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-29 10:10:01" itemprop="dateCreated datePublished" datetime="2020-11-29T10:10:01+08:00">2020-11-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-04 18:18:47" itemprop="dateModified" datetime="2020-12-04T18:18:47+08:00">2020-12-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/TensorFlow/" itemprop="url" rel="index"><span itemprop="name">TensorFlow</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/29/study-notes-tensorflow-lesson2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/29/study-notes-tensorflow-lesson2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="0-摘要"><a href="#0-摘要" class="headerlink" title="0. 摘要"></a>0. 摘要</h2><p>TensorFlow 学习笔记，第一章-基本数据结构及运算，主要记录了张量的基本知识、简单用法、随机数生成、张量的常用运算等</p>
+<a id="more"></a>
+
+<p>约定俗成，下文中使用<code>tf</code>缩写表示<code>TensorFlow</code>。<br>文章内容较多，对代码部分进行了折叠。</p>
+<h2 id="1-张量的基本概念"><a href="#1-张量的基本概念" class="headerlink" title="1. 张量的基本概念"></a>1. 张量的基本概念</h2><h3 id="1-1-张量的简介"><a href="#1-1-张量的简介" class="headerlink" title="1.1. 张量的简介"></a>1.1. 张量的简介</h3><p>张量是具有统一类型（称为<code>dtype</code>）的多维数组。可以在<a href="https://www.tensorflow.org/api_docs/python/tf/dtypes/DType?hl=zh-cn" target="_blank" rel="noopener">tf.dtypes.DType</a>中查看所有支持的<code>dtype</code>。<br>就像<code>Python</code>数值和字符串一样，所有张量都是不可变的：永远无法更新张量的内容，只能创建新的张量。</p>
+<p>创建张量的基本语法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.constant(</span><br><span class="line">    value, dtype=<span class="literal">None</span>, shape=<span class="literal">None</span>, name=<span class="string">'Const'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<div class="note info">
+            <details>  <summary>参数中 name 的用法</summary>  <p><code>name</code>参数是可选的（可以创建带或不带它的变量和常量），并且在程序中使用的变量不依赖于它。 <code>name</code>在以下几个方面很有帮助：</p>  <p><strong>1. 想要保存或恢复变量时：</strong></p>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">matrix_1 = tf.Variable([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">3</span>]], name=<span class="string">"v1"</span>)</span><br><span class="line">matrix_2 = tf.Variable([[<span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>]], name=<span class="string">"v2"</span>)</span><br><span class="line">init = tf.initialize_all_variables()</span><br><span class="line"></span><br><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">sess = tf.Session()</span><br><span class="line">sess.run(init)</span><br><span class="line">save_path = saver.save(sess, <span class="string">"/model.ckpt"</span>)</span><br><span class="line">sess.close()</span><br></pre></td></tr></table></figure>  <p>matrix_1和matrix_2保存的时候以v1和v2保存</p>  <p><strong>2. 在TensorBoard中使用name来很好地显示边的名称</strong></p>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.name_scope(<span class="string">'hidden'</span>) <span class="keyword">as</span> scope:</span><br><span class="line">    a = tf.constant(<span class="number">5</span>, name=<span class="string">'alpha'</span>)</span><br><span class="line">    W = tf.Variable(tf.random_uniform([<span class="number">1</span>, <span class="number">2</span>], <span class="number">-1.0</span>, <span class="number">1.0</span>), name=<span class="string">'weights'</span>)</span><br><span class="line">    b = tf.Variable(tf.zeros([<span class="number">1</span>]), name=<span class="string">'biases'</span>)</span><br></pre></td></tr></table></figure>  <p>可以将Python命名空间和TensorFlow命名空间想象为两个平行线。 TensorFlow空间中的名称实际上是属于任何TensorFlow变量的“真实”属性，而Python空间中的名称只是在脚本运行期间指向TensorFlow变量的临时指针。 （也就是上面代码中的a, W, b都是在Python空间中定义的变量，而name参数定义的如alpha, weights, biases都是在TensorFlow空间中的）这就是为什么在保存和恢复变量时，只使用TensorFlow名称的原因，因为脚本终止后Python命名空间不再存在，但Tensorflow命名空间仍然存在于保存的文件中。</p></details>
+          </div>
+
+<h3 id="1-2-常见张量"><a href="#1-2-常见张量" class="headerlink" title="1.2. 常见张量"></a>1.2. 常见张量</h3><h4 id="1-2-1-标量"><a href="#1-2-1-标量" class="headerlink" title="1.2.1. 标量"></a>1.2.1. 标量</h4><p>数学意义上的标量，即“0 秩”张量，只包含单个值，没有“轴”。</p>
+<details>
+  <summary><small>代码：创建一个标量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This will be an int32 tensor by default; see "dtypes" below.</span></span><br><span class="line">rank_0_tensor = tf.constant(<span class="number">4</span>)</span><br><span class="line">print(rank_0_tensor)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(<span class="number">4</span>, shape=(), dtype=int32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h4 id="1-2-2-向量"><a href="#1-2-2-向量" class="headerlink" title="1.2.2. 向量"></a>1.2.2. 向量</h4><p>数学意义上的向量，即“1 秩”张量，有点类似一维数组。向量有 1 个轴。</p>
+<details>
+  <summary><small>代码：创建一个向量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Let's make this a float tensor.</span></span><br><span class="line">rank_1_tensor = tf.constant([<span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>,])</span><br><span class="line">print(rank_1_tensor)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([<span class="number">2.</span> <span class="number">3.</span> <span class="number">4.</span>], shape=(<span class="number">3</span>,), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+<p>  注意观察<code>dtype</code>，变为了<code>float32</code>，原因是我们在这里将值设置为<code>2.0</code>，<code>3.0</code>，<code>4.0</code>，TensorFlow 默认设置的浮点数类型为<code>float32</code>类型。<br>  同时，在显示时，显示的是<code>[2. 3. 4.]</code>，可以看到，小数点后的 0 被省略掉了。</p>
+<p>  我们可以在这个地方多试一下，比如，将<code>tf.constant([2.0, 3.0, 4.0,])</code>中的<code>4.0</code>修改为<code>4</code>，可以看到结果为：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([<span class="number">2.</span> <span class="number">3.</span> <span class="number">4.</span>], shape=(<span class="number">3</span>,), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+<p>  可以看出来，在张量中，数据会被进行隐式的数据类型转换。</p>
+<p>  最后，对比一下构建张量时，赋值均为整数的情况：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor([<span class="number">2</span> <span class="number">3</span> <span class="number">4</span>], shape=(<span class="number">3</span>,), dtype=int32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h4 id="1-2-3-矩阵"><a href="#1-2-3-矩阵" class="headerlink" title="1.2.3. 矩阵"></a>1.2.3. 矩阵</h4><p>数学意义上的矩阵，即“2 秩”张量，类似于二维数组。矩阵有 2 个轴。</p>
+<details>
+  <summary><small>代码：创建一个矩阵</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># If we want to be specific, we can set the dtype (see below) at creation time</span></span><br><span class="line">rank_2_tensor = tf.constant([[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">                            [<span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">                            [<span class="number">5</span>, <span class="number">6</span>]], dtype=tf.float16)</span><br><span class="line">print(rank_2_tensor)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">1.</span> <span class="number">2.</span>]</span><br><span class="line">[<span class="number">3.</span> <span class="number">4.</span>]</span><br><span class="line">[<span class="number">5.</span> <span class="number">6.</span>]], shape=(<span class="number">3</span>, <span class="number">2</span>), dtype=float16)</span><br></pre></td></tr></table></figure>
+
+<p>  这个案例里，我们在构建张量的时候，赋予的数值是<code>1</code>，<code>2</code>这样的整数，但是我们同时给出了数据类型的参数<code>dtype=tf.float16</code>，因此，在结果中出现了<code>1.</code>，<code>2.</code>这样的浮点数。</p>
+</details>
+
+<h4 id="1-2-4-更高秩的张量"><a href="#1-2-4-更高秩的张量" class="headerlink" title="1.2.4. 更高秩的张量"></a>1.2.4. 更高秩的张量</h4><details>
+  <summary><small>代码：创建一个3秩张量</small></summary>
+
+<p>  张量的轴可以更多，例如，一个包含 3 个轴的张量：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># There can be an arbitrary number of</span></span><br><span class="line"><span class="comment"># axes (sometimes called "dimensions")</span></span><br><span class="line">rank_3_tensor = tf.constant([</span><br><span class="line">  [[<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">  [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]],</span><br><span class="line">  [[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>],</span><br><span class="line">  [<span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>]],</span><br><span class="line">  [[<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">24</span>],</span><br><span class="line">  [<span class="number">25</span>, <span class="number">26</span>, <span class="number">27</span>, <span class="number">28</span>, <span class="number">29</span>]],])</span><br><span class="line"></span><br><span class="line">print(rank_3_tensor)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[[ <span class="number">0</span>  <span class="number">1</span>  <span class="number">2</span>  <span class="number">3</span>  <span class="number">4</span>]</span><br><span class="line">  [ <span class="number">5</span>  <span class="number">6</span>  <span class="number">7</span>  <span class="number">8</span>  <span class="number">9</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">10</span> <span class="number">11</span> <span class="number">12</span> <span class="number">13</span> <span class="number">14</span>]</span><br><span class="line">  [<span class="number">15</span> <span class="number">16</span> <span class="number">17</span> <span class="number">18</span> <span class="number">19</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">20</span> <span class="number">21</span> <span class="number">22</span> <span class="number">23</span> <span class="number">24</span>]</span><br><span class="line">  [<span class="number">25</span> <span class="number">26</span> <span class="number">27</span> <span class="number">28</span> <span class="number">29</span>]]], shape=(<span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>), dtype=int32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h4 id="1-2-5-张量的初始化"><a href="#1-2-5-张量的初始化" class="headerlink" title="1.2.5. 张量的初始化"></a>1.2.5. 张量的初始化</h4><p>以上几个案例都是采用给出张量中每个元素具体值的方式进行初始化，这适用于张量元素个数不多，张量数量不多，且张量中元素没有什么规律的情况。<br>但是我们在实际问题中，遇到更多的是张量数量、张量元素数量很多，但是张量中元素的值相对比较规律的情况，这种情况下，我们就可以考虑使用一些特殊的方法进行初始化。</p>
+<h5 id="1-创建一个元素全部为-0-的张量"><a href="#1-创建一个元素全部为-0-的张量" class="headerlink" title="1. 创建一个元素全部为 0 的张量"></a>1. 创建一个元素全部为 0 的张量</h5><details>
+  <summary><small>代码：创建一个尺寸为[2,3,4],元素值都为 0 的张量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个尺寸为[2,3,4],元素值都为0的张量</span></span><br><span class="line">t = tf.zeros([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],dtype=tf.float32)</span><br><span class="line">print(t)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h5 id="2-创建一个元素全部为-1-的张量"><a href="#2-创建一个元素全部为-1-的张量" class="headerlink" title="2. 创建一个元素全部为 1 的张量"></a>2. 创建一个元素全部为 1 的张量</h5><details>
+  <summary><small>代码：创建一个尺寸为[2,3,4],元素值都为 1 的张量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个尺寸为[2,3,4],元素值都为1的张量</span></span><br><span class="line">t = tf.ones([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],dtype=tf.float32)</span><br><span class="line">print(t)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h5 id="3-创建一个元素全部为-9-的张量"><a href="#3-创建一个元素全部为-9-的张量" class="headerlink" title="3. 创建一个元素全部为 9 的张量"></a>3. 创建一个元素全部为 9 的张量</h5><details>
+  <summary><small>代码：创建一个尺寸为[2,3,4],元素值都为9.0的张量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个尺寸为[2,3,4],元素值都为9.0的张量</span></span><br><span class="line">t = tf.fill([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">9.0</span>)</span><br><span class="line">print(t)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span>]</span><br><span class="line">  [<span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span>]</span><br><span class="line">  [<span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span>]</span><br><span class="line">  [<span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span>]</span><br><span class="line">  [<span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span> <span class="number">9.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h5 id="4-创建一个与给定张量形状相同，但是元素全为-0-的张量"><a href="#4-创建一个与给定张量形状相同，但是元素全为-0-的张量" class="headerlink" title="4. 创建一个与给定张量形状相同，但是元素全为 0 的张量"></a>4. 创建一个与给定张量形状相同，但是元素全为 0 的张量</h5><details>
+  <summary><small>代码：创建一个尺寸和给定张量相同,元素值都为0的张量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个尺寸和给定张量相同,元素值都为0的张量</span></span><br><span class="line">t = tf.fill([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">9.0</span>)</span><br><span class="line"></span><br><span class="line">t1 = tf.zeros_like(t)</span><br><span class="line">print(t1)</span><br><span class="line">t2 = tf.zeros(t.shape)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]</span><br><span class="line">  [<span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span> <span class="number">0.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h5 id="5-创建一个与给定张量形状相同，但是元素全为-1-的张量"><a href="#5-创建一个与给定张量形状相同，但是元素全为-1-的张量" class="headerlink" title="5. 创建一个与给定张量形状相同，但是元素全为 1 的张量"></a>5. 创建一个与给定张量形状相同，但是元素全为 1 的张量</h5><details>
+  <summary><small>代码：创建一个尺寸和给定张量相同,元素值都为 1 的张量</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建一个尺寸和给定张量相同,元素值都为 1 的张量</span></span><br><span class="line">t = tf.fill([<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],<span class="number">9.0</span>)</span><br><span class="line"></span><br><span class="line">t1 = tf.ones_like(t)</span><br><span class="line">print(t1)</span><br><span class="line">t2 = tf.ones(t.shape)</span><br><span class="line">print(t2)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br><span class="line">tf.Tensor(</span><br><span class="line">[[[<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]]</span><br><span class="line"></span><br><span class="line">[[<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]</span><br><span class="line">  [<span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span> <span class="number">1.</span>]]], shape=(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="1-3-张量的形状"><a href="#1-3-张量的形状" class="headerlink" title="1.3. 张量的形状"></a>1.3. 张量的形状</h3><p>张量有形状，下面是几个关于张量形状的术语：</p>
+<ul>
+<li><strong>形状：</strong>张量的每个维度的长度（元素数量）。</li>
+<li><strong>秩：</strong>张量的维度数量。标量的秩为 0，向量的秩为 1，矩阵的秩为 2。</li>
+<li><strong>轴或维度：</strong>张量的一个特殊维度。</li>
+<li><strong>大小：</strong>张量的总项数，即乘积形状向量</li>
+</ul>
+<blockquote>
+<p>注：虽然您可能会看到“二维张量”之类的表述，但 2 秩张量通常并不是用来描述二维空间。</p>
+</blockquote>
+<p>张量和<a href="https://www.tensorflow.org/api_docs/python/tf/TensorShape" target="_blank" rel="noopener">tf.TensorShape</a>对象提供了方便的属性来访问：</p>
+<details>
+  <summary><small>代码：张量的形状</small></summary>
+
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">t = tf.zeros([<span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">print(<span class="string">"Type of every element:"</span>, t.dtype)</span><br><span class="line">print(<span class="string">"Number of dimensions:"</span>, t.ndim)</span><br><span class="line">print(<span class="string">"Shape of tensor:"</span>, t.shape)</span><br><span class="line">print(<span class="string">"Elements along axis 0 of tensor:"</span>, t.shape[<span class="number">0</span>])</span><br><span class="line">print(<span class="string">"Elements along the last axis of tensor:"</span>, t.shape[<span class="number">-1</span>])</span><br><span class="line">print(<span class="string">"Total number of elements (3*2*4*5): "</span>, tf.size(t).numpy())</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Type of every element: &lt;dtype: <span class="string">'float32'</span>&gt;</span><br><span class="line">Number of dimensions: <span class="number">4</span></span><br><span class="line">Shape of tensor: (<span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line">Elements along axis <span class="number">0</span> of tensor: <span class="number">3</span></span><br><span class="line">Elements along the last axis of tensor: <span class="number">5</span></span><br><span class="line">Total number of elements (<span class="number">3</span>*<span class="number">2</span>*<span class="number">4</span>*<span class="number">5</span>):  <span class="number">120</span></span><br></pre></td></tr></table></figure>
+
+</details>
+
+<p>虽然通常用索引来指代轴，但是您始终要记住每个轴的含义。轴一般按照从全局到局部的顺序进行排序：首先是批次轴，随后是空间维度，最后是每个位置的特征。这样，在内存中，特征向量就会位于连续的区域。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  Width-| |-Height</span><br><span class="line">Batch-↓ ↓ ↓ ↓-Features</span><br><span class="line">      3 2 4 5</span><br><span class="line">     |-|-|-|-|</span><br><span class="line">       Rank 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-张量的操作"><a href="#2-张量的操作" class="headerlink" title="2. 张量的操作"></a>2. 张量的操作</h2><h3 id="2-1-张量与-NumPy-数组的转换"><a href="#2-1-张量与-NumPy-数组的转换" class="headerlink" title="2.1. 张量与 NumPy 数组的转换"></a>2.1. 张量与 NumPy 数组的转换</h3><p>通过使用<code>np.array</code>或<code>tensor.numpy</code>方法，可以将张量转换为<code>NumPy</code>数组。<br><code>NumPy</code>是<code>Python</code>中一种数值计算扩展，主要用于存储和处理多维数组，其核心数据结构为<code>ndarray</code>。</p>
+<h4 id="2-1-1-张量转换为-ndarray"><a href="#2-1-1-张量转换为-ndarray" class="headerlink" title="2.1.1 张量转换为 ndarray"></a>2.1.1 张量转换为 ndarray</h4><p>使用<code>tensor.numpy()</code>方法和<code>np.array()</code>方法均可以将张量转换为<code>ndarray</code>。</p>
+<details>
+  <summary><small>代码：张量转换为 ndarray</small></summary>
+
+  <figure class="highlight python"><figcaption><span>TensorToArray.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引入tensorflow库</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 构建四维张量</span></span><br><span class="line">temp = tf.constant(</span><br><span class="line">        [</span><br><span class="line">            [</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]],</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]]</span><br><span class="line">            ],</span><br><span class="line">            [</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]],</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]]</span><br><span class="line">            ],</span><br><span class="line">        ],</span><br><span class="line">        dtype=tf.float32</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">print(<span class="string">"--------------------使用tensor.numpy()方法----------------\n"</span>)</span><br><span class="line"><span class="comment"># 将张量转化为 ndarray</span></span><br><span class="line">arr1=temp.numpy()</span><br><span class="line"><span class="comment"># 打印 ndarray</span></span><br><span class="line">print(arr1)</span><br><span class="line"><span class="comment"># 打印 array 类型</span></span><br><span class="line">print(type(arr1))</span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n----------------------使用np.array()方法------------------\n"</span>)</span><br><span class="line"><span class="comment"># 将张量转化为 ndarray</span></span><br><span class="line">arr2 = np.array(temp)</span><br><span class="line"><span class="comment"># 打印 ndarray</span></span><br><span class="line">print(arr2)</span><br><span class="line"><span class="comment"># 打印 arr 类型</span></span><br><span class="line">print(type(arr2))</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">--------------------使用tensor.numpy()方法----------------</span><br><span class="line"></span><br><span class="line">[[[[ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]</span><br><span class="line">  [ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]]</span><br><span class="line"></span><br><span class="line">  [[ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]</span><br><span class="line">  [ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[[[ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]</span><br><span class="line">  [ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]]</span><br><span class="line"></span><br><span class="line">  [[ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]</span><br><span class="line">  [ <span class="number">3.</span>  <span class="number">4.</span>  <span class="number">5.</span> <span class="number">-2.</span>]]]]</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">numpy</span>.<span class="title">ndarray</span>'&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">----------------------使用<span class="title">np</span>.<span class="title">array</span><span class="params">()</span>方法------------------</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">[[[[ 3.  4.  5. -2.]</span></span><br><span class="line"><span class="class">  [ 3.  4.  5. -2.]]</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">  [[ 3.  4.  5. -2.]</span></span><br><span class="line"><span class="class">  [ 3.  4.  5. -2.]]]</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">[[[ 3.  4.  5. -2.]</span></span><br><span class="line"><span class="class">  [ 3.  4.  5. -2.]]</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">  [[ 3.  4.  5. -2.]</span></span><br><span class="line"><span class="class">  [ 3.  4.  5. -2.]]]]</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> '<span class="title">numpy</span>.<span class="title">ndarray</span>'&gt;</span></span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h4 id="2-1-2-ndarray-转换为张量"><a href="#2-1-2-ndarray-转换为张量" class="headerlink" title="2.1.2. ndarray 转换为张量"></a>2.1.2. ndarray 转换为张量</h4><p>在将<code>ndarray</code>转换为张量时，我们使用<a href="https://www.tensorflow.org/api_docs/python/tf/convert_to_tensor" target="_blank" rel="noopener">tf.convert_to_tensor</a>方法。<br>其实，<code>tf.convert_to_tensor</code>不仅可以用于转换<code>ndarray</code>类型的数据，也可以用于转换出现在转换注册表中的任意对象。官方提供了大部分常用对象，例如： <code>NumPy</code>的<code>ndarray</code>、<code>TensorShape</code>、<code>Python列表</code>和<code>tf.Variable</code>，也可以根据需要注册自己的转换方法，详情参阅<a href="https://www.tensorflow.org/api_docs/python/tf/register_tensor_conversion_function" target="_blank" rel="noopener">tf.register_tensor_conversion_function</a>。</p>
+<p><code>tf.convert_to_tensor</code>语法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.convert_to_tensor(</span><br><span class="line">    value, dtype=<span class="literal">None</span>, dtype_hint=<span class="literal">None</span>, name=<span class="literal">None</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<details>
+  <summary><small>ndarray 转换为张量</small></summary>
+
+  <figure class="highlight python"><figcaption><span>ArrayToTensor.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引入tensorflow库</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 引入numpy库</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 构建一个二维数组</span></span><br><span class="line">array = np.array([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]], np.float32)</span><br><span class="line"><span class="comment"># 将二维数组转换为张量</span></span><br><span class="line">t = tf.convert_to_tensor(array, tf.float32)</span><br><span class="line"><span class="comment"># 打印结果</span></span><br><span class="line">print(t)</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.Tensor(</span><br><span class="line">[[<span class="number">1.</span> <span class="number">2.</span> <span class="number">3.</span>]</span><br><span class="line">[<span class="number">4.</span> <span class="number">5.</span> <span class="number">6.</span>]], shape=(<span class="number">2</span>, <span class="number">3</span>), dtype=float32)</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="2-2-获取张量尺寸"><a href="#2-2-获取张量尺寸" class="headerlink" title="2.2. 获取张量尺寸"></a>2.2. 获取张量尺寸</h3><h4 id="2-2-1-使用tf-shape-获取张量尺寸"><a href="#2-2-1-使用tf-shape-获取张量尺寸" class="headerlink" title="2.2.1. 使用tf.shape()获取张量尺寸"></a>2.2.1. 使用<code>tf.shape()</code>获取张量尺寸</h4><p>使用<code>tf.shape()</code>获取张量尺寸，得到的也是一个张量，是一个向量。</p>
+<details>
+  <summary><small>代码：使用<code>tf.shape()</code>获取张量尺寸</small></summary>
+
+  <figure class="highlight python"><figcaption><span>TensorSizeShape.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引入tensorflow库</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 引入numpy库</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 构建一个四维张量</span></span><br><span class="line">t = tf.constant(</span><br><span class="line">          [</span><br><span class="line">              [</span><br><span class="line">                [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]],</span><br><span class="line">                [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]]</span><br><span class="line">              ],</span><br><span class="line">              [</span><br><span class="line">                [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]],</span><br><span class="line">                [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]]</span><br><span class="line">              ],</span><br><span class="line">          ],</span><br><span class="line">          tf.float32</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 获取张量的尺寸（尺寸也是用一个张量表示）</span></span><br><span class="line">shape = tf.shape(t)  </span><br><span class="line"><span class="comment"># 打印张量尺寸</span></span><br><span class="line">print(shape)</span><br><span class="line"><span class="comment"># 打印尺寸张量的类型</span></span><br><span class="line">print(type(shape))</span><br><span class="line"><span class="comment"># 打印尺寸张量</span></span><br><span class="line">print(shape)</span><br><span class="line"><span class="comment"># 转换为ndarray</span></span><br><span class="line">infoArray = shape.numpy()</span><br><span class="line"><span class="comment"># 打印</span></span><br><span class="line">print(infoArray)</span><br><span class="line"><span class="comment"># 注意可以使用负数索引（-1代表倒数第一个元素）</span></span><br><span class="line">print(infoArray[<span class="number">-1</span>])</span><br><span class="line">print(infoArray[<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">tensorflow</span>.<span class="title">python</span>.<span class="title">framework</span>.<span class="title">ops</span>.<span class="title">EagerTensor</span>'&gt;</span></span><br><span class="line"><span class="class"><span class="title">tf</span>.<span class="title">Tensor</span><span class="params">([<span class="number">2</span> <span class="number">2</span> <span class="number">2</span> <span class="number">4</span>], shape=<span class="params">(<span class="number">4</span>,)</span>, dtype=int32)</span></span></span><br><span class="line"><span class="class">[2 2 2 4]</span></span><br><span class="line"><span class="class">4</span></span><br><span class="line"><span class="class">4</span></span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h4 id="2-2-2-使用成员方法tensor-get-shape-获取张量尺寸"><a href="#2-2-2-使用成员方法tensor-get-shape-获取张量尺寸" class="headerlink" title="2.2.2. 使用成员方法tensor.get_shape()获取张量尺寸"></a>2.2.2. 使用成员方法<code>tensor.get_shape()</code>获取张量尺寸</h4><p>使用成员方法<code>tensor.get_shape()</code>获取到的张量尺寸不是一个张量。</p>
+<details>
+  <summary><small>代码：使用成员方法<code>tensor.get_shape()</code>获取张量尺寸</small></summary>
+
+  <figure class="highlight python"><figcaption><span>TensorSizeGetShape.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引入tensorflow库</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 构建一个四维张量</span></span><br><span class="line">t=tf.constant(</span><br><span class="line">        [</span><br><span class="line">            [</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]],</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]]</span><br><span class="line">            ],</span><br><span class="line">            [</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]],</span><br><span class="line">              [[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">-2</span>]]</span><br><span class="line">            ],</span><br><span class="line">        ],</span><br><span class="line">        tf.float32</span><br><span class="line">)</span><br><span class="line"><span class="comment"># 通过成员方法获取张量的尺寸</span></span><br><span class="line">size = t.get_shape()</span><br><span class="line"><span class="comment"># 打印张量尺寸</span></span><br><span class="line">print(size)</span><br><span class="line"><span class="comment"># 张量尺寸的类型(注意这种方法获取的张量尺寸类型不是张量)</span></span><br><span class="line">print(type(size));</span><br><span class="line"><span class="comment"># 张量尺寸的值</span></span><br><span class="line">print(size);</span><br><span class="line"><span class="comment"># 将张量尺寸转换为python的list类型</span></span><br><span class="line">infoList=size.as_list()</span><br><span class="line"><span class="comment"># 打印</span></span><br><span class="line">print(infoList)</span><br><span class="line">print(infoList[<span class="number">0</span>])</span><br><span class="line">print(infoList[<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+
+<p>  返回结果：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> '<span class="title">tensorflow</span>.<span class="title">python</span>.<span class="title">framework</span>.<span class="title">tensor_shape</span>.<span class="title">TensorShape</span>'&gt;</span></span><br><span class="line"><span class="class"><span class="params">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">4</span>)</span></span></span><br><span class="line">[2, 2, 2, 4]</span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+</details>
+
+<h3 id="2-3-将图像转换为张量"><a href="#2-3-将图像转换为张量" class="headerlink" title="2.3. 将图像转换为张量"></a>2.3. 将图像转换为张量</h3><p>实际开发中，经常需要将图像转化为张量，再进行计算处理。这里给出一个加载图像，并转换为张量的案例：</p>
+<details>
+  <summary><small>代码：加载图像并转换为张量</small></summary>
+
+  <figure class="highlight python"><figcaption><span>LoadJpg.py</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 引入tensorflow库</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 引入matplotlib.pyplot库</span></span><br><span class="line"><span class="comment"># matplotlib.pyplot是python下的一个常用数据可视化工具包</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># 读取图像文件</span></span><br><span class="line">img_raw = tf.io.read_file(<span class="string">"tflogo.jpg"</span>)</span><br><span class="line"><span class="comment"># 将图像文件解码为张量</span></span><br><span class="line">img_tensor = tf.image.decode_image(img_raw)</span><br><span class="line"><span class="comment"># 打印张量</span></span><br><span class="line">print(img_tensor)</span><br><span class="line">print(<span class="string">"----------------------------------------------------------------------"</span>)</span><br><span class="line"><span class="comment"># 将张量转为numpy数组</span></span><br><span class="line">image_ndarray=img_tensor.numpy()</span><br><span class="line"><span class="comment"># 打印数组数据</span></span><br><span class="line">print(image_ndarray)</span><br><span class="line">print(<span class="string">"----------------------------------------------------------------------"</span>)</span><br><span class="line"><span class="comment"># 显示图片</span></span><br><span class="line">plt.imshow(image_ndarray);</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+</details>
+
+    </div>
+
+    
+    
+    
+        
+<div class="post_my_copyright">
+  <!-- JS库 可修改路径 -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2020/11/29/study-notes-tensorflow-lesson2/">TensorFlow学习笔记 - 第二章 基本数据结构及运算</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 ry Lee 的个人博客">ry Lee</a></p>
+  <p><span>发布时间:</span>2020年11月29日 - 10:11</p>
+  <p><span>最后更新:</span>2020年12月04日 - 18:12</p>
+  <p><span>原始链接:</span><a href="/2020/11/29/study-notes-tensorflow-lesson2/" title="TensorFlow学习笔记 - 第二章 基本数据结构及运算">http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new ClipboardJS('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "Good job!",   
+          text: '复制成功',
+          icon: "success"
+          });
+    });
+    });  
+</script>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 学习笔记</a>
+              <a href="/tags/TensorFlow/" rel="tag"># TensorFlow</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/28/study-notes-tensorflow-lesson1/" rel="prev" title="TensorFlow学习笔记 - 第一章 简介">
+      <i class="fa fa-chevron-left"></i> TensorFlow学习笔记 - 第一章 简介
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0-摘要"><span class="nav-text">0. 摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-张量的基本概念"><span class="nav-text">1. 张量的基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-张量的简介"><span class="nav-text">1.1. 张量的简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-常见张量"><span class="nav-text">1.2. 常见张量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-标量"><span class="nav-text">1.2.1. 标量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-向量"><span class="nav-text">1.2.2. 向量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-矩阵"><span class="nav-text">1.2.3. 矩阵</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-4-更高秩的张量"><span class="nav-text">1.2.4. 更高秩的张量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-5-张量的初始化"><span class="nav-text">1.2.5. 张量的初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-创建一个元素全部为-0-的张量"><span class="nav-text">1. 创建一个元素全部为 0 的张量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-创建一个元素全部为-1-的张量"><span class="nav-text">2. 创建一个元素全部为 1 的张量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-创建一个元素全部为-9-的张量"><span class="nav-text">3. 创建一个元素全部为 9 的张量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-创建一个与给定张量形状相同，但是元素全为-0-的张量"><span class="nav-text">4. 创建一个与给定张量形状相同，但是元素全为 0 的张量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-创建一个与给定张量形状相同，但是元素全为-1-的张量"><span class="nav-text">5. 创建一个与给定张量形状相同，但是元素全为 1 的张量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-张量的形状"><span class="nav-text">1.3. 张量的形状</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-张量的操作"><span class="nav-text">2. 张量的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-张量与-NumPy-数组的转换"><span class="nav-text">2.1. 张量与 NumPy 数组的转换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-张量转换为-ndarray"><span class="nav-text">2.1.1 张量转换为 ndarray</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-ndarray-转换为张量"><span class="nav-text">2.1.2. ndarray 转换为张量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-获取张量尺寸"><span class="nav-text">2.2. 获取张量尺寸</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-使用tf-shape-获取张量尺寸"><span class="nav-text">2.2.1. 使用tf.shape()获取张量尺寸</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-使用成员方法tensor-get-shape-获取张量尺寸"><span class="nav-text">2.2.2. 使用成员方法tensor.get_shape()获取张量尺寸</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-将图像转换为张量"><span class="nav-text">2.3. 将图像转换为张量</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="ry Lee"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">ry Lee</p>
+  <div class="site-description" itemprop="description">捧一卷书卷，泡一杯清茗，于冬日暖阳下静静读书。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/deadleaves1206" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;deadleaves1206" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:deadleaves1206@gmail.com" title="E-Mail → mailto:deadleaves1206@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ry Lee</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">41k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">37 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'neutral',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'VFyBxNBJp9GxTbXvGL1VwxIb-gzGzoHsz',
+      appKey     : 'oT2vGlGXUL7woxmhPvP71zPF',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/z16.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7}});</script></body>
+</html>
