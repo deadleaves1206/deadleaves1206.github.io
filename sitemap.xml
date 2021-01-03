@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/</loc>
+    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
     
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-01</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
+    <loc>http://blog.rylee.fun/2020/12/12/macos-configure/</loc>
     
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2020-12-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/</loc>
+    
+    <lastmod>2020-12-12</lastmod>
     
   </url>
   
@@ -79,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/2020/08/11/macos-zsh-configure/</loc>
-    
-    <lastmod>2020-08-23</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.rylee.fun/2020/08/12/hexo-flowchart-mermaid/</loc>
     
     <lastmod>2020-08-23</lastmod>
@@ -123,7 +123,7 @@
 
   <url>
     <loc>http://blog.rylee.fun/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -131,210 +131,203 @@
   
   <url>
     <loc>http://blog.rylee.fun/tags/docker/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/%E9%95%9C%E5%83%8F%E6%BA%90/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/Linux/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/mysql/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/lilypond/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/Catalina/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/hexo/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/next/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/flowchart/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/mermaid/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/macOS/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <loc>http://blog.rylee.fun/tags/mysql/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/zsh/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <loc>http://blog.rylee.fun/tags/lilypond/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/configure/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <loc>http://blog.rylee.fun/tags/%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/tags/markdown/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/TensorFlow/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <loc>http://blog.rylee.fun/tags/Catalina/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/data-file/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/setting/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/markdown/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/macOS/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/TensorFlow/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/Trojan/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/Ubuntu/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/source/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/%E6%BA%90%E6%9B%B4%E6%94%B9/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/no-longer-supported/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/old-releases/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/tags/%E6%97%A7%E7%89%88%E6%9C%AC/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/wechat/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/miniprogram/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/tags/component/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/Ubuntu/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/source/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/%E6%BA%90%E6%9B%B4%E6%94%B9/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/no-longer-supported/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/old-releases/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/tags/%E6%97%A7%E7%89%88%E6%9C%AC/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -343,98 +336,98 @@
   
   <url>
     <loc>http://blog.rylee.fun/categories/docker/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/categories/Linux/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/lilypond/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/categories/hexo/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/lilypond/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/categories/Linux/CentOS/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/macOS/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/categories/markdown/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rylee.fun/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/Linux/Ubuntu/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/wechat-miniprogram/</loc>
-    <lastmod>2020-12-04</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rylee.fun/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/TensorFlow/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <loc>http://blog.rylee.fun/categories/macOS/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/categories/hexo/next/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/wechat-miniprogram/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/TensorFlow/</loc>
+    <lastmod>2021-01-03</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rylee.fun/categories/Linux/Ubuntu/</loc>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://blog.rylee.fun/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/Trojan/</loc>
-    <lastmod>2020-12-04</lastmod>
+    <lastmod>2021-01-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
