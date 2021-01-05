@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"blog.rylee.fun","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"expandIn","post_header":"swoopIn","post_body":"flipXIn","coll_header":"flipBounceYIn","sidebar":"slideLeftIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="摘要：科学上网，在科学上网的高峰上默默攀登~本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情">
+  <meta name="description" content="摘要：科学上网，在科学上网的高峰上默默攀登~ 本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情">
 <meta property="og:type" content="article">
 <meta property="og:title" content="科学上网-Trojan搭建指南">
 <meta property="og:url" content="http://blog.rylee.fun/2020/06/21/trojan-config/index.html">
 <meta property="og:site_name" content="Lee的后花园">
-<meta property="og:description" content="摘要：科学上网，在科学上网的高峰上默默攀登~本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情">
+<meta property="og:description" content="摘要：科学上网，在科学上网的高峰上默默攀登~ 本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg">
 <meta property="og:image" content="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg">
@@ -280,244 +280,239 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>摘要：科学上网，在科学上网的高峰上默默攀登~<br>本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情</p>
+        <p>摘要：科学上网，在科学上网的高峰上默默攀登~<br />
+本文介绍了如何使用Trojan进行科学上网，相较V2ray，Trojan具有更安全，更高速的特性，更符合国情</p>
 <a id="more"></a>
-
 <blockquote>
 <p>已有域外服务器和域名的，并且完成DNS解析的，可以跳过1-3步骤，注意云服务器版本要在<code>Ubuntu 16.04</code> or <code>Debian 9</code> or <code>CentOS 7</code>及以上</p>
 </blockquote>
-<h2 id="1-购买服务器"><a href="#1-购买服务器" class="headerlink" title="1. 购买服务器"></a>1. 购买服务器</h2><p>  过程略，大家可以根据各自需求，选择国外的服务器提供商，购买云服务器。我个人使用的是<a href="https://www.vultr.com/" target="_blank" rel="noopener">Vultr</a>，因为Vultr提供的服务器是按小时收费的，可以在不用的时候关闭服务器，更加灵活弹性。而且Vultr提供的服务器，最便宜的有 $5/mon 的，非常划算。</p>
-<h2 id="2-购买域名"><a href="#2-购买域名" class="headerlink" title="2. 购买域名"></a>2. 购买域名</h2><p>  过程略，大家可以根据自己需求，选择国外的域名服务商，购买域名，不推荐国内的域名服务商。我个人使用的是<a href="https://www.namecheap.com/" target="_blank" rel="noopener">namecheap</a>，也可以使用<a href="http://www.freenom.com" target="_blank" rel="noopener">freenom</a>（特定几个域名后缀，比如ga，提供最长12个月的免费服务，而且可以在时间快要到期的时候继续延时）。不过我不使用freenom的原因是因为freenom的网页实在是太难连接了！！！namecheap购买的域名，最便宜可以到 $3.88/yr ，可以买10年，而且有些特价域名，可能不到 $1/yr。</p>
-<h2 id="3-构建DNS解析服务"><a href="#3-构建DNS解析服务" class="headerlink" title="3. 构建DNS解析服务"></a>3. 构建DNS解析服务</h2><p>  使用<a href="https://www.cloudflare.com/" target="_blank" rel="noopener">cloudflare</a>进行DNS解析，好处是可以进行IP伪装，掩盖云服务器的真实IP地址。</p>
-<h3 id="3-1-注册cloudflare会员"><a href="#3-1-注册cloudflare会员" class="headerlink" title="3.1 注册cloudflare会员"></a>3.1 注册cloudflare会员</h3><p>  注册过程略</p>
-<h3 id="3-2-添加站点"><a href="#3-2-添加站点" class="headerlink" title="3.2 添加站点"></a>3.2 添加站点</h3><p>  注册之后，登录cloudflare，应该会显示如下页面：<br>  <a href="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" alt="cloudflare 用户控制面板"></a><br>  点击添加站点，在输入框里填入刚才第二步中购买的域名，然后点击添加站点：<br>  <a href="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" alt="添加站点"></a><br>  在名称那一栏填写路径，这里的路径就是域名前面的那一段，比如<code>www.baidu.com</code>这里的<code>www</code>，在IPv4地址那一栏填写刚才第一步购买的云服务器的IP地址，将小云朵点成灰色。然后点击添加记录，点击继续。<br>  <a href="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" alt="添加DNS解析记录"></a></p>
+<h2 id="购买服务器">1. 购买服务器</h2>
+<p>过程略，大家可以根据各自需求，选择国外的服务器提供商，购买云服务器。我个人使用的是<a href="https://www.vultr.com/" target="_blank" rel="noopener">Vultr</a>，因为Vultr提供的服务器是按小时收费的，可以在不用的时候关闭服务器，更加灵活弹性。而且Vultr提供的服务器，最便宜的有 $5/mon 的，非常划算。</p>
+<h2 id="购买域名">2. 购买域名</h2>
+<p>过程略，大家可以根据自己需求，选择国外的域名服务商，购买域名，不推荐国内的域名服务商。我个人使用的是<a href="https://www.namecheap.com/" target="_blank" rel="noopener">namecheap</a>，也可以使用<a href="http://www.freenom.com" target="_blank" rel="noopener">freenom</a>（特定几个域名后缀，比如ga，提供最长12个月的免费服务，而且可以在时间快要到期的时候继续延时）。不过我不使用freenom的原因是因为freenom的网页实在是太难连接了！！！namecheap购买的域名，最便宜可以到 $3.88/yr ，可以买10年，而且有些特价域名，可能不到 $1/yr。</p>
+<h2 id="构建dns解析服务">3. 构建DNS解析服务</h2>
+<p>使用<a href="https://www.cloudflare.com/" target="_blank" rel="noopener">cloudflare</a>进行DNS解析，好处是可以进行IP伪装，掩盖云服务器的真实IP地址。</p>
+<h3 id="注册cloudflare会员">3.1 注册cloudflare会员</h3>
+<p>注册过程略</p>
+<h3 id="添加站点">3.2 添加站点</h3>
+<p>注册之后，登录cloudflare，应该会显示如下页面： <a href="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeed99e14195aa594fdcf49.jpg" alt="cloudflare 用户控制面板" /></a> 点击添加站点，在输入框里填入刚才第二步中购买的域名，然后点击添加站点： <a href="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedbb114195aa594007563.jpg" alt="添加站点" /></a> 在名称那一栏填写路径，这里的路径就是域名前面的那一段，比如<code>www.baidu.com</code>这里的<code>www</code>，在IPv4地址那一栏填写刚才第一步购买的云服务器的IP地址，将小云朵点成灰色。然后点击添加记录，点击继续。 <a href="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedeec14195aa59404ab07.jpg" alt="添加DNS解析记录" /></a> &gt; 注意：这里我们通常添加两个解析，名称里一个是域名，一个是<code>www</code>，IPv4里都是云服务器的IP地址。另外，那个小云朵一定要点成灰色，不要橘色，否则会导致SSL错误，无法正常代理。</p>
+<p>回到第二步的域名提供商的网站，在域名设置里，找到修改DNS，或者是修改nameserver的地方，将两个DNS服务器修改为下图中的<code>may.ns.cloudflare.com</code>和<code>roan.ns.cloudflare.com</code> <a href="https://pic.downk.cc/item/5eeedfeb14195aa59405e0c9.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedfeb14195aa59405e0c9.jpg" alt="更改DNS服务器" /></a> 例如我所使用的namecheap，操作如下： <a href="https://pic.downk.cc/item/5eeee27914195aa594092220.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeee27914195aa594092220.jpg" alt="进入域名管理" /></a> <a href="https://pic.downk.cc/item/5eeee27914195aa594092224.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeee27914195aa594092224.jpg" alt="更改域名解析服务器" /></a></p>
+<h2 id="vps服务器部署">4. VPS服务器部署</h2>
 <blockquote>
-<p>注意：这里我们通常添加两个解析，名称里一个是域名，一个是<code>www</code>，IPv4里都是云服务器的IP地址。另外，那个小云朵一定要点成灰色，不要橘色，否则会导致SSL错误，无法正常代理。</p>
-</blockquote>
-<p>  回到第二步的域名提供商的网站，在域名设置里，找到修改DNS，或者是修改nameserver的地方，将两个DNS服务器修改为下图中的<code>may.ns.cloudflare.com</code>和<code>roan.ns.cloudflare.com</code><br>  <a href="https://pic.downk.cc/item/5eeedfeb14195aa59405e0c9.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeedfeb14195aa59405e0c9.jpg" alt="更改DNS服务器"></a><br>  例如我所使用的namecheap，操作如下：<br>  <a href="https://pic.downk.cc/item/5eeee27914195aa594092220.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeee27914195aa594092220.jpg" alt="进入域名管理"></a><br>  <a href="https://pic.downk.cc/item/5eeee27914195aa594092224.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeee27914195aa594092224.jpg" alt="更改域名解析服务器"></a></p>
-<h2 id="4-VPS服务器部署"><a href="#4-VPS服务器部署" class="headerlink" title="4. VPS服务器部署"></a>4. VPS服务器部署</h2><blockquote>
 <p>这里需要使用一个远程连接工具连接云服务器，推荐使用XShell，用法教程很多，这里不再介绍</p>
 </blockquote>
-<h3 id="4-1-创建用户账户"><a href="#4-1-创建用户账户" class="headerlink" title="4.1 创建用户账户"></a>4.1 创建用户账户</h3><p>  为了系统安全，一般不建议直接使用root用户对系统做设置，而vultr默认只有root用户，故可以自己新建一个非root但是有sudo权限的用户继续后面的操作，代码如下所示，请不要复制 <code>#</code> 及以后内容</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo useradd -m -s /bin/bash trojanuser <span class="comment"># 添加用户</span></span><br><span class="line">sudo passwd trojanuser <span class="comment"># 设置密码</span></span><br><span class="line">sudo usermod -G sudo trojanuser <span class="comment"># 设置用户sudo权限</span></span><br><span class="line">su -l trojanuser <span class="comment"># 切换用户</span></span><br></pre></td></tr></table></figure>
-
-<p>  注意：在设置密码的时候，Linux系统的特性是不会显示任何提示的，包括 <code>*</code> 之类的符号，所以不要以为是输入密码没有反应，如图所示：<br>  <a href="https://pic.downk.cc/item/5eeee62714195aa5940ee0ca.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeee62714195aa5940ee0ca.jpg" alt="设置用户密码"></a></p>
-<h3 id="4-2-创建服务账户"><a href="#4-2-创建服务账户" class="headerlink" title="4.2 创建服务账户"></a>4.2 创建服务账户</h3><p>  Trojan是需要占用443端口，使用https协议，所以必然是要安装证书的。本教程使用acme.sh为Trojan生成证书，并配置了acme.sh的自动更新，包括代码和证书的更新。一方面，既然有配置自动更新就有可能出各种问题，毕竟你对更新之后的代码和证书是否可用一无所知。另一方面，acme.sh和Trojan均为开源软件，不一定值得信赖。基于此，为了降低acme.sh和Trojan对系统的影响和其相互影响，故需要单独为acme.sh和Trojan建立没有sudo权限的用户，从而降低风险。<br>  这里我们创建两个用户，分别为trojan和acme。其中用户trojan只需要运行trojan服务，无需登录，也无需家目录，故设置为系统用户即可。这里将用户acme也设置为系统用户，但是区别在于acme需要配置acme.sh，故需要家目录。注意到，我并未给用户acme设置密码，所以该用户也不能登录，只能通过其他已经登录的用户切换过去，这样尽可能的保证了系统的安全与任务的独立。因为trojan和acme都需要读写证书文件，所以将acme和trojan添加到同一个用户组certusers，待申请到证书后将证书所有权交给用户组certusers并允许组内用户访问即可。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd certusers</span><br><span class="line">sudo useradd -r -M -G certusers trojan</span><br><span class="line">sudo useradd -r -m -G certusers acme</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-安装依赖"><a href="#4-3-安装依赖" class="headerlink" title="4.3 安装依赖"></a>4.3 安装依赖</h3><blockquote>
+<h3 id="创建用户账户">4.1 创建用户账户</h3>
+<p>为了系统安全，一般不建议直接使用root用户对系统做设置，而vultr默认只有root用户，故可以自己新建一个非root但是有sudo权限的用户继续后面的操作，代码如下所示，请不要复制 <code>#</code> 及以后内容</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo useradd -m -s /bin/bash trojanuser <span class="comment"># 添加用户</span></span><br><span class="line">sudo passwd trojanuser <span class="comment"># 设置密码</span></span><br><span class="line">sudo usermod -G sudo trojanuser <span class="comment"># 设置用户sudo权限</span></span><br><span class="line">su -l trojanuser <span class="comment"># 切换用户</span></span><br></pre></td></tr></table></figure></p>
+<p>注意：在设置密码的时候，Linux系统的特性是不会显示任何提示的，包括 <code>*</code> 之类的符号，所以不要以为是输入密码没有反应，如图所示： <a href="https://pic.downk.cc/item/5eeee62714195aa5940ee0ca.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeee62714195aa5940ee0ca.jpg" alt="设置用户密码" /></a></p>
+<h3 id="创建服务账户">4.2 创建服务账户</h3>
+<p>Trojan是需要占用443端口，使用https协议，所以必然是要安装证书的。本教程使用acme.sh为Trojan生成证书，并配置了acme.sh的自动更新，包括代码和证书的更新。一方面，既然有配置自动更新就有可能出各种问题，毕竟你对更新之后的代码和证书是否可用一无所知。另一方面，acme.sh和Trojan均为开源软件，不一定值得信赖。基于此，为了降低acme.sh和Trojan对系统的影响和其相互影响，故需要单独为acme.sh和Trojan建立没有sudo权限的用户，从而降低风险。<br />
+这里我们创建两个用户，分别为trojan和acme。其中用户trojan只需要运行trojan服务，无需登录，也无需家目录，故设置为系统用户即可。这里将用户acme也设置为系统用户，但是区别在于acme需要配置acme.sh，故需要家目录。注意到，我并未给用户acme设置密码，所以该用户也不能登录，只能通过其他已经登录的用户切换过去，这样尽可能的保证了系统的安全与任务的独立。因为trojan和acme都需要读写证书文件，所以将acme和trojan添加到同一个用户组certusers，待申请到证书后将证书所有权交给用户组certusers并允许组内用户访问即可。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd certusers</span><br><span class="line">sudo useradd -r -M -G certusers trojan</span><br><span class="line">sudo useradd -r -m -G certusers acme</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装依赖">4.3 安装依赖</h3>
+<blockquote>
 <p>由于Debian系列系统和CentOS系列系统使用不同的包管理软件，所以安装软件的命令不一样，下面两个小节自己对照自己系统选择命令。</p>
 </blockquote>
-<h4 id="4-3-1-Ubuntu-or-Debian"><a href="#4-3-1-Ubuntu-or-Debian" class="headerlink" title="4.3.1 Ubuntu or Debian"></a>4.3.1 Ubuntu or Debian</h4><h5 id="4-3-1-1-更新源"><a href="#4-3-1-1-更新源" class="headerlink" title="4.3.1.1 更新源"></a>4.3.1.1 更新源</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade -y</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-1-2-安装acme-sh需要的依赖"><a href="#4-3-1-2-安装acme-sh需要的依赖" class="headerlink" title="4.3.1.2 安装acme.sh需要的依赖"></a>4.3.1.2 安装acme.sh需要的依赖</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y socat cron curl</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-1-3-启动crontab"><a href="#4-3-1-3-启动crontab" class="headerlink" title="4.3.1.3 启动crontab"></a>4.3.1.3 启动crontab</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start cron</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> cron</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-1-4-安装Trojan需要的依赖"><a href="#4-3-1-4-安装Trojan需要的依赖" class="headerlink" title="4.3.1.4 安装Trojan需要的依赖"></a>4.3.1.4 安装Trojan需要的依赖</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y libcap2-bin xz-utils nano</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-1-4-安装Nginx"><a href="#4-3-1-4-安装Nginx" class="headerlink" title="4.3.1.4 安装Nginx"></a>4.3.1.4 安装Nginx</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y nginx</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-3-2-CentOS"><a href="#4-3-2-CentOS" class="headerlink" title="4.3.2 CentOS"></a>4.3.2 CentOS</h4><h5 id="4-3-2-1-安装acme-sh需要的依赖"><a href="#4-3-2-1-安装acme-sh需要的依赖" class="headerlink" title="4.3.2.1 安装acme.sh需要的依赖"></a>4.3.2.1 安装acme.sh需要的依赖</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y socat cronie curl</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-2-2-启动crontab"><a href="#4-3-2-2-启动crontab" class="headerlink" title="4.3.2.2 启动crontab"></a>4.3.2.2 启动crontab</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start crond</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> crond</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-2-3-安装Trojan需要的依赖"><a href="#4-3-2-3-安装Trojan需要的依赖" class="headerlink" title="4.3.2.3 安装Trojan需要的依赖"></a>4.3.2.3 安装Trojan需要的依赖</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y xz nano</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-3-2-4-安装Nginx"><a href="#4-3-2-4-安装Nginx" class="headerlink" title="4.3.2.4 安装Nginx"></a>4.3.2.4 安装Nginx</h5>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y nginx</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-4-创建证书文件"><a href="#4-4-创建证书文件" class="headerlink" title="4.4 创建证书文件"></a>4.4 创建证书文件</h3><h4 id="4-4-1-新建一个文件夹-usr-local-etc-certfiles用于存放证书"><a href="#4-4-1-新建一个文件夹-usr-local-etc-certfiles用于存放证书" class="headerlink" title="4.4.1 新建一个文件夹/usr/local/etc/certfiles用于存放证书"></a>4.4.1 新建一个文件夹<code>/usr/local/etc/certfiles</code>用于存放证书</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-4-2-将证书文件夹所有者改为acme，使得用户acme有权限写入证书"><a href="#4-4-2-将证书文件夹所有者改为acme，使得用户acme有权限写入证书" class="headerlink" title="4.4.2 将证书文件夹所有者改为acme，使得用户acme有权限写入证书"></a>4.4.2 将证书文件夹所有者改为acme，使得用户acme有权限写入证书</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R acme:acme /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-5-配置证书"><a href="#4-5-配置证书" class="headerlink" title="4.5 配置证书"></a>4.5 配置证书</h3><h4 id="4-5-1-安装acme-sh自动管理CA证书脚本"><a href="#4-5-1-安装acme-sh自动管理CA证书脚本" class="headerlink" title="4.5.1 安装acme.sh自动管理CA证书脚本"></a>4.5.1 安装acme.sh自动管理CA证书脚本</h4><p>  分别执行如下命令，不要复制 <code>#</code> 及之后的内容</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo su -l -s /bin/bash acme <span class="comment"># 切换到 acme 用户</span></span><br><span class="line"></span><br><span class="line">curl  https://get.acme.sh | sh <span class="comment"># 下载安装 acme.sh</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment"># 退出 acme 用户</span></span><br><span class="line"></span><br><span class="line">sudo su -l -s /bin/bash acme <span class="comment"># 再次切换到acme用户</span></span><br></pre></td></tr></table></figure>
-
+<h4 id="ubuntu-or-debian">4.3.1 Ubuntu or Debian</h4>
+<h5 id="更新源">4.3.1.1 更新源</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade -y</span><br></pre></td></tr></table></figure></p>
+<h5 id="安装acme.sh需要的依赖">4.3.1.2 安装acme.sh需要的依赖</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y socat cron curl</span><br></pre></td></tr></table></figure></p>
+<h5 id="启动crontab">4.3.1.3 启动crontab</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start cron</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> cron</span><br></pre></td></tr></table></figure></p>
+<h5 id="安装trojan需要的依赖">4.3.1.4 安装Trojan需要的依赖</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y libcap2-bin xz-utils nano</span><br></pre></td></tr></table></figure></p>
+<h5 id="安装nginx">4.3.1.4 安装Nginx</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y nginx</span><br></pre></td></tr></table></figure></p>
+<h4 id="centos">4.3.2 CentOS</h4>
+<h5 id="安装acme.sh需要的依赖-1">4.3.2.1 安装acme.sh需要的依赖</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y socat cronie curl</span><br></pre></td></tr></table></figure></p>
+<h5 id="启动crontab-1">4.3.2.2 启动crontab</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start crond</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> crond</span><br></pre></td></tr></table></figure></p>
+<h5 id="安装trojan需要的依赖-1">4.3.2.3 安装Trojan需要的依赖</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y xz nano</span><br></pre></td></tr></table></figure></p>
+<h5 id="安装nginx-1">4.3.2.4 安装Nginx</h5>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y nginx</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建证书文件">4.4 创建证书文件</h3>
+<h4 id="新建一个文件夹usrlocaletccertfiles用于存放证书">4.4.1 新建一个文件夹<code>/usr/local/etc/certfiles</code>用于存放证书</h4>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure></p>
+<h4 id="将证书文件夹所有者改为acme使得用户acme有权限写入证书">4.4.2 将证书文件夹所有者改为acme，使得用户acme有权限写入证书</h4>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R acme:acme /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置证书">4.5 配置证书</h3>
+<h4 id="安装acme.sh自动管理ca证书脚本">4.5.1 安装acme.sh自动管理CA证书脚本</h4>
+<p>分别执行如下命令，不要复制 <code>#</code> 及之后的内容</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo su -l -s /bin/bash acme <span class="comment"># 切换到 acme 用户</span></span><br><span class="line"></span><br><span class="line">curl  https://get.acme.sh | sh <span class="comment"># 下载安装 acme.sh</span></span><br><span class="line"><span class="built_in">exit</span> <span class="comment"># 退出 acme 用户</span></span><br><span class="line"></span><br><span class="line">sudo su -l -s /bin/bash acme <span class="comment"># 再次切换到acme用户</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意：这里两次切换用户的操作不能省略，因为安装完acme.sh之后要重新登录当前用户，否则无法识别出acme.sh命令</p>
 </blockquote>
-<h4 id="4-5-2-添加-cloudflare-Global-CA-Key"><a href="#4-5-2-添加-cloudflare-Global-CA-Key" class="headerlink" title="4.5.2 添加 cloudflare Global CA Key"></a>4.5.2 添加 cloudflare Global CA Key</h4><blockquote>
+<h4 id="添加-cloudflare-global-ca-key">4.5.2 添加 cloudflare Global CA Key</h4>
+<blockquote>
 <p>不是使用cloudflare DNS的请查看域名申请与解析部分自己做调整！</p>
 </blockquote>
-<p>  登录 cloudflare，选择进入自己的站点，向下滚动页面，找到 <code>获取您的 API 令牌</code>，点击进入<br>  <a href="https://pic.downk.cc/item/5eeefceb14195aa59428f1b1.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeefceb14195aa59428f1b1.jpg" alt="进入API Key管理页面"></a><br>  可以看到，这里有两个<code>API 密钥</code>，一个是<code>Global API Key</code>，一个是<code>Origin CA Key</code>，我们要使用的是<code>Global API Key</code>，不要选错了，而且每天的查看次数有限，所以，查看之后记得复制保存一下，免得等下不能看了。另外，该API Key非常重要，请慎重保存，不要轻易泄露。<br>  <a href="https://pic.downk.cc/item/5eeefd3e14195aa594293530.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeefd3e14195aa594293530.jpg" alt="查看Global API Key"></a><br>  然后回到远程连接的云服务器，执行一下两条命令：</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CF_Key=<span class="string">"&lt;Your Global API Key&gt;"</span></span><br><span class="line"><span class="built_in">export</span> CF_Email=<span class="string">"&lt;Your cloudflare account Email&gt;"</span></span><br></pre></td></tr></table></figure>
-
+<p>登录 cloudflare，选择进入自己的站点，向下滚动页面，找到 <code>获取您的 API 令牌</code>，点击进入 <a href="https://pic.downk.cc/item/5eeefceb14195aa59428f1b1.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeefceb14195aa59428f1b1.jpg" alt="进入API Key管理页面" /></a> 可以看到，这里有两个<code>API 密钥</code>，一个是<code>Global API Key</code>，一个是<code>Origin CA Key</code>，我们要使用的是<code>Global API Key</code>，不要选错了，而且每天的查看次数有限，所以，查看之后记得复制保存一下，免得等下不能看了。另外，该API Key非常重要，请慎重保存，不要轻易泄露。 <a href="https://pic.downk.cc/item/5eeefd3e14195aa594293530.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeefd3e14195aa594293530.jpg" alt="查看Global API Key" /></a> 然后回到远程连接的云服务器，执行一下两条命令：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> CF_Key=<span class="string">"&lt;Your Global API Key&gt;"</span></span><br><span class="line"><span class="built_in">export</span> CF_Email=<span class="string">"&lt;Your cloudflare account Email&gt;"</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>注意：将 <code>&quot;</code> 内的内容替换成你自己的，不要有 <code>&lt;&gt;</code>，我这里使用<code>&lt;&gt;</code>是表示这里的内容可替换，下面不再重复该提示</p>
+<p>注意：将 <code>"</code> 内的内容替换成你自己的，不要有 <code>&lt;&gt;</code>，我这里使用<code>&lt;&gt;</code>是表示这里的内容可替换，下面不再重复该提示</p>
 </blockquote>
-<h4 id="4-5-3-申请证书"><a href="#4-5-3-申请证书" class="headerlink" title="4.5.3 申请证书"></a>4.5.3 申请证书</h4><blockquote>
+<h4 id="申请证书">4.5.3 申请证书</h4>
+<blockquote>
 <p>不是使用cloudflare DNS的请查看域名申请与解析部分自己做调整！</p>
 </blockquote>
-<p>  执行如下命令（注意域名&lt;tdom.ml&gt;改为你自己的域名），等待一会儿。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue --dns dns_cf -d &lt;tdom.ml&gt;</span><br></pre></td></tr></table></figure>
-
-<p>  看到下图的提示表示证书申请成功。<br>  <a href="https://pic.downk.cc/item/5eeeffe414195aa5942bb427.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeeffe414195aa5942bb427.jpg" alt="证书申请成功"></a></p>
+<p>执行如下命令（注意域名&lt;tdom.ml&gt;改为你自己的域名），等待一会儿。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --issue --dns dns_cf -d &lt;tdom.ml&gt;</span><br></pre></td></tr></table></figure></p>
+<p>看到下图的提示表示证书申请成功。 <a href="https://pic.downk.cc/item/5eeeffe414195aa5942bb427.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eeeffe414195aa5942bb427.jpg" alt="证书申请成功" /></a></p>
 <blockquote>
-<p>申请失败怎么办？证书申请失败的可能性一般有：1. CF_Key或CF_Email填写错误；证书申请次数超限等。此时切忌反复尝试，原因是证书每一个周申请次数是有限制的（20次），如果超限了就需要等一个周或者更换域名了（这个限制是争对每一个子域单独做的限制，所以万一超限了还可以用子域名继续部署）<br>解决方案是：在上述命令后加–staging参数继续测试。测试通过之后，删除上图所示四个证书文件并取消–staging参数再执行一次。–staging参数申请的证书只作为测试用，客户端是无法认证通过的（提示SSL handshake failed: tlsv1 alert unknown ca），所以使用–staging参数申请到了证书之后要去掉–staging参数重新申请一次。</p>
+<p>申请失败怎么办？证书申请失败的可能性一般有：1. CF_Key或CF_Email填写错误；证书申请次数超限等。此时切忌反复尝试，原因是证书每一个周申请次数是有限制的（20次），如果超限了就需要等一个周或者更换域名了（这个限制是争对每一个子域单独做的限制，所以万一超限了还可以用子域名继续部署）<br />
+解决方案是：在上述命令后加–staging参数继续测试。测试通过之后，删除上图所示四个证书文件并取消–staging参数再执行一次。–staging参数申请的证书只作为测试用，客户端是无法认证通过的（提示SSL handshake failed: tlsv1 alert unknown ca），所以使用–staging参数申请到了证书之后要去掉–staging参数重新申请一次。</p>
 </blockquote>
-<h4 id="4-5-4-安装证书"><a href="#4-5-4-安装证书" class="headerlink" title="4.5.4 安装证书"></a>4.5.4 安装证书</h4><p>  执行如下两条命令（注意域名<code>&lt;tdom.ml&gt;</code>改为你自己的域名）</p>
-<p>  第一条：使用acme.sh将证书安装到certfiles目录，这样acme.sh更新证书的时候会自动将新的证书安装到这里。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --install-cert -d &lt;tdom.ml&gt; --key-file /usr/<span class="built_in">local</span>/etc/certfiles/private.key --fullchain-file /usr/<span class="built_in">local</span>/etc/certfiles/certificate.crt</span><br></pre></td></tr></table></figure>
-
-<p>  第二条：配置acme.sh自动更新和自动更新证书，这样配置完Trojan之后一般不用管服务器。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh  --upgrade  --auto-upgrade</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-5-5-修改权限"><a href="#4-5-5-修改权限" class="headerlink" title="4.5.5 修改权限"></a>4.5.5 修改权限</h4><p>  最后还要允许组内用户访问证书。可通过如下命令实现：</p>
-<p>  将证书文件夹所在用户组改为certusers</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R acme:certusers /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure>
-
-<p>  赋予证书文件夹组内用户读取权限，运行这两条命令之后用户trojan就有权限读取证书了</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 750 /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure>
-
-<p>  退出用户acme，因为证书已经安装完成</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-6-配置Trojan"><a href="#4-6-配置Trojan" class="headerlink" title="4.6 配置Trojan"></a>4.6 配置Trojan</h3><h4 id="4-6-1-安装Trojan"><a href="#4-6-1-安装Trojan" class="headerlink" title="4.6.1 安装Trojan"></a>4.6.1 安装Trojan</h4><p>  分别执行如下四个命令，注意看是否报错。</p>
-<p>  安装Trojan，安装完成一般会提示版本号，注意看是否是最新版本</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-
-<p>  将Trojan配置文件的所有者修改为用户trojan，由于使用sudo安装的Trojan，该配置文件默认是属于root用户的，而我们需要使用用户trojan运行Trojan，不修改所有者会导致启动Trojan遇到权限问题</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R trojan:trojan /usr/<span class="built_in">local</span>/etc/trojan</span><br></pre></td></tr></table></figure>
-
-<p>  备份Trojan配置文件，以防万一</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /usr/<span class="built_in">local</span>/etc/trojan/config.json /usr/<span class="built_in">local</span>/etc/trojan/config.json.bak</span><br></pre></td></tr></table></figure>
-
-<p>  使用nano修改配置文件</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /usr/<span class="built_in">local</span>/etc/trojan/config.json</span><br></pre></td></tr></table></figure>
-
-<p>  第四个命令执行完之后屏幕会显示Trojan的配置文件，定位到<code>password</code>、<code>cert</code>和<code>key</code>并修改。密码按自己喜好（该密码等下客户端要用），<code>cert</code>和<code>key</code>分别改为<code>/usr/local/etc/certfiles/certificate.crt</code>和<code>/usr/local/etc/certfiles/private.key</code>。编辑完成配置文件之后按屏幕下方快捷键提示（<code>^O</code>和<code>^X</code>即：<code>Ctrl+O</code>和<code>Ctrl+X</code>）保存并退出nano。修改之后的config文件如图所示。另外，如果有<code>IPv6</code>地址，将<code>local_addr</code>的<code>0.0.0.0</code>改为<code>::</code>才可以使用。</p>
-<h4 id="4-6-2-启动Trojan"><a href="#4-6-2-启动Trojan" class="headerlink" title="4.6.2 启动Trojan"></a>4.6.2 启动Trojan</h4><h5 id="4-6-2-1-修改Trojan启动用户"><a href="#4-6-2-1-修改Trojan启动用户" class="headerlink" title="4.6.2.1 修改Trojan启动用户"></a>4.6.2.1 修改Trojan启动用户</h5><p>  执行如下命令，打开trojan.service文件</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/systemd/system/trojan.service</span><br></pre></td></tr></table></figure>
-
-<p>  在 <code>[Service]</code> 标签中的 <code>StandardError=journal</code> 一行下，添加 <code>User=trojan</code> ，结果如下：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">StandardError&#x3D;journal</span><br><span class="line">User&#x3D;trojan</span><br><span class="line">ExecStart&#x3D;&quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;trojan&quot; &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;trojan&#x2F;config.json&quot;</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -HUP $MAINPID</span><br><span class="line">LimitNOFILE&#x3D;51200</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;1s</span><br></pre></td></tr></table></figure>
-
-<p>  然后重新加载配置文件</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-6-2-2-配置Trojan监听443端口"><a href="#4-6-2-2-配置Trojan监听443端口" class="headerlink" title="4.6.2.2 配置Trojan监听443端口"></a>4.6.2.2 配置Trojan监听443端口</h5><p>  执行如下命令，赋予Trojan监听1024以下端口的能力，使得Trojan可以监听到443端口。这是由于我们使用非root用户启动Trojan，但是Linux默认不允许非root用户启动的进程监听1024以下的端口，除非为每一个二进制文件显式声明。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">setcap</span> CAP_NET_BIND_SERVICE=+eip /usr/<span class="built_in">local</span>/bin/trojan</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-6-2-3-使用systemd启动Trojan"><a href="#4-6-2-3-使用systemd启动Trojan" class="headerlink" title="4.6.2.3 使用systemd启动Trojan"></a>4.6.2.3 使用systemd启动Trojan</h5><p>  Trojan启动、查看状态命令分别如下：</p>
-<p>  启动Trojan</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart trojan</span><br></pre></td></tr></table></figure>
-
-<p>  查看Trojan运行状态</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status trojan</span><br></pre></td></tr></table></figure>
-
-<p>  Trojan运行成功如下图：<br>  <a href="https://pic.downk.cc/item/5eef07ac14195aa594339444.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eef07ac14195aa594339444.jpg" alt="trojan运行成功"></a></p>
-<h5 id="4-6-2-4-更新证书"><a href="#4-6-2-4-更新证书" class="headerlink" title="4.6.2.4 更新证书"></a>4.6.2.4 更新证书</h5><p>  当acme.sh重新安装证书之后，需要通知Trojan重新加载证书。最简单的方案是每三个月登录服务器重启Trojan，但是不够完美，毕竟重启的时候会导致服务中断。其实Trojan有实现 <a href="https://github.com/trojan-gfw/trojan/commit/53ca5f80fcd6239c28c8520886692e9186e3fcf6" target="_blank" rel="noopener">reload certificate and private key</a> 功能，只需要在证书更新后给Trojan发送SIGUSR1消息即可。Trojan收到SIGUSR1消息后便会自动加载新的证书和密钥文件，这样就不用重启Trojan了。手动给Trojan发送SIGUSR1消息的命令是s<code>udo -u trojan killall -s SIGUSR1 trojan</code>，但是这样也不够完美，也得每三个月登录服务器运行一次该命令。其实我们可以给用户trojan添加定时任务，使其每个月运行一次该命令即可。实现如下：</p>
-<p>  首先，编辑用户trojan的crontab文件</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u trojan crontab -e</span><br></pre></td></tr></table></figure>
-
-<p>  在文件末尾添加一行如下，该行表示每个月1号的时候运行命令<code>killall -s SIGUSR1 trojan</code>，由于是使用用户trojan运行的，故不需要在前面加<code>sudo -u trojan</code>。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 1 * * killall -s SIGUSR1 trojan</span><br></pre></td></tr></table></figure>
-
-<p>  最后查看crontab是否生效。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u trojan crontab -l</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-6-2-5-更新Trojan"><a href="#4-6-2-5-更新Trojan" class="headerlink" title="4.6.2.5 更新Trojan"></a>4.6.2.5 更新Trojan</h5><p>  如果Trojan版本有<a href="https://github.com/trojan-gfw/trojan/releases" target="_blank" rel="noopener">更新</a>，那么使用本教程搭建的服务器端更新Trojan版本只需要三条命令即可。</p>
-<p>  更新Trojan</p>
-<blockquote>
-<p>注意：会提示是否覆盖配置文件，如果没有必要请回答n，否则配置文件将会被覆盖（如果不小心覆盖了就得自己重新编辑了）</p>
-</blockquote>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)</span>"</span></span><br></pre></td></tr></table></figure>
-
-<p>  重新赋予Trojan监听443端口的能力</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">setcap</span> CAP_NET_BIND_SERVICE=+eip /usr/<span class="built_in">local</span>/bin/trojan</span><br></pre></td></tr></table></figure>
-
-<p>  重启Trojan</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart trojan</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-7-配置Nginx"><a href="#4-7-配置Nginx" class="headerlink" title="4.7 配置Nginx"></a>4.7 配置Nginx</h3><h4 id="4-7-1-写入虚拟主机到Nginx配置文件"><a href="#4-7-1-写入虚拟主机到Nginx配置文件" class="headerlink" title="4.7.1 写入虚拟主机到Nginx配置文件"></a>4.7.1 写入虚拟主机到Nginx配置文件</h4><p>  由于Nginx配置在Debian系列系统和CentOS系列系统组织方式不同，所以配置文件位置和使用方式有细微区别，为了统一，我将CentOS系列系统的组织结构做细微调整。</p>
-<p>  在Debian系列系统中，Nginx的虚拟主机配置文件在<code>/etc/nginx/sites-available/</code>文件夹中，如果要开启某一个虚拟主机，则建立一个软连接到<code>/etc/nginx/sites-enabled/</code>文件夹并重启Nginx即可。默认虚拟主机在<code>/etc/nginx/sites-enabled/</code>文件夹，需要关闭掉，否则会冲突。</p>
-<p>  在CentOS系列系统中，Nginx的虚拟主机配置文件在<code>/etc/nginx/conf.d/</code>文件夹中以.conf后缀保存，写入之后就可以使用。默认虚拟主机集成在Nginx配置文件<code>/etc/nginx/nginx.conf</code>中，需要打开将其中的server块删除，否则会冲突。Debian系列系统中的<code>/etc/nginx/sites-enabled/</code>和<code>/etc/nginx/sites-available/</code>文件夹结构在CentOS系列系统中是没有的，不过这个策略很不错，可以很方便的开启和关闭虚拟主机，我这里手动调整一下。</p>
-<h5 id="4-7-1-1-CentOS"><a href="#4-7-1-1-CentOS" class="headerlink" title="4.7.1.1 CentOS"></a>4.7.1.1 CentOS</h5><p>  按上述分析，我们使用下面两条命令在<code>/etc/nginx/</code>中添加两个文件夹。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /etc/nginx/sites-available</span><br><span class="line">sudo mkdir /etc/nginx/sites-enabled</span><br></pre></td></tr></table></figure>
-
-<p>  执行如下命令使用nano打开Nginx配置文件，删除其中server块，并添加对<code>/etc/nginx/sites-enabled/</code>文件夹的索引。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
-
-<p>  在<code>include /etc/nginx/conf.d/*.conf;</code>下添加一行：</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;*;</span><br></pre></td></tr></table></figure>
-
-<p>  CentOS反向代理需要配置SELinux允许httpd模块可以联网，否则服务器会返回502错误。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo setsebool -P httpd_can_network_connect <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="4-7-1-2-Ubuntu-or-Debian"><a href="#4-7-1-2-Ubuntu-or-Debian" class="headerlink" title="4.7.1.2 Ubuntu or Debian"></a>4.7.1.2 Ubuntu or Debian</h5><p>  使用如下命令关闭Nginx默认虚拟主机。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /etc/nginx/sites-enabled/default</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-7-1-3-写入配置"><a href="#4-7-1-3-写入配置" class="headerlink" title="4.7.1.3 写入配置"></a>4.7.1.3 写入配置</h5><p>  执行如下命令，使用nano添加虚拟主机。(注意域名&lt;tdom.ml&gt;改为你自己的域名，这是虚拟主机的文件名，只是用来自己识别的。如果你已经有配置虚拟主机在这个文件中，可以自己使用cp命令备份一下或者换个名字也行，等介绍完基本配置再讲如何与现有服务集成。)</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/sites-available/&lt;tdom.ml&gt;</span><br></pre></td></tr></table></figure>
-
-<p>  基于综述部分讲解的Trojan工作原理，现给定Nginx虚拟主机如下所示。这些虚拟主机可以直接拷贝到上面虚拟主机配置文件中再修改为你自己的，其中要修改的地方包括：</p>
+<h4 id="安装证书">4.5.4 安装证书</h4>
+<p>执行如下两条命令（注意域名<code>&lt;tdom.ml&gt;</code>改为你自己的域名）</p>
+<p>第一条：使用acme.sh将证书安装到certfiles目录，这样acme.sh更新证书的时候会自动将新的证书安装到这里。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh --install-cert -d &lt;tdom.ml&gt; --key-file /usr/<span class="built_in">local</span>/etc/certfiles/private.key --fullchain-file /usr/<span class="built_in">local</span>/etc/certfiles/certificate.crt</span><br></pre></td></tr></table></figure></p>
+<p>第二条：配置acme.sh自动更新和自动更新证书，这样配置完Trojan之后一般不用管服务器。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acme.sh  --upgrade  --auto-upgrade</span><br></pre></td></tr></table></figure></p>
+<h4 id="修改权限">4.5.5 修改权限</h4>
+<p>最后还要允许组内用户访问证书。可通过如下命令实现：</p>
+<p>将证书文件夹所在用户组改为certusers</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R acme:certusers /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure></p>
+<p>赋予证书文件夹组内用户读取权限，运行这两条命令之后用户trojan就有权限读取证书了</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -R 750 /usr/<span class="built_in">local</span>/etc/certfiles</span><br></pre></td></tr></table></figure></p>
+<p>退出用户acme，因为证书已经安装完成</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="配置trojan">4.6 配置Trojan</h3>
+<h4 id="安装trojan">4.6.1 安装Trojan</h4>
+<p>分别执行如下四个命令，注意看是否报错。</p>
+<p>安装Trojan，安装完成一般会提示版本号，注意看是否是最新版本</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>将Trojan配置文件的所有者修改为用户trojan，由于使用sudo安装的Trojan，该配置文件默认是属于root用户的，而我们需要使用用户trojan运行Trojan，不修改所有者会导致启动Trojan遇到权限问题</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R trojan:trojan /usr/<span class="built_in">local</span>/etc/trojan</span><br></pre></td></tr></table></figure></p>
+<p>备份Trojan配置文件，以防万一</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /usr/<span class="built_in">local</span>/etc/trojan/config.json /usr/<span class="built_in">local</span>/etc/trojan/config.json.bak</span><br></pre></td></tr></table></figure></p>
+<p>使用nano修改配置文件</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /usr/<span class="built_in">local</span>/etc/trojan/config.json</span><br></pre></td></tr></table></figure></p>
+<p>第四个命令执行完之后屏幕会显示Trojan的配置文件，定位到<code>password</code>、<code>cert</code>和<code>key</code>并修改。密码按自己喜好（该密码等下客户端要用），<code>cert</code>和<code>key</code>分别改为<code>/usr/local/etc/certfiles/certificate.crt</code>和<code>/usr/local/etc/certfiles/private.key</code>。编辑完成配置文件之后按屏幕下方快捷键提示（<code>^O</code>和<code>^X</code>即：<code>Ctrl+O</code>和<code>Ctrl+X</code>）保存并退出nano。修改之后的config文件如图所示。另外，如果有<code>IPv6</code>地址，将<code>local_addr</code>的<code>0.0.0.0</code>改为<code>::</code>才可以使用。</p>
+<h4 id="启动trojan">4.6.2 启动Trojan</h4>
+<h5 id="修改trojan启动用户">4.6.2.1 修改Trojan启动用户</h5>
+<p>执行如下命令，打开trojan.service文件</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/systemd/system/trojan.service</span><br></pre></td></tr></table></figure></p>
+<p>在 <code>[Service]</code> 标签中的 <code>StandardError=journal</code> 一行下，添加 <code>User=trojan</code> ，结果如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;simple</span><br><span class="line">StandardError&#x3D;journal</span><br><span class="line">User&#x3D;trojan</span><br><span class="line">ExecStart&#x3D;&quot;&#x2F;usr&#x2F;local&#x2F;bin&#x2F;trojan&quot; &quot;&#x2F;usr&#x2F;local&#x2F;etc&#x2F;trojan&#x2F;config.json&quot;</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -HUP $MAINPID</span><br><span class="line">LimitNOFILE&#x3D;51200</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">RestartSec&#x3D;1s</span><br></pre></td></tr></table></figure></p>
+<p>然后重新加载配置文件</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br></pre></td></tr></table></figure></p>
+<h5 id="配置trojan监听443端口">4.6.2.2 配置Trojan监听443端口</h5>
+<p>执行如下命令，赋予Trojan监听1024以下端口的能力，使得Trojan可以监听到443端口。这是由于我们使用非root用户启动Trojan，但是Linux默认不允许非root用户启动的进程监听1024以下的端口，除非为每一个二进制文件显式声明。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">setcap</span> CAP_NET_BIND_SERVICE=+eip /usr/<span class="built_in">local</span>/bin/trojan</span><br></pre></td></tr></table></figure></p>
+<h5 id="使用systemd启动trojan">4.6.2.3 使用systemd启动Trojan</h5>
+<p>Trojan启动、查看状态命令分别如下：</p>
+<p>启动Trojan</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart trojan</span><br></pre></td></tr></table></figure></p>
+<p>查看Trojan运行状态</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status trojan</span><br></pre></td></tr></table></figure></p>
+<p>Trojan运行成功如下图： <a href="https://pic.downk.cc/item/5eef07ac14195aa594339444.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eef07ac14195aa594339444.jpg" alt="trojan运行成功" /></a></p>
+<h5 id="更新证书">4.6.2.4 更新证书</h5>
+<p>当acme.sh重新安装证书之后，需要通知Trojan重新加载证书。最简单的方案是每三个月登录服务器重启Trojan，但是不够完美，毕竟重启的时候会导致服务中断。其实Trojan有实现 <a href="https://github.com/trojan-gfw/trojan/commit/53ca5f80fcd6239c28c8520886692e9186e3fcf6" target="_blank" rel="noopener">reload certificate and private key</a> 功能，只需要在证书更新后给Trojan发送SIGUSR1消息即可。Trojan收到SIGUSR1消息后便会自动加载新的证书和密钥文件，这样就不用重启Trojan了。手动给Trojan发送SIGUSR1消息的命令是s<code>udo -u trojan killall -s SIGUSR1 trojan</code>，但是这样也不够完美，也得每三个月登录服务器运行一次该命令。其实我们可以给用户trojan添加定时任务，使其每个月运行一次该命令即可。实现如下：</p>
+<p>首先，编辑用户trojan的crontab文件</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u trojan crontab -e</span><br></pre></td></tr></table></figure></p>
+<p>在文件末尾添加一行如下，该行表示每个月1号的时候运行命令<code>killall -s SIGUSR1 trojan</code>，由于是使用用户trojan运行的，故不需要在前面加<code>sudo -u trojan</code>。</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 1 * * killall -s SIGUSR1 trojan</span><br></pre></td></tr></table></figure></p>
+<p>最后查看crontab是否生效。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u trojan crontab -l</span><br></pre></td></tr></table></figure></p>
+<h5 id="更新trojan">4.6.2.5 更新Trojan</h5>
+<p>如果Trojan版本有<a href="https://github.com/trojan-gfw/trojan/releases" target="_blank" rel="noopener">更新</a>，那么使用本教程搭建的服务器端更新Trojan版本只需要三条命令即可。</p>
+<p>更新Trojan &gt; 注意：会提示是否覆盖配置文件，如果没有必要请回答n，否则配置文件将会被覆盖（如果不小心覆盖了就得自己重新编辑了）</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/trojan-gfw/trojan-quickstart/master/trojan-quickstart.sh)</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>重新赋予Trojan监听443端口的能力</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="built_in">setcap</span> CAP_NET_BIND_SERVICE=+eip /usr/<span class="built_in">local</span>/bin/trojan</span><br></pre></td></tr></table></figure></p>
+<p>重启Trojan</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart trojan</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置nginx">4.7 配置Nginx</h3>
+<h4 id="写入虚拟主机到nginx配置文件">4.7.1 写入虚拟主机到Nginx配置文件</h4>
+<p>由于Nginx配置在Debian系列系统和CentOS系列系统组织方式不同，所以配置文件位置和使用方式有细微区别，为了统一，我将CentOS系列系统的组织结构做细微调整。</p>
+<p>在Debian系列系统中，Nginx的虚拟主机配置文件在<code>/etc/nginx/sites-available/</code>文件夹中，如果要开启某一个虚拟主机，则建立一个软连接到<code>/etc/nginx/sites-enabled/</code>文件夹并重启Nginx即可。默认虚拟主机在<code>/etc/nginx/sites-enabled/</code>文件夹，需要关闭掉，否则会冲突。</p>
+<p>在CentOS系列系统中，Nginx的虚拟主机配置文件在<code>/etc/nginx/conf.d/</code>文件夹中以.conf后缀保存，写入之后就可以使用。默认虚拟主机集成在Nginx配置文件<code>/etc/nginx/nginx.conf</code>中，需要打开将其中的server块删除，否则会冲突。Debian系列系统中的<code>/etc/nginx/sites-enabled/</code>和<code>/etc/nginx/sites-available/</code>文件夹结构在CentOS系列系统中是没有的，不过这个策略很不错，可以很方便的开启和关闭虚拟主机，我这里手动调整一下。</p>
+<h5 id="centos-1">4.7.1.1 CentOS</h5>
+<p>按上述分析，我们使用下面两条命令在<code>/etc/nginx/</code>中添加两个文件夹。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir /etc/nginx/sites-available</span><br><span class="line">sudo mkdir /etc/nginx/sites-enabled</span><br></pre></td></tr></table></figure></p>
+<p>执行如下命令使用nano打开Nginx配置文件，删除其中server块，并添加对<code>/etc/nginx/sites-enabled/</code>文件夹的索引。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure></p>
+<p>在<code>include /etc/nginx/conf.d/*.conf;</code>下添加一行：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">include &#x2F;etc&#x2F;nginx&#x2F;sites-enabled&#x2F;*;</span><br></pre></td></tr></table></figure></p>
+<p>CentOS反向代理需要配置SELinux允许httpd模块可以联网，否则服务器会返回502错误。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo setsebool -P httpd_can_network_connect <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="ubuntu-or-debian-1">4.7.1.2 Ubuntu or Debian</h5>
+<p>使用如下命令关闭Nginx默认虚拟主机。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /etc/nginx/sites-enabled/default</span><br></pre></td></tr></table></figure></p>
+<h5 id="写入配置">4.7.1.3 写入配置</h5>
+<p>执行如下命令，使用nano添加虚拟主机。(注意域名&lt;tdom.ml&gt;改为你自己的域名，这是虚拟主机的文件名，只是用来自己识别的。如果你已经有配置虚拟主机在这个文件中，可以自己使用cp命令备份一下或者换个名字也行，等介绍完基本配置再讲如何与现有服务集成。)</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/nginx/sites-available/&lt;tdom.ml&gt;</span><br></pre></td></tr></table></figure></p>
+<p>基于综述部分讲解的Trojan工作原理，现给定Nginx虚拟主机如下所示。这些虚拟主机可以直接拷贝到上面虚拟主机配置文件中再修改为你自己的，其中要修改的地方包括：</p>
 <ul>
-<li><p>第4行的<code>server_name</code>的值<code>&lt;tdom.ml&gt;</code>改为你自己的域名；</p>
-</li>
-<li><p>第7行的<code>proxy_pass</code>随便指向一个没有敏感信息的网站都可以，这就是你要反向代理的网站，这里我是用了RFC文档的地址；</p>
-</li>
-<li><p>第15行的<code>server_name</code>的值<code>&lt;10.10.10.10&gt;</code>改为你自己的IP；</p>
-</li>
+<li><p>第4行的<code>server_name</code>的值<code>&lt;tdom.ml&gt;</code>改为你自己的域名；</p></li>
+<li><p>第7行的<code>proxy_pass</code>随便指向一个没有敏感信息的网站都可以，这就是你要反向代理的网站，这里我是用了RFC文档的地址；</p></li>
+<li><p>第15行的<code>server_name</code>的值<code>&lt;10.10.10.10&gt;</code>改为你自己的IP；</p></li>
 <li><p>第17行<code>&lt;tdom.ml&gt;</code>改为自己的域名，注意别填错了。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 127.0.0.1:80 default_server;</span><br><span class="line"></span><br><span class="line">    server_name &lt;tdom.ml&gt;;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass https://www.ietf.org;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 127.0.0.1:80;</span><br><span class="line"></span><br><span class="line">    server_name &lt;10.10.10.10&gt;;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> 301 https://&lt;tdom.ml&gt;<span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen 0.0.0.0:80;</span><br><span class="line">    listen [::]:80;</span><br><span class="line"></span><br><span class="line">    server_name _;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">return</span> 301 https://<span class="variable">$host</span><span class="variable">$request_uri</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>解释一下这些虚拟主机的一些细节：第一个server接收来自Trojan的流量，与上面Trojan配置文件对应；第二个server也是接收来自Trojan的流量，但是这个流量尝试使用IP而不是域名访问服务器，所以将其认为是异常流量，并重定向到域名；第三个server接收除127.0.0.1:80外的所有80端口的流量并重定向到443端口，这样便开启了全站https，可有效的防止恶意探测。注意到，第一个和第二个server对应综述部分原理图中的蓝色数据流，第三个server对应综述部分原理图中的红色数据流，综述部分原理图中的绿色数据流不会流到Nginx。</p>
 <p>将建好的虚拟机连接到Nginx，注意域名&lt;tdom.ml&gt;改为你自己的域名</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /etc/nginx/sites-available/&lt;tdom.ml&gt; /etc/nginx/sites-enabled/</span><br></pre></td></tr></table></figure>
-
-</li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /etc/nginx/sites-available/&lt;tdom.ml&gt; /etc/nginx/sites-enabled/</span><br></pre></td></tr></table></figure></li>
 </ul>
-<h4 id="4-7-2-启动Nginx"><a href="#4-7-2-启动Nginx" class="headerlink" title="4.7.2 启动Nginx"></a>4.7.2 启动Nginx</h4><p>  Nginx启动命令和Trojan一样，就不过多解释了。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx</span><br><span class="line">sudo systemctl status nginx</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-7-3-与现有Nginx服务集成"><a href="#4-7-3-与现有Nginx服务集成" class="headerlink" title="4.7.3 与现有Nginx服务集成"></a>4.7.3 与现有Nginx服务集成</h4><p>  如果你本机已经有Nginx服务，那么Nginx配置文件需要做适当修改以和现有服务兼容。</p>
-<p>  在原服务与Trojan使用同一个域名且原来是监听443端口的情况下，那么需要将你的ssl配置删除并将监听地址改为第一个server监听的地址127.0.0.1:80，然后直接用修改好的server代替上述配置文件中第一个server即可。这样https加密部分将会由Trojan处理之后转发给Nginx而不是由Nginx处理，原来的服务对于客户端来说就没有变化。</p>
-<p>  如果原来的服务与Trojan使用不同的域名，建议是修改Trojan与原来的服务使用同一个域名，如果非要使用不同的域名，请参考第3点。</p>
-<p>  如果原来的服务就监听了多个域名，那么请自己琢磨Nginx的sni，参考连接：<a href="http://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html" target="_blank" rel="noopener">ngx_stream_ssl_preread_module</a>。</p>
-<p>  如果原来的服务是监听80端口，想要继续监听80端口那么直接去除第三个server即可，如果要改为监听443端口参考第1点。</p>
-<h3 id="4-8-配置Trojan和Nginx开机自启"><a href="#4-8-配置Trojan和Nginx开机自启" class="headerlink" title="4.8 配置Trojan和Nginx开机自启"></a>4.8 配置Trojan和Nginx开机自启</h3><p>  虽然开机自启一般用不着，除非vultr机房停电，但是反正也没什么代价，弄一下吧。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> trojan</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> nginx</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-9-检查服务器是否配置成功"><a href="#4-9-检查服务器是否配置成功" class="headerlink" title="4.9 检查服务器是否配置成功"></a>4.9 检查服务器是否配置成功</h3><p>  到这里服务器就配置完成了。此时你可以在浏览器里面访问你的网站看是否能够访问，如果你的网站可以访问了，那么就一切正常啦。</p>
+<h4 id="启动nginx">4.7.2 启动Nginx</h4>
+<p>Nginx启动命令和Trojan一样，就不过多解释了。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart nginx</span><br><span class="line">sudo systemctl status nginx</span><br></pre></td></tr></table></figure></p>
+<h4 id="与现有nginx服务集成">4.7.3 与现有Nginx服务集成</h4>
+<p>如果你本机已经有Nginx服务，那么Nginx配置文件需要做适当修改以和现有服务兼容。</p>
+<p>在原服务与Trojan使用同一个域名且原来是监听443端口的情况下，那么需要将你的ssl配置删除并将监听地址改为第一个server监听的地址127.0.0.1:80，然后直接用修改好的server代替上述配置文件中第一个server即可。这样https加密部分将会由Trojan处理之后转发给Nginx而不是由Nginx处理，原来的服务对于客户端来说就没有变化。</p>
+<p>如果原来的服务与Trojan使用不同的域名，建议是修改Trojan与原来的服务使用同一个域名，如果非要使用不同的域名，请参考第3点。</p>
+<p>如果原来的服务就监听了多个域名，那么请自己琢磨Nginx的sni，参考连接：<a href="http://nginx.org/en/docs/stream/ngx_stream_ssl_preread_module.html" target="_blank" rel="noopener">ngx_stream_ssl_preread_module</a>。</p>
+<p>如果原来的服务是监听80端口，想要继续监听80端口那么直接去除第三个server即可，如果要改为监听443端口参考第1点。</p>
+<h3 id="配置trojan和nginx开机自启">4.8 配置Trojan和Nginx开机自启</h3>
+<p>虽然开机自启一般用不着，除非vultr机房停电，但是反正也没什么代价，弄一下吧。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> trojan</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> nginx</span><br></pre></td></tr></table></figure></p>
+<h3 id="检查服务器是否配置成功">4.9 检查服务器是否配置成功</h3>
+<p>到这里服务器就配置完成了。此时你可以在浏览器里面访问你的网站看是否能够访问，如果你的网站可以访问了，那么就一切正常啦。</p>
 <ul>
-<li>浏览器中使用ip访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener">https://tdom.ml</a>;</li>
-<li>浏览器中使用<a href="https://ip" target="_blank" rel="noopener">https://ip</a>访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener">https://tdom.ml</a>(跳转的时候浏览器可能提示不安全是正常的);</li>
-<li>浏览器中使用tdom.ml访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener">https://tdom.ml</a></li>
+<li>浏览器中使用ip访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener" class="uri">https://tdom.ml</a>;</li>
+<li>浏览器中使用<a href="https://ip" target="_blank" rel="noopener" class="uri">https://ip</a>访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener" class="uri">https://tdom.ml</a>(跳转的时候浏览器可能提示不安全是正常的);</li>
+<li>浏览器中使用tdom.ml访问：重定向到<a href="https://tdom.ml" target="_blank" rel="noopener" class="uri">https://tdom.ml</a></li>
 </ul>
-<h3 id="4-10-启动bbr（可选，建议）"><a href="#4-10-启动bbr（可选，建议）" class="headerlink" title="4.10 启动bbr（可选，建议）"></a>4.10 启动bbr（可选，建议）</h3><p>  启动bbr需要Linux内核版本在4.10及以上，如果低于该版本需要自己升级（这不在本教程范围之后）内核版本，保证内核版本不低于4.10。查看系统内核版本命令如下。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
-
-<p>  bbr是谷歌开发的网络控制算法，可以加快访问速度。执行下面命令查看当前系统是否启用bbr。</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure>
-
-<p>  执行完成之后如果提示<code>net.ipv4.tcp_congestion_control = bbr</code>即表示启动了bbr，可以跳过下面启动bbr的步骤。</p>
-<p>  执行以下三条命令，启动bbr</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "net.core.default_qdisc=fq" &gt;&gt; /etc/sysctl.conf'</span></span><br><span class="line">sudo bash -c <span class="string">'echo "net.ipv4.tcp_congestion_control=bbr" &gt;&gt; /etc/sysctl.conf'</span></span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-11-配置防火墙"><a href="#4-11-配置防火墙" class="headerlink" title="4.11 配置防火墙"></a>4.11 配置防火墙</h3><p>  只打开22、80和443端口可以有效的阻止外部恶意流量，降低服务器暴露的风险。此步骤非必须，而且自己有其他服务记得其他服务的端口也要处理。</p>
-<p>  本文以ufw为例配置防火墙，ufw是一个很好用的防火墙配置命令，可以简化操作，减少错误的发生。</p>
-<h4 id="4-11-1-安装ufw"><a href="#4-11-1-安装ufw" class="headerlink" title="4.11.1 安装ufw"></a>4.11.1 安装ufw</h4><h5 id="4-11-1-1-Debian-or-Ubuntu"><a href="#4-11-1-1-Debian-or-Ubuntu" class="headerlink" title="4.11.1.1 Debian or Ubuntu"></a>4.11.1.1 Debian or Ubuntu</h5><p>  执行如下命令安装ufw：</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y ufw</span><br></pre></td></tr></table></figure>
-
-<h5 id="4-11-1-2-CentOS"><a href="#4-11-1-2-CentOS" class="headerlink" title="4.11.1.2 CentOS"></a>4.11.1.2 CentOS</h5><p>  执行如下两个命令安装ufw：</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y epel-release</span><br><span class="line">sudo yum install -y ufw</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-11-2-如果服务器无IPv6地址"><a href="#4-11-2-如果服务器无IPv6地址" class="headerlink" title="4.11.2 如果服务器无IPv6地址"></a>4.11.2 如果服务器无IPv6地址</h4><p>  需要执行如下命令，将IPV6=yes修改为IPV6=no</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/default/ufw</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-11-3-配置防火墙"><a href="#4-11-3-配置防火墙" class="headerlink" title="4.11.3 配置防火墙"></a>4.11.3 配置防火墙</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw <span class="built_in">disable</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line">sudo ufw allow https</span><br><span class="line">sudo ufw allow http</span><br><span class="line">sudo ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
-
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw status</span><br><span class="line">sudo ufw status verbose</span><br></pre></td></tr></table></figure>
-
+<h3 id="启动bbr可选建议">4.10 启动bbr（可选，建议）</h3>
+<p>启动bbr需要Linux内核版本在4.10及以上，如果低于该版本需要自己升级（这不在本教程范围之后）内核版本，保证内核版本不低于4.10。查看系统内核版本命令如下。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure></p>
+<p>bbr是谷歌开发的网络控制算法，可以加快访问速度。执行下面命令查看当前系统是否启用bbr。</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sysctl net.ipv4.tcp_congestion_control</span><br></pre></td></tr></table></figure></p>
+<p>执行完成之后如果提示<code>net.ipv4.tcp_congestion_control = bbr</code>即表示启动了bbr，可以跳过下面启动bbr的步骤。</p>
+<p>执行以下三条命令，启动bbr</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "net.core.default_qdisc=fq" &gt;&gt; /etc/sysctl.conf'</span></span><br><span class="line">sudo bash -c <span class="string">'echo "net.ipv4.tcp_congestion_control=bbr" &gt;&gt; /etc/sysctl.conf'</span></span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置防火墙">4.11 配置防火墙</h3>
+<p>只打开22、80和443端口可以有效的阻止外部恶意流量，降低服务器暴露的风险。此步骤非必须，而且自己有其他服务记得其他服务的端口也要处理。</p>
+<p>本文以ufw为例配置防火墙，ufw是一个很好用的防火墙配置命令，可以简化操作，减少错误的发生。</p>
+<h4 id="安装ufw">4.11.1 安装ufw</h4>
+<h5 id="debian-or-ubuntu">4.11.1.1 Debian or Ubuntu</h5>
+<p>执行如下命令安装ufw：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y ufw</span><br></pre></td></tr></table></figure></p>
+<h5 id="centos-2">4.11.1.2 CentOS</h5>
+<p>执行如下两个命令安装ufw：</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y epel-release</span><br><span class="line">sudo yum install -y ufw</span><br></pre></td></tr></table></figure></p>
+<h4 id="如果服务器无ipv6地址">4.11.2 如果服务器无IPv6地址</h4>
+<p>需要执行如下命令，将IPV6=yes修改为IPV6=no</p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nano /etc/default/ufw</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置防火墙-1">4.11.3 配置防火墙</h4>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw <span class="built_in">disable</span></span><br><span class="line">sudo ufw allow ssh</span><br><span class="line">sudo ufw allow https</span><br><span class="line">sudo ufw allow http</span><br><span class="line">sudo ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw status</span><br><span class="line">sudo ufw status verbose</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>另外，如果对Trojan不放心，那么可以参考trojan wiki，优化防火墙配置，使得Trojan只能给127.0.0.1:80发送数据和响应外部请求。</p>
 </blockquote>
-<h2 id="5-配置trojan客户端"><a href="#5-配置trojan客户端" class="headerlink" title="5. 配置trojan客户端"></a>5. 配置trojan客户端</h2><p>  <a href="https://github.com/Trojan-Qt5/Trojan-Qt5/releases/tag/v1.2.0" target="_blank" rel="noopener">Trojan-Qt5</a>是一个专为trojan开发的跨平台的GUI客户端，目前支持Windows、Linux、Mac。<br>  <a href="https://pic.downk.cc/item/5eef299714195aa5945362bb.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eef299714195aa5945362bb.jpg" alt="Trojan-Qt5主窗口"></a><br>  点击<code>连接-&gt;添加-&gt;手动-&gt;Trojan</code>添加服务器，<br>  <a href="https://pic.downk.cc/item/5eef2b6a14195aa59455b90f.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eef2b6a14195aa59455b90f.jpg" alt="添加服务器"></a><br>  其他配置项不懂的话不要动，就按照默认的即可。<br>  小图标右键菜单，还可以设置代理模式和PAC模式，可以根据需要进行调整。</p>
-<h2 id="6-SwitchyOmega配置"><a href="#6-SwitchyOmega配置" class="headerlink" title="6. SwitchyOmega配置"></a>6. SwitchyOmega配置</h2><p>  SwitchyOmega是Chrome上的一款插件，网上有教程，用法此处不再赘述，可以配合使用已达到更好的效果。</p>
-<h2 id="7-FQA"><a href="#7-FQA" class="headerlink" title="7. FQA"></a>7. FQA</h2><h3 id="7-1-ERR-SSL-PROTOCOL-ERROR"><a href="#7-1-ERR-SSL-PROTOCOL-ERROR" class="headerlink" title="7.1 ERR_SSL_PROTOCOL_ERROR"></a>7.1 ERR_SSL_PROTOCOL_ERROR</h3><blockquote>
+<h2 id="配置trojan客户端">5. 配置trojan客户端</h2>
+<p><a href="https://github.com/Trojan-Qt5/Trojan-Qt5/releases/tag/v1.2.0" target="_blank" rel="noopener">Trojan-Qt5</a>是一个专为trojan开发的跨平台的GUI客户端，目前支持Windows、Linux、Mac。 <a href="https://pic.downk.cc/item/5eef299714195aa5945362bb.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eef299714195aa5945362bb.jpg" alt="Trojan-Qt5主窗口" /></a> 点击<code>连接-&gt;添加-&gt;手动-&gt;Trojan</code>添加服务器， <a href="https://pic.downk.cc/item/5eef2b6a14195aa59455b90f.jpg" target="_blank" rel="noopener"><img src="https://pic.downk.cc/item/5eef2b6a14195aa59455b90f.jpg" alt="添加服务器" /></a> 其他配置项不懂的话不要动，就按照默认的即可。<br />
+小图标右键菜单，还可以设置代理模式和PAC模式，可以根据需要进行调整。</p>
+<h2 id="switchyomega配置">6. SwitchyOmega配置</h2>
+<p>SwitchyOmega是Chrome上的一款插件，网上有教程，用法此处不再赘述，可以配合使用已达到更好的效果。</p>
+<h2 id="fqa">7. FQA</h2>
+<h3 id="err_ssl_protocol_error">7.1 ERR_SSL_PROTOCOL_ERROR</h3>
+<blockquote>
 <p>在配置完服务器和客户端之后，访问Google，发现提示无法提供安全访问链接，并且有<code>ERR_SSL_PROTOCOL_ERROR</code>的错误提示</p>
 </blockquote>
-<p>  查了很久，发现是Cloudflare的CDN打开了，这个不能开的，如果打开了就会出现这个情况。另外，可以ba把Cloudflare中的SSL设置为严格模式。</p>
+<p>查了很久，发现是Cloudflare的CDN打开了，这个不能开的，如果打开了就会出现这个情况。另外，可以ba把Cloudflare中的SSL设置为严格模式。</p>
 
     </div>
 
@@ -631,7 +626,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-购买服务器"><span class="nav-text">1. 购买服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-购买域名"><span class="nav-text">2. 购买域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-构建DNS解析服务"><span class="nav-text">3. 构建DNS解析服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-注册cloudflare会员"><span class="nav-text">3.1 注册cloudflare会员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-添加站点"><span class="nav-text">3.2 添加站点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-VPS服务器部署"><span class="nav-text">4. VPS服务器部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-创建用户账户"><span class="nav-text">4.1 创建用户账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-创建服务账户"><span class="nav-text">4.2 创建服务账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-安装依赖"><span class="nav-text">4.3 安装依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-Ubuntu-or-Debian"><span class="nav-text">4.3.1 Ubuntu or Debian</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-1-1-更新源"><span class="nav-text">4.3.1.1 更新源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-1-2-安装acme-sh需要的依赖"><span class="nav-text">4.3.1.2 安装acme.sh需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-1-3-启动crontab"><span class="nav-text">4.3.1.3 启动crontab</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-1-4-安装Trojan需要的依赖"><span class="nav-text">4.3.1.4 安装Trojan需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-1-4-安装Nginx"><span class="nav-text">4.3.1.4 安装Nginx</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-CentOS"><span class="nav-text">4.3.2 CentOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-2-1-安装acme-sh需要的依赖"><span class="nav-text">4.3.2.1 安装acme.sh需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-2-2-启动crontab"><span class="nav-text">4.3.2.2 启动crontab</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-2-3-安装Trojan需要的依赖"><span class="nav-text">4.3.2.3 安装Trojan需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-2-4-安装Nginx"><span class="nav-text">4.3.2.4 安装Nginx</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-创建证书文件"><span class="nav-text">4.4 创建证书文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-1-新建一个文件夹-usr-local-etc-certfiles用于存放证书"><span class="nav-text">4.4.1 新建一个文件夹&#x2F;usr&#x2F;local&#x2F;etc&#x2F;certfiles用于存放证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-2-将证书文件夹所有者改为acme，使得用户acme有权限写入证书"><span class="nav-text">4.4.2 将证书文件夹所有者改为acme，使得用户acme有权限写入证书</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-配置证书"><span class="nav-text">4.5 配置证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-1-安装acme-sh自动管理CA证书脚本"><span class="nav-text">4.5.1 安装acme.sh自动管理CA证书脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-2-添加-cloudflare-Global-CA-Key"><span class="nav-text">4.5.2 添加 cloudflare Global CA Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-3-申请证书"><span class="nav-text">4.5.3 申请证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-4-安装证书"><span class="nav-text">4.5.4 安装证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-5-修改权限"><span class="nav-text">4.5.5 修改权限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-配置Trojan"><span class="nav-text">4.6 配置Trojan</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-1-安装Trojan"><span class="nav-text">4.6.1 安装Trojan</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-2-启动Trojan"><span class="nav-text">4.6.2 启动Trojan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-2-1-修改Trojan启动用户"><span class="nav-text">4.6.2.1 修改Trojan启动用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-2-2-配置Trojan监听443端口"><span class="nav-text">4.6.2.2 配置Trojan监听443端口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-2-3-使用systemd启动Trojan"><span class="nav-text">4.6.2.3 使用systemd启动Trojan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-2-4-更新证书"><span class="nav-text">4.6.2.4 更新证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-2-5-更新Trojan"><span class="nav-text">4.6.2.5 更新Trojan</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-7-配置Nginx"><span class="nav-text">4.7 配置Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-7-1-写入虚拟主机到Nginx配置文件"><span class="nav-text">4.7.1 写入虚拟主机到Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-7-1-1-CentOS"><span class="nav-text">4.7.1.1 CentOS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-7-1-2-Ubuntu-or-Debian"><span class="nav-text">4.7.1.2 Ubuntu or Debian</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-7-1-3-写入配置"><span class="nav-text">4.7.1.3 写入配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-7-2-启动Nginx"><span class="nav-text">4.7.2 启动Nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-7-3-与现有Nginx服务集成"><span class="nav-text">4.7.3 与现有Nginx服务集成</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-8-配置Trojan和Nginx开机自启"><span class="nav-text">4.8 配置Trojan和Nginx开机自启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-9-检查服务器是否配置成功"><span class="nav-text">4.9 检查服务器是否配置成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-10-启动bbr（可选，建议）"><span class="nav-text">4.10 启动bbr（可选，建议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-11-配置防火墙"><span class="nav-text">4.11 配置防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-11-1-安装ufw"><span class="nav-text">4.11.1 安装ufw</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-11-1-1-Debian-or-Ubuntu"><span class="nav-text">4.11.1.1 Debian or Ubuntu</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-11-1-2-CentOS"><span class="nav-text">4.11.1.2 CentOS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-11-2-如果服务器无IPv6地址"><span class="nav-text">4.11.2 如果服务器无IPv6地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-11-3-配置防火墙"><span class="nav-text">4.11.3 配置防火墙</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-配置trojan客户端"><span class="nav-text">5. 配置trojan客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-SwitchyOmega配置"><span class="nav-text">6. SwitchyOmega配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-FQA"><span class="nav-text">7. FQA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-ERR-SSL-PROTOCOL-ERROR"><span class="nav-text">7.1 ERR_SSL_PROTOCOL_ERROR</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#购买服务器"><span class="nav-text">1. 购买服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#购买域名"><span class="nav-text">2. 购买域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建dns解析服务"><span class="nav-text">3. 构建DNS解析服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注册cloudflare会员"><span class="nav-text">3.1 注册cloudflare会员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加站点"><span class="nav-text">3.2 添加站点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vps服务器部署"><span class="nav-text">4. VPS服务器部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建用户账户"><span class="nav-text">4.1 创建用户账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建服务账户"><span class="nav-text">4.2 创建服务账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖"><span class="nav-text">4.3 安装依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ubuntu-or-debian"><span class="nav-text">4.3.1 Ubuntu or Debian</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#更新源"><span class="nav-text">4.3.1.1 更新源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装acme.sh需要的依赖"><span class="nav-text">4.3.1.2 安装acme.sh需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动crontab"><span class="nav-text">4.3.1.3 启动crontab</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装trojan需要的依赖"><span class="nav-text">4.3.1.4 安装Trojan需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装nginx"><span class="nav-text">4.3.1.4 安装Nginx</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#centos"><span class="nav-text">4.3.2 CentOS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#安装acme.sh需要的依赖-1"><span class="nav-text">4.3.2.1 安装acme.sh需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动crontab-1"><span class="nav-text">4.3.2.2 启动crontab</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装trojan需要的依赖-1"><span class="nav-text">4.3.2.3 安装Trojan需要的依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装nginx-1"><span class="nav-text">4.3.2.4 安装Nginx</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建证书文件"><span class="nav-text">4.4 创建证书文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新建一个文件夹usrlocaletccertfiles用于存放证书"><span class="nav-text">4.4.1 新建一个文件夹&#x2F;usr&#x2F;local&#x2F;etc&#x2F;certfiles用于存放证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将证书文件夹所有者改为acme使得用户acme有权限写入证书"><span class="nav-text">4.4.2 将证书文件夹所有者改为acme，使得用户acme有权限写入证书</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置证书"><span class="nav-text">4.5 配置证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装acme.sh自动管理ca证书脚本"><span class="nav-text">4.5.1 安装acme.sh自动管理CA证书脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加-cloudflare-global-ca-key"><span class="nav-text">4.5.2 添加 cloudflare Global CA Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#申请证书"><span class="nav-text">4.5.3 申请证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装证书"><span class="nav-text">4.5.4 安装证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改权限"><span class="nav-text">4.5.5 修改权限</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置trojan"><span class="nav-text">4.6 配置Trojan</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装trojan"><span class="nav-text">4.6.1 安装Trojan</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动trojan"><span class="nav-text">4.6.2 启动Trojan</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#修改trojan启动用户"><span class="nav-text">4.6.2.1 修改Trojan启动用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#配置trojan监听443端口"><span class="nav-text">4.6.2.2 配置Trojan监听443端口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用systemd启动trojan"><span class="nav-text">4.6.2.3 使用systemd启动Trojan</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新证书"><span class="nav-text">4.6.2.4 更新证书</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更新trojan"><span class="nav-text">4.6.2.5 更新Trojan</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置nginx"><span class="nav-text">4.7 配置Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写入虚拟主机到nginx配置文件"><span class="nav-text">4.7.1 写入虚拟主机到Nginx配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#centos-1"><span class="nav-text">4.7.1.1 CentOS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ubuntu-or-debian-1"><span class="nav-text">4.7.1.2 Ubuntu or Debian</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#写入配置"><span class="nav-text">4.7.1.3 写入配置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动nginx"><span class="nav-text">4.7.2 启动Nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与现有nginx服务集成"><span class="nav-text">4.7.3 与现有Nginx服务集成</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置trojan和nginx开机自启"><span class="nav-text">4.8 配置Trojan和Nginx开机自启</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查服务器是否配置成功"><span class="nav-text">4.9 检查服务器是否配置成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动bbr可选建议"><span class="nav-text">4.10 启动bbr（可选，建议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置防火墙"><span class="nav-text">4.11 配置防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装ufw"><span class="nav-text">4.11.1 安装ufw</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#debian-or-ubuntu"><span class="nav-text">4.11.1.1 Debian or Ubuntu</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#centos-2"><span class="nav-text">4.11.1.2 CentOS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如果服务器无ipv6地址"><span class="nav-text">4.11.2 如果服务器无IPv6地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置防火墙-1"><span class="nav-text">4.11.3 配置防火墙</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置trojan客户端"><span class="nav-text">5. 配置trojan客户端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switchyomega配置"><span class="nav-text">6. SwitchyOmega配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fqa"><span class="nav-text">7. FQA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#err_ssl_protocol_error"><span class="nav-text">7.1 ERR_SSL_PROTOCOL_ERROR</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -704,12 +699,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">44k</span>
+    <span title="站点总字数">45k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">40 分钟</span>
+    <span title="站点阅读时长">41 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -793,6 +788,8 @@ if (document.querySelectorAll('pre.mermaid').length) {
 }
 </script>
 
+
+  
 
   
 

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/</loc>
+    <lastmod>2021-01-05</lastmod>
+  </url>
+  <url>
     <loc>http://blog.rylee.fun/2020/06/16/next-setting/</loc>
-    <lastmod>2021-01-01</lastmod>
+    <lastmod>2021-01-03</lastmod>
   </url>
   <url>
     <loc>http://blog.rylee.fun/2020/12/12/macos-configure/</loc>
-    <lastmod>2020-12-12</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2020/11/29/study-notes-tensorflow-lesson2/</loc>
     <lastmod>2020-12-12</lastmod>
   </url>
   <url>

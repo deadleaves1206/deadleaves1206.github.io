@@ -268,44 +268,49 @@
       
         <p>摘要：本文讲解了如何在Docker中安装MySQL</p>
 <a id="more"></a>
-
-<h2 id="1-查看可用MySQL可用版本"><a href="#1-查看可用MySQL可用版本" class="headerlink" title="1. 查看可用MySQL可用版本"></a>1. 查看可用MySQL可用版本</h2><p>Docker中<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">MySQL镜像库</a>，如图：</p>
-<p><img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824180041818.png" alt="MySQL镜像库"></p>
+<h2 id="查看可用mysql可用版本">1. 查看可用MySQL可用版本</h2>
+<p>Docker中<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">MySQL镜像库</a>，如图：</p>
+<figure>
+<img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824180041818.png" alt="MySQL镜像库" /><figcaption aria-hidden="true">MySQL镜像库</figcaption>
+</figure>
 <p>此外，我们还可以使用<code>docker search mysql</code>命令来查看可用的版本：</p>
 <figure class="highlight zsh"><figcaption><span>命令查看MySQL可用版本</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">❯ docker search mysql</span><br><span class="line">NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED</span><br><span class="line">mysql                             MySQL is a widely used, open-source relation…   9876                [OK]</span><br><span class="line">mariadb                           MariaDB is a community-developed fork of MyS…   3611                [OK]</span><br><span class="line">mysql/mysql-server                Optimized MySQL Server Docker images. Create…   721                                     [OK]</span><br><span class="line">percona                           Percona Server is a fork of the MySQL relati…   503                 [OK]</span><br><span class="line">centos/mysql-57-centos7           MySQL 5.7 SQL database server                   81</span><br><span class="line">mysql/mysql-cluster               Experimental MySQL Cluster Docker images. Cr…   74</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-拉取MySQL镜像"><a href="#2-拉取MySQL镜像" class="headerlink" title="2. 拉取MySQL镜像"></a>2. 拉取MySQL镜像</h2><p>这里我们拉取官方的最新版本的镜像，使用命令<code>docker pull mysql:latest</code>，其中<code>latest</code>表示最新版本镜像：</p>
+<h2 id="拉取mysql镜像">2. 拉取MySQL镜像</h2>
+<p>这里我们拉取官方的最新版本的镜像，使用命令<code>docker pull mysql:latest</code>，其中<code>latest</code>表示最新版本镜像：</p>
 <figure class="highlight zsh"><figcaption><span>拉取MySQL镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">❯ docker pull mysql:latest</span><br><span class="line">latest: Pulling from library/mysql</span><br><span class="line">bf5952930446: Pull complete</span><br><span class="line">8254623a9871: Pull complete</span><br><span class="line">938e3e06dac4: Pull complete</span><br><span class="line">ea28ebf28884: Pull complete</span><br><span class="line">f3cef38785c2: Pull complete</span><br><span class="line">894f9792565a: Pull complete</span><br><span class="line">1d8a57523420: Pull complete</span><br><span class="line">6c676912929f: Pull complete</span><br><span class="line">ff39fdb566b4: Pull complete</span><br><span class="line">fff872988aba: Pull complete</span><br><span class="line">4d34e365ae68: Pull complete</span><br><span class="line">7886ee20621e: Pull complete</span><br><span class="line">Digest: sha256:c358e72e100ab493a0304bda35e6f239db2ec8c9bb836d8a427ac34307d074ed</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> mysql:latest</span><br><span class="line">docker.io/library/mysql:latest</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-查看本地镜像"><a href="#3-查看本地镜像" class="headerlink" title="3. 查看本地镜像"></a>3. 查看本地镜像</h2><p>使用<code>docker image ls</code>命令来查看已经安装的本地镜像：</p>
+<h2 id="查看本地镜像">3. 查看本地镜像</h2>
+<p>使用<code>docker image ls</code>命令来查看已经安装的本地镜像：</p>
 <figure class="highlight zsh"><figcaption><span>查看本地镜像</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker image ls</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">mysql               latest              0d64f46acfd1        2 weeks ago         544MB</span><br></pre></td></tr></table></figure>
-
 <p>可以看到，第3行显示了我们安装好的mysql，TAG显示为<code>latest</code>。</p>
-<h2 id="4-运行容器"><a href="#4-运行容器" class="headerlink" title="4. 运行容器"></a>4. 运行容器</h2><p>安装完成后，执行如下命令，运行容器：</p>
+<h2 id="运行容器">4. 运行容器</h2>
+<p>安装完成后，执行如下命令，运行容器：</p>
 <figure class="highlight zsh"><figcaption><span>运行容器</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">❯ docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br><span class="line">07940f9545a3f7bbc0d5f22e1b2366cca3709b6851dbe466c5a09de9eaa3cba4</span><br></pre></td></tr></table></figure>
-
 <p>参数说明：</p>
 <ul>
 <li><strong>-i:</strong> 以交互模式运行容器，通常与<code>-t</code>同时使用；</li>
 <li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与<code>-i</code>同时使用；</li>
 <li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
-<li><strong>–name mysql-test:</strong> 指定容器的名称；</li>
+<li><strong>--name mysql-test:</strong> 指定容器的名称；</li>
 <li><strong>-p 3306:3306:</strong> 映射容器服务的 3306 端口到宿主机的 3306 端口，外部主机可以直接通过<code>宿主机ip:3306</code>访问到 MySQL 的服务；</li>
 <li><strong>-e MYSQL_ROOT_PASSWORD=123456:</strong> <code>-e</code>参数的作用是指定容器的环境变量，这里是指定<code>MYSQL_ROOT_PASSWORD=123456</code>，即指定 MySQL 的 root 密码是 <code>123456</code>；</li>
 <li><strong>mysql:</strong> 最后的这个mysql即为要运行的镜像。</li>
 </ul>
-<h2 id="5-安装成功"><a href="#5-安装成功" class="headerlink" title="5. 安装成功"></a>5. 安装成功</h2><p>通过<code>docker ps</code>来查看是否成功运行容器：</p>
+<h2 id="安装成功">5. 安装成功</h2>
+<p>通过<code>docker ps</code>来查看是否成功运行容器：</p>
 <figure class="highlight zsh"><figcaption><span>查看是否成功运行容器</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">07940f9545a3        mysql               <span class="string">"docker-entrypoint.s…"</span>   About an hour ago   Up About an hour    0.0.0.0:3306-&gt;3306/tcp, 33060/tcp   mysql-test</span><br></pre></td></tr></table></figure>
-
 <p>在宿主机上通过<code>root</code>用户和密码<code>123456</code>访问MySQL服务：</p>
 <ul>
 <li>配置Navicat链接：</li>
 </ul>
-<p><img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824181848138.png" alt="在Navicat中配置MySQL链接"></p>
+<figure>
+<img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824181848138.png" alt="在Navicat中配置MySQL链接" /><figcaption aria-hidden="true">在Navicat中配置MySQL链接</figcaption>
+</figure>
 <ul>
 <li>链接MySQL：</li>
 </ul>
-<p><img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824182335787.png" alt="使用Navicat链接mysql"></p>
+<figure>
+<img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824182335787.png" alt="使用Navicat链接mysql" /><figcaption aria-hidden="true">使用Navicat链接mysql</figcaption>
+</figure>
 
     </div>
 
@@ -419,7 +424,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-查看可用MySQL可用版本"><span class="nav-text">1. 查看可用MySQL可用版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-拉取MySQL镜像"><span class="nav-text">2. 拉取MySQL镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-查看本地镜像"><span class="nav-text">3. 查看本地镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-运行容器"><span class="nav-text">4. 运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-安装成功"><span class="nav-text">5. 安装成功</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看可用mysql可用版本"><span class="nav-text">1. 查看可用MySQL可用版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉取mysql镜像"><span class="nav-text">2. 拉取MySQL镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看本地镜像"><span class="nav-text">3. 查看本地镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行容器"><span class="nav-text">4. 运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装成功"><span class="nav-text">5. 安装成功</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -492,12 +497,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">44k</span>
+    <span title="站点总字数">45k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">40 分钟</span>
+    <span title="站点阅读时长">41 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
@@ -581,6 +586,8 @@ if (document.querySelectorAll('pre.mermaid').length) {
 }
 </script>
 
+
+  
 
   
 
