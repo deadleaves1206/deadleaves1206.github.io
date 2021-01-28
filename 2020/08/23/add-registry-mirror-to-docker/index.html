@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-lee.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-lee.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-lee.png">
@@ -80,7 +80,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -121,6 +125,11 @@
     <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
         <li class="menu-item menu-item-about">
 
     <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
@@ -134,11 +143,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -237,7 +241,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>884</span>
+              <span>974</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -260,23 +264,23 @@
 <a id="more"></a>
 <h2 id="国内常用源">1. 国内常用源</h2>
 <ul>
-<li><a href="https://registry.docker-cn.com" target="_blank" rel="noopener" class="uri">https://registry.docker-cn.com</a> - Docker中国区官方镜像</li>
-<li><a href="https://dockerhub.azk8s.cn" target="_blank" rel="noopener" class="uri">https://dockerhub.azk8s.cn</a> - Azure镜像</li>
-<li><a href="http://hub-mirror.c.163.com" target="_blank" rel="noopener" class="uri">http://hub-mirror.c.163.com</a> - 网易镜像</li>
-<li><a href="https://docker.mirrors.ustc.edu.cn" target="_blank" rel="noopener" class="uri">https://docker.mirrors.ustc.edu.cn</a> - 科大镜像站</li>
-<li>阿里云也有镜像，只不过需要登录<a href="https://cr.console.aliyun.com/" target="_blank" rel="noopener">阿里云控制台</a>后获取自己专属的镜像源。</li>
+<li><a target="_blank" rel="noopener" href="https://registry.docker-cn.com" class="uri">https://registry.docker-cn.com</a> - Docker中国区官方镜像</li>
+<li><a target="_blank" rel="noopener" href="https://dockerhub.azk8s.cn" class="uri">https://dockerhub.azk8s.cn</a> - Azure镜像</li>
+<li><a target="_blank" rel="noopener" href="http://hub-mirror.c.163.com" class="uri">http://hub-mirror.c.163.com</a> - 网易镜像</li>
+<li><a target="_blank" rel="noopener" href="https://docker.mirrors.ustc.edu.cn" class="uri">https://docker.mirrors.ustc.edu.cn</a> - 科大镜像站</li>
+<li>阿里云也有镜像，只不过需要登录<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/">阿里云控制台</a>后获取自己专属的镜像源。</li>
 </ul>
 <h2 id="设置方法">2. 设置方法</h2>
 <h3 id="macos">2.1. macOS</h3>
 <p>在macOS中配置是比较简单的。<br />
 点击Docker Desktop小图标，在下来菜单中选择<code>Preferences</code>，打开配置页面。<br />
 打开<code>Docker Engine</code>选项卡，修改右侧配置文件，添加<code>registry-mirrors</code>配置项。</p>
-<figure class="highlight json"><figcaption><span>原文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"experimental"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"debug"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight json"><figcaption><span>添加registry-mirrors配置项</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"experimental"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">    <span class="string">"https://registry.docker-cn.com"</span>,</span><br><span class="line">    <span class="string">"https://docker.mirrors.ustc.edu.cn"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"debug"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><figcaption><span>原文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;experimental&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><figcaption><span>添加registry-mirrors配置项</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;experimental&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">&quot;registry-mirrors&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;https://registry.docker-cn.com&quot;</span>,</span><br><span class="line">    <span class="string">&quot;https://docker.mirrors.ustc.edu.cn&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;debug&quot;</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="linux">2.2. Linux</h3>
 <h4 id="修改配置文件">2.2.1. 修改配置文件</h4>
 <p>打开Docker配置文件，Linux下的默认配置文件是<code>/etc/docker/daemon.json</code>，添加<code>registry-mirrors</code>配置项</p>
-<figure class="highlight json"><figcaption><span>daemon.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [<span class="string">"https://&lt;my-docker-mirror-host&gt;"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><figcaption><span>daemon.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;registry-mirrors&quot;</span>: [<span class="string">&quot;https://&lt;my-docker-mirror-host&gt;&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="以参数方式启动docker">2.2.2. 以参数方式启动Docker</h4>
 <p>手动启动dockerd的时候，添加<code>--registry-mirror</code>参数</p>
 <figure class="highlight bash"><figcaption><span>以参数方式启动Docker</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dockerd --registry-mirror=https://&lt;my-docker-mirror-host&gt;</span><br></pre></td></tr></table></figure>
@@ -293,7 +297,7 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <p><span>本文标题:</span><a href="/2020/08/23/add-registry-mirror-to-docker/">Docker添加国内镜像源</a></p>
-  <p><span>文章作者:</span><a href="/" title="访问 ry Lee 的个人博客">ry Lee</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
   <p><span>发布时间:</span>2020年08月23日 - 15:08</p>
   <p><span>最后更新:</span>2020年08月23日 - 16:08</p>
   <p><span>原始链接:</span><a href="/2020/08/23/add-registry-mirror-to-docker/" title="Docker添加国内镜像源">http://blog.rylee.fun/2020/08/23/add-registry-mirror-to-docker/</a>
@@ -393,7 +397,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#国内常用源"><span class="nav-text">1. 国内常用源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置方法"><span class="nav-text">2. 设置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#macos"><span class="nav-text">2.1. macOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-text">2.2. Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#修改配置文件"><span class="nav-text">2.2.1. 修改配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以参数方式启动docker"><span class="nav-text">2.2.2. 以参数方式启动Docker</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BD%E5%86%85%E5%B8%B8%E7%94%A8%E6%BA%90"><span class="nav-text">1. 国内常用源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="nav-text">2. 设置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#macos"><span class="nav-text">2.1. macOS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux"><span class="nav-text">2.2. Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">2.2.1. 修改配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A5%E5%8F%82%E6%95%B0%E6%96%B9%E5%BC%8F%E5%90%AF%E5%8A%A8docker"><span class="nav-text">2.2.2. 以参数方式启动Docker</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -409,20 +413,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -466,12 +470,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">45k</span>
+    <span title="站点总字数">48k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">41 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

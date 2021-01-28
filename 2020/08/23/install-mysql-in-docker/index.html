@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-lee.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-lee.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-lee.png">
@@ -84,7 +84,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -125,6 +129,11 @@
     <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
         <li class="menu-item menu-item-about">
 
     <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
@@ -138,11 +147,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -247,7 +251,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -269,7 +273,7 @@
         <p>摘要：本文讲解了如何在Docker中安装MySQL</p>
 <a id="more"></a>
 <h2 id="查看可用mysql可用版本">1. 查看可用MySQL可用版本</h2>
-<p>Docker中<a href="https://hub.docker.com/_/mysql?tab=tags" target="_blank" rel="noopener">MySQL镜像库</a>，如图：</p>
+<p>Docker中<a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql?tab=tags">MySQL镜像库</a>，如图：</p>
 <figure>
 <img src="https://rylee-home-pic.oss-cn-beijing.aliyuncs.com/install-mysql-in-docker-20200824180041818.png" alt="MySQL镜像库" /><figcaption aria-hidden="true">MySQL镜像库</figcaption>
 </figure>
@@ -297,7 +301,7 @@
 </ul>
 <h2 id="安装成功">5. 安装成功</h2>
 <p>通过<code>docker ps</code>来查看是否成功运行容器：</p>
-<figure class="highlight zsh"><figcaption><span>查看是否成功运行容器</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">07940f9545a3        mysql               <span class="string">"docker-entrypoint.s…"</span>   About an hour ago   Up About an hour    0.0.0.0:3306-&gt;3306/tcp, 33060/tcp   mysql-test</span><br></pre></td></tr></table></figure>
+<figure class="highlight zsh"><figcaption><span>查看是否成功运行容器</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">❯ docker ps</span><br><span class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                               NAMES</span><br><span class="line">07940f9545a3        mysql               <span class="string">&quot;docker-entrypoint.s…&quot;</span>   About an hour ago   Up About an hour    0.0.0.0:3306-&gt;3306/tcp, 33060/tcp   mysql-test</span><br></pre></td></tr></table></figure>
 <p>在宿主机上通过<code>root</code>用户和密码<code>123456</code>访问MySQL服务：</p>
 <ul>
 <li>配置Navicat链接：</li>
@@ -324,7 +328,7 @@
   <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <p><span>本文标题:</span><a href="/2020/08/23/install-mysql-in-docker/">使用Docker安装MySQL</a></p>
-  <p><span>文章作者:</span><a href="/" title="访问 ry Lee 的个人博客">ry Lee</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问  的个人博客"></a></p>
   <p><span>发布时间:</span>2020年08月23日 - 16:08</p>
   <p><span>最后更新:</span>2020年11月28日 - 17:11</p>
   <p><span>原始链接:</span><a href="/2020/08/23/install-mysql-in-docker/" title="使用Docker安装MySQL">http://blog.rylee.fun/2020/08/23/install-mysql-in-docker/</a>
@@ -424,7 +428,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看可用mysql可用版本"><span class="nav-text">1. 查看可用MySQL可用版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拉取mysql镜像"><span class="nav-text">2. 拉取MySQL镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看本地镜像"><span class="nav-text">3. 查看本地镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行容器"><span class="nav-text">4. 运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装成功"><span class="nav-text">5. 安装成功</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%AF%E7%94%A8mysql%E5%8F%AF%E7%94%A8%E7%89%88%E6%9C%AC"><span class="nav-text">1. 查看可用MySQL可用版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%89%E5%8F%96mysql%E9%95%9C%E5%83%8F"><span class="nav-text">2. 拉取MySQL镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%9C%AC%E5%9C%B0%E9%95%9C%E5%83%8F"><span class="nav-text">3. 查看本地镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-text">4. 运行容器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F"><span class="nav-text">5. 安装成功</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -440,20 +444,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -497,12 +501,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">45k</span>
+    <span title="站点总字数">48k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">41 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

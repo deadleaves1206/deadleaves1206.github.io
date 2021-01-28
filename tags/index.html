@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-lee.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-lee.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-lee.png">
@@ -77,7 +77,11 @@
   </style>
 </noscript>
 
-</head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <div class="container use-motion">
@@ -118,6 +122,11 @@
     <a href="/" rel="section"><i class="home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
+
+  </li>
         <li class="menu-item menu-item-about">
 
     <a href="/about/" rel="section"><i class="user fa-fw"></i>关于</a>
@@ -131,11 +140,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档</a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -191,10 +195,10 @@
       <div class="post-body">
           <div class="tag-cloud">
             <div class="tag-cloud-title">
-              目前共计 29 个标签
+              目前共计 31 个标签
             </div>
             <div class="tag-cloud-tags">
-              <a href="/tags/Catalina/" style="font-size: 12px; color: #ccc">Catalina</a> <a href="/tags/Linux/" style="font-size: 30px; color: #111">Linux</a> <a href="/tags/TensorFlow/" style="font-size: 30px; color: #111">TensorFlow</a> <a href="/tags/Trojan/" style="font-size: 12px; color: #ccc">Trojan</a> <a href="/tags/Ubuntu/" style="font-size: 12px; color: #ccc">Ubuntu</a> <a href="/tags/component/" style="font-size: 12px; color: #ccc">component</a> <a href="/tags/data-file/" style="font-size: 12px; color: #ccc">data_file</a> <a href="/tags/docker/" style="font-size: 30px; color: #111">docker</a> <a href="/tags/flowchart/" style="font-size: 12px; color: #ccc">flowchart</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/lilypond/" style="font-size: 12px; color: #ccc">lilypond</a> <a href="/tags/macOS/" style="font-size: 12px; color: #ccc">macOS</a> <a href="/tags/markdown/" style="font-size: 12px; color: #ccc">markdown</a> <a href="/tags/mermaid/" style="font-size: 12px; color: #ccc">mermaid</a> <a href="/tags/miniprogram/" style="font-size: 12px; color: #ccc">miniprogram</a> <a href="/tags/mysql/" style="font-size: 12px; color: #ccc">mysql</a> <a href="/tags/next/" style="font-size: 30px; color: #111">next</a> <a href="/tags/no-longer-supported/" style="font-size: 12px; color: #ccc">no-longer-supported</a> <a href="/tags/old-releases/" style="font-size: 12px; color: #ccc">old-releases</a> <a href="/tags/setting/" style="font-size: 12px; color: #ccc">setting</a> <a href="/tags/source/" style="font-size: 12px; color: #ccc">source</a> <a href="/tags/wechat/" style="font-size: 12px; color: #ccc">wechat</a> <a href="/tags/%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/" style="font-size: 12px; color: #ccc">中文字体</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 30px; color: #111">学习笔记</a> <a href="/tags/%E6%97%A7%E7%89%88%E6%9C%AC/" style="font-size: 12px; color: #ccc">旧版本</a> <a href="/tags/%E6%BA%90%E6%9B%B4%E6%94%B9/" style="font-size: 12px; color: #ccc">源更改</a> <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 12px; color: #ccc">科学上网</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 12px; color: #ccc">系统配置</a> <a href="/tags/%E9%95%9C%E5%83%8F%E6%BA%90/" style="font-size: 12px; color: #ccc">镜像源</a>
+              <a href="/tags/Catalina/" style="font-size: 12px; color: #ccc">Catalina</a> <a href="/tags/Linux/" style="font-size: 21px; color: #6f6f6f">Linux</a> <a href="/tags/PyTorch/" style="font-size: 12px; color: #ccc">PyTorch</a> <a href="/tags/TensorFlow/" style="font-size: 21px; color: #6f6f6f">TensorFlow</a> <a href="/tags/Trojan/" style="font-size: 12px; color: #ccc">Trojan</a> <a href="/tags/Ubuntu/" style="font-size: 12px; color: #ccc">Ubuntu</a> <a href="/tags/component/" style="font-size: 12px; color: #ccc">component</a> <a href="/tags/data-file/" style="font-size: 12px; color: #ccc">data_file</a> <a href="/tags/docker/" style="font-size: 21px; color: #6f6f6f">docker</a> <a href="/tags/flowchart/" style="font-size: 12px; color: #ccc">flowchart</a> <a href="/tags/hexo/" style="font-size: 12px; color: #ccc">hexo</a> <a href="/tags/lilypond/" style="font-size: 12px; color: #ccc">lilypond</a> <a href="/tags/macOS/" style="font-size: 12px; color: #ccc">macOS</a> <a href="/tags/markdown/" style="font-size: 12px; color: #ccc">markdown</a> <a href="/tags/mermaid/" style="font-size: 12px; color: #ccc">mermaid</a> <a href="/tags/miniprogram/" style="font-size: 12px; color: #ccc">miniprogram</a> <a href="/tags/mysql/" style="font-size: 12px; color: #ccc">mysql</a> <a href="/tags/next/" style="font-size: 21px; color: #6f6f6f">next</a> <a href="/tags/no-longer-supported/" style="font-size: 12px; color: #ccc">no-longer-supported</a> <a href="/tags/old-releases/" style="font-size: 12px; color: #ccc">old-releases</a> <a href="/tags/setting/" style="font-size: 12px; color: #ccc">setting</a> <a href="/tags/source/" style="font-size: 12px; color: #ccc">source</a> <a href="/tags/wechat/" style="font-size: 12px; color: #ccc">wechat</a> <a href="/tags/%E4%B8%AD%E6%96%87%E5%AD%97%E4%BD%93/" style="font-size: 12px; color: #ccc">中文字体</a> <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/" style="font-size: 12px; color: #ccc">人工智能</a> <a href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="font-size: 30px; color: #111">学习笔记</a> <a href="/tags/%E6%97%A7%E7%89%88%E6%9C%AC/" style="font-size: 12px; color: #ccc">旧版本</a> <a href="/tags/%E6%BA%90%E6%9B%B4%E6%94%B9/" style="font-size: 12px; color: #ccc">源更改</a> <a href="/tags/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" style="font-size: 12px; color: #ccc">科学上网</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" style="font-size: 12px; color: #ccc">系统配置</a> <a href="/tags/%E9%95%9C%E5%83%8F%E6%BA%90/" style="font-size: 12px; color: #ccc">镜像源</a>
             </div>
           </div>
         
@@ -274,20 +278,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -331,12 +335,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">45k</span>
+    <span title="站点总字数">48k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">41 分钟</span>
+    <span title="站点阅读时长">43 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
