@@ -964,4 +964,276 @@
         <tag>科学上网</tag>
       </tags>
   </entry>
+  <entry>
+    <title>python在命令行中显示执行进度条</title>
+    <url>/2021/02/17/python-progressbar/</url>
+    <content><![CDATA[<h2 id="摘要">0. 摘要</h2>
+<p>在执行python程序的时候，有时执行时间比较长，因此希望能够有一个进度条来动态显示执行的进度。 这里使用python的第三方模块progressbar2来实现。</p>
+<a id="more"></a>
+<h2 id="安装progressbar2">1. 安装progressbar2</h2>
+<p>使用<code>pip</code>执行安装：</p>
+<figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">pip install progressbar2</span><br></pre></td></tr></table></figure>
+<h2 id="用法">2. 用法</h2>
+<h3 id="简单用法">2.1 简单用法</h3>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> progressbar</span><br><span class="line">p = progressbar.ProgressBar()</span><br><span class="line">N = <span class="number">1000</span></span><br><span class="line">p.start(N) <span class="comment"># 开始显示进度条，并设定进度条的最大值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    time.sleep(<span class="number">0.01</span>)</span><br><span class="line">    p.update(i+<span class="number">1</span>) <span class="comment"># 每执行一步，更新一次进度条</span></span><br><span class="line">p.finish() <span class="comment"># 执行完成，进度条走完</span></span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">100% (1000 of 1000) |#####################| Elapsed Time: 0:00:10 Time: 0:00:10</span><br></pre></td></tr></table></figure>
+<h3 id="自定义进度条格式">2.2 自定义进度条格式</h3>
+<p>示例：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> progressbar</span><br><span class="line">p = progressbar.ProgressBar()</span><br><span class="line">N = <span class="number">1000</span></span><br><span class="line"></span><br><span class="line">bar = progressbar.ProgressBar(widgets=[</span><br><span class="line">    <span class="string">&#x27; [&#x27;</span>, progressbar.Timer(), <span class="string">&#x27;] &#x27;</span>, <span class="comment"># 计时器</span></span><br><span class="line">    progressbar.Percentage(), <span class="comment"># 百分比进度</span></span><br><span class="line">    <span class="string">&#x27; (&#x27;</span>, progressbar.ETA(), <span class="string">&#x27;) &#x27;</span>, <span class="comment"># 预计剩余时间</span></span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">p.start(N) <span class="comment"># 开始显示进度条，并设定进度条的最大值</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(N):</span><br><span class="line">    time.sleep(<span class="number">0.01</span>)</span><br><span class="line">    p.update(i+<span class="number">1</span>) <span class="comment"># 每执行一步，更新一次进度条</span></span><br><span class="line">p.finish() <span class="comment"># 执行完成，进度条走完</span></span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">[Elapsed Time: 0:00:10] 100% (Time: 0:00:10)</span><br></pre></td></tr></table></figure>
+<p>常用的配置项属性有这么几种：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27;Timer&#x27;</span>,          <span class="comment"># 计时器</span></span><br><span class="line"><span class="string">&#x27;ETA&#x27;</span>,            <span class="comment"># 预计剩余时间</span></span><br><span class="line"><span class="string">&#x27;AbsoluteETA&#x27;</span>,    <span class="comment"># 预计结束的绝对时间，耗时很长时使用较方便</span></span><br><span class="line"><span class="string">&#x27;Percentage&#x27;</span>,     <span class="comment"># 百分比进度，30%</span></span><br><span class="line"><span class="string">&#x27;SimpleProgress&#x27;</span>, <span class="comment"># 计数进度，300/1000</span></span><br><span class="line"><span class="string">&#x27;Counter&#x27;</span>,        <span class="comment"># 单纯计数</span></span><br><span class="line"><span class="string">&#x27;Bar&#x27;</span>             <span class="comment"># “#”号进度条</span></span><br></pre></td></tr></table></figure>
+<p>例如，进度条设置为如下格式：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">bar = progressbar.ProgressBar(widgets=[</span><br><span class="line">    progressbar.Percentage(), <span class="comment"># 百分比</span></span><br><span class="line">    <span class="string">&#x27; (&#x27;</span>, progressbar.SimpleProgress(), <span class="string">&#x27;) &#x27;</span>, <span class="comment"># 计数进度</span></span><br><span class="line">    <span class="string">&#x27; (&#x27;</span>, progressbar.AbsoluteETA(), <span class="string">&#x27;) &#x27;</span>,]) <span class="comment"># 预计结束的绝对时间</span></span><br></pre></td></tr></table></figure>
+<p>显示结果：</p>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">54% ( 545 of 1000) (Estimated finish time: 2016-11-06 19:26:15)</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>progressbar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python在控制台显示日志</title>
+    <url>/2021/02/17/python-logging/</url>
+    <content><![CDATA[<h2 id="摘要">0. 摘要</h2>
+<p>在python中使用日志追踪执行过程，方便调试。</p>
+<p>原文地址：<a href="https://www.cnblogs.com/yyds/p/6901864.html">Python之日志处理（logging模块）</a></p>
+<p>这里只摘要部分自己用的内容。</p>
+<a id="more"></a>
+<h2 id="设置日志格式并调整显示级别">1. 设置日志格式并调整显示级别</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">LOG_FORMAT = <span class="string">&#x27;%(asctime)s - %(levelname)s - %(filename)s - line(%(lineno)d) - %(funcName)s() - %(message)s&#x27;</span></span><br><span class="line">DATE_FORMAT = <span class="string">&#x27;%m/%d/%Y %H:%M:%S&#x27;</span></span><br><span class="line">logging.basicConfig(level=logging.DEBUG, <span class="built_in">format</span>=LOG_FORMAT, datefmt=DATE_FORMAT)</span><br></pre></td></tr></table></figure>
+<h2 id="logging模块定义的格式字符串字段">2. logging模块定义的格式字符串字段</h2>
+<style type="text/css">
+  table th:nth-of-type(1){
+    width: 15%;
+  }
+  table th:nth-of-type(2){
+    width: 20%;
+  }
+  table th:nth-of-type(3){
+    width: 65%;
+  }
+</style>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">
+字段/属性名称
+</th>
+<th style="text-align: center;">
+使用格式
+</th>
+<th style="text-align: center;">
+描述
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">
+asctime
+</td>
+<td style="text-align: right;">
+%(asctime)s
+</td>
+<td style="text-align: left;">
+日志事件发生的时间--人类可读时间，如：2003-07-08 16:49:45,896
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+created
+</td>
+<td style="text-align: right;">
+%(created)f
+</td>
+<td style="text-align: left;">
+日志事件发生的时间--时间戳，就是当时调用time.time()函数返回的值
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+relativeCreated
+</td>
+<td style="text-align: right;">
+%(relativeCreated)d
+</td>
+<td style="text-align: left;">
+日志事件发生的时间相对于logging模块加载时间的相对毫秒数（目前还不知道干嘛用的）
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+msecs
+</td>
+<td style="text-align: right;">
+%(msecs)d
+</td>
+<td style="text-align: left;">
+日志事件发生事件的毫秒部分
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+levelname
+</td>
+<td style="text-align: right;">
+%(levelname)s
+</td>
+<td style="text-align: left;">
+该日志记录的文字形式的日志级别（'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'）
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+levelno
+</td>
+<td style="text-align: right;">
+%(levelno)s
+</td>
+<td style="text-align: left;">
+该日志记录的数字形式的日志级别（10, 20, 30, 40, 50）
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+name
+</td>
+<td style="text-align: right;">
+%(name)s
+</td>
+<td style="text-align: left;">
+所使用的日志器名称，默认是'root'，因为默认使用的是 rootLogger
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+message
+</td>
+<td style="text-align: right;">
+%(message)s
+</td>
+<td style="text-align: left;">
+日志记录的文本内容，通过 msg % args计算得到的
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+pathname
+</td>
+<td style="text-align: right;">
+%(pathname)s
+</td>
+<td style="text-align: left;">
+调用日志记录函数的源码文件的全路径
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+filename
+</td>
+<td style="text-align: right;">
+%(filename)s
+</td>
+<td style="text-align: left;">
+pathname的文件名部分，包含文件后缀
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+module
+</td>
+<td style="text-align: right;">
+%(module)s
+</td>
+<td style="text-align: left;">
+filename的名称部分，不包含后缀
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+lineno
+</td>
+<td style="text-align: right;">
+%(lineno)d
+</td>
+<td style="text-align: left;">
+调用日志记录函数的源代码所在的行号
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+funcName
+</td>
+<td style="text-align: right;">
+%(funcName)s
+</td>
+<td style="text-align: left;">
+调用日志记录函数的函数名
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+process
+</td>
+<td style="text-align: right;">
+%(process)d
+</td>
+<td style="text-align: left;">
+进程ID
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+processName
+</td>
+<td style="text-align: right;">
+%(processName)s
+</td>
+<td style="text-align: left;">
+进程名称，Python 3.1新增
+</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">
+thread
+</td>
+<td style="text-align: right;">
+%(thread)d
+</td>
+<td style="text-align: left;">
+线程ID
+</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">
+threadName
+</td>
+<td style="text-align: right;">
+%(thread)s
+</td>
+<td style="text-align: left;">
+线程名称
+</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>progressbar</tag>
+      </tags>
+  </entry>
 </search>

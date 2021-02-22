@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.rylee.fun/2021/02/17/python-logging/</loc>
+    <lastmod>2021-02-18</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2021/02/17/python-progressbar/</loc>
+    <lastmod>2021-02-17</lastmod>
+  </url>
+  <url>
     <loc>http://blog.rylee.fun/2021/01/27/study-notes-pytorch/</loc>
     <lastmod>2021-01-28</lastmod>
   </url>
