@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.rylee.fun/2021/03/05/how-to-install-android-studio/</loc>
+    <lastmod>2021-03-06</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
+    <lastmod>2021-03-06</lastmod>
+  </url>
+  <url>
     <loc>http://blog.rylee.fun/2021/02/17/python-logging/</loc>
     <lastmod>2021-02-18</lastmod>
   </url>
@@ -50,10 +58,6 @@
   </url>
   <url>
     <loc>http://blog.rylee.fun/2020/06/21/ubuntu-no-longer-supported/</loc>
-    <lastmod>2020-08-23</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.rylee.fun/2019/03/14/markdown-usage/</loc>
     <lastmod>2020-08-23</lastmod>
   </url>
   <url>

@@ -138,6 +138,108 @@
       </tags>
   </entry>
   <entry>
+    <title>如何安装在国内安装并使用Android Studio（各种代理或镜像的配置）</title>
+    <url>/2021/03/05/how-to-install-android-studio/</url>
+    <content><![CDATA[<h2 id="摘要">0. 摘要</h2>
+<p>在国内，因为众所周知的原因，Google被墙，导致Android相关资源下载很困难，Android Studio在使用过程中出现各种预料之外的情况，这里记录一下自己的踩坑记录，为以后安装做个指导。</p>
+<a id="more"></a>
+<p>因为JDK的安装很简单，所以我们就直接跳过JDK的安装和配置，直接开始Android Studio的安装。</p>
+<h2 id="下载android-studio">1. 下载Android Studio</h2>
+<p>上来第一步就是一个大坑，Android Studio的官网根本打不开，这里列举几个国内比较常用的下载源：</p>
+<ul>
+<li><a href="http://www.android-studio.org/">Android Studio社区</a>：比较权威的下载站，但是版本通常不够新。</li>
+<li><a href="https://www.weidown.com/bianchenggongju/11454.html">微当下载</a>：国内类似这样的软件网站很多，不过大多需要注册，而且有的还需要所谓会员才能下载，安全性难以保证。</li>
+<li><a href="https://android-studio.updatestar.com/">updatestar</a>：一个国外的软件网站，类似于上一个，不过不需要注册。</li>
+</ul>
+<p>这里看各自选择了，个人比较推荐<code>Android Studio社区</code>，因为这个相对比较权威，也比较安全，但是不管是在哪儿下载的，一定要注意核对<code>MD5校验码</code></p>
+<h2 id="安装android-studio">2. 安装Android Studio</h2>
+<p>安装的过程就不再多说什么了，基本上就是一路下一步，这一步并不复杂。</p>
+<h2 id="安装sdk">3. 安装SDK</h2>
+<p>又到了一个坑，这个坑也是深不可测。在这里我刚开始想要使用所谓的国内镜像源来完成SDK的安装，这也是我搜到的第一种方法，但是发现这种方法现在已经根本没办法完成SDK的下载和安装了，于是我采用了下面这种方法<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>：</p>
+<h3 id="第一步修改hosts">3.1. 第一步：修改hosts</h3>
+<p>使用<a href="http://ping.chinaz.com/">ping工具</a>，找到<code>dl.google.com</code>的真实IP地址，并修改hosts文件，在hosts文件最后添加上相应的解析地址，例如：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">180.163.150.33 dl.google.com</span><br></pre></td></tr></table></figure>
+<h3 id="第二步配置android-studio启动配置">3.2. 第二步：配置Android Studio启动配置</h3>
+<p>找到Android Studio的安装目录，进入<code>bin</code>目录，用编辑器打开<code>studio.exe.vmoptions</code>或<code>studio64.exe.vmoptions</code>文件。根据需要，如果是使用的32位系统，就修改<code>studio.exe.vmoptions</code>，如果使用的是64位系统，就修改<code>studio64.exe.vmoptions</code>。</p>
+<p>在文件最后添加如下内容：</p>
+<figure class="highlight text"><figcaption><span>studio64.exe.vmoptions</span></figcaption><table><tr><td class="code"><pre><span class="line">-Djava.net.preferIPv4Stack=true </span><br><span class="line">-Didea.updates.url=http://dl.google.com/android/studio/patches/updates.xml </span><br><span class="line">-Didea.patches.url=http://dl.google.com/android/studio/patches/</span><br></pre></td></tr></table></figure>
+<h3 id="第三步关闭android-studio代理服务器">3.3. 第三步：关闭Android Studio代理服务器</h3>
+<p>如果以前配置过任何代理服务器，将<code>HTTP Proxy</code>关闭</p>
+<h3 id="第四步重启android-studio">3.4. 第四步：重启Android Studio</h3>
+<p>注意，一定要看后台，将所有Android Studio相关的进程全部杀死，然后再重新打开Android Studio. 如果遇到配置代理的步骤，则直接取消，然后就可以体验丝滑地SDK下载过程了。</p>
+<h2 id="安装构建工具gradle">4. 安装构建工具Gradle</h2>
+<p>经历过以上步骤之后，我们终于能够成功打开Android Studio了，也终于能创建我们的第一个工程：HelloWorld了。但是你以为这就是结束了？不，这还远远不够。</p>
+<p>我们又成功的遇到了另一个问题，整个项目创建后好像卡住了，左侧的项目列表中，迟迟不生成想要的目录结构，仔细一看，发现卡在下载<code>Gradle</code>的过程中，下载速度奇慢无比。来，让我们开始解决这个问题：</p>
+<h3 id="第一步找到所需gradle版本">4.1. 第一步：找到所需Gradle版本</h3>
+<p>取消Gradle的下载，关闭Android Studio，并且查看后台，千万不要留下任何相关进程。然后找到Gradle的安装路径，一般来说，Gradle的安装路径都是在用户目录下的<code>.gradle</code>目录中，Windows和Linux、MacOS都是这样。比如在Windows中，一般在<code>C:\Users\xxx\.gradle</code>。进入Gradle根目录下的<code>wrapper/dists</code>目录，可以看到一个类似<code>gradle-6.5-bin</code>目录，这里的6.5就是我们要的Gradle版本号。</p>
+<h3 id="第二步下载gradle">4.2. 第二步：下载Gradle</h3>
+<p>Gradle的下载网站国内并没有屏蔽，但是不知道为什么Android Studio下载速度那么慢，我们只需要上Gradle的<a href="https://gradle.org/">官方网站</a>，找到<a href="https://gradle.org/releases/">下载页面</a>，根据上一步中找到的Gradle版本号，下载对应的Gradle。</p>
+<p>注意，对应版本有两个文件（<code>binary-only</code> or <code>complete</code>），如果刚才找到的目录是<code>gradle-x.x-bin</code>，就下载<code>binary-only</code>，如果是<code>gradle-x.x-all</code>，就下载<code>complete</code>。</p>
+<h3 id="第三步安装gradle">4.3. 第三步：安装Gradle</h3>
+<p>进入刚才的<code>gradle-x.x-bin</code>（或者是<code>gradle-x.x-all</code>）目录，有一个类似于一串乱码一样的目录，将刚才下载的文件直接放在这个乱码目录中，不需要解压，并将目录中原有的<code>*.lck</code>和<code>*.part</code>文件删掉。</p>
+<p>重新打开Android Studio，等待项目构建即可。</p>
+<h2 id="配置maven镜像源">5. 配置Maven镜像源</h2>
+<p>Gradle在进行项目构建的时候，用的也是Maven源，但是Maven在国内使用的时候，经常比较卡，所以在这里我们对Maven源进行替换，替换为国内镜像源（<a href="https://developer.aliyun.com/mirror/maven?spm=a2c6h.13651102.0.0.3e221b11PdUBQg">阿里云镜像源</a>）<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>：</p>
+<h3 id="对单个项目生效">5.1. 对单个项目生效</h3>
+<p>1.打开Android Studio工程文件，找到build.gradle</p>
+<p>2.使用文本编辑器打开，默认格式如下：</p>
+<figure class="highlight gradle"><figcaption><span>build.gradle</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// Top-level build file where you can add configuration options common to all sub-projects/modules.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">&#x27;com.android.tools.build:gradle:3.5.1&#x27;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        google()</span><br><span class="line">        jcenter()</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> clean(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>３.修改为以下内容：</p>
+<figure class="highlight gradle"><figcaption><span>build.gradle</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// Top-level build file where you can add configuration options common to all sub-projects/modules.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">buildscript</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;https://maven.aliyun.com/repository/google&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;https://maven.aliyun.com/repository/public&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;https://maven.aliyun.com/repository/jcenter&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">dependencies</span> &#123;</span><br><span class="line">        <span class="keyword">classpath</span> <span class="string">&#x27;com.android.tools.build:gradle:3.5.1&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">allprojects</span> &#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;https://maven.aliyun.com/repository/google&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;https://maven.aliyun.com/repository/public&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url <span class="string">&#x27;https://maven.aliyun.com/repository/jcenter&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> clean(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="对所有项目生效">5.2. 对所有项目生效</h3>
+<p>1.打开系统用户的Gradle配置目录：<code>C:\Users\xxx\.gradle</code></p>
+<p>2.新建文件init.gradle（注意文件后缀名为gradle）</p>
+<figure class="highlight gradle"><figcaption><span>init.gradle</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">allprojects</span>&#123;</span><br><span class="line">    <span class="keyword">repositories</span> &#123;</span><br><span class="line">        <span class="keyword">def</span> ALIYUN_REPOSITORY_URL = <span class="string">&#x27;https://maven.aliyun.com/repository/public&#x27;</span></span><br><span class="line">        <span class="keyword">def</span> ALIYUN_JCENTER_URL = <span class="string">&#x27;https://maven.aliyun.com/repository/jcenter&#x27;</span></span><br><span class="line">        all &#123; ArtifactRepository repo -&gt;</span><br><span class="line">            <span class="keyword">if</span> (repo <span class="keyword">instanceof</span> MavenArtifactRepository)&#123;</span><br><span class="line">                <span class="keyword">def</span> url = repo.url.toString()</span><br><span class="line">                <span class="keyword">if</span> (url.startsWith(<span class="string">&#x27;https://repo1.maven.org/maven2&#x27;</span>)) &#123;</span><br><span class="line">                    <span class="keyword">project</span>.logger.lifecycle <span class="string">&quot;Repository $&#123;repo.url&#125; replaced by $ALIYUN_REPOSITORY_URL.&quot;</span></span><br><span class="line">                    remove repo</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (url.startsWith(<span class="string">&#x27;https://jcenter.bintray.com/&#x27;</span>)) &#123;</span><br><span class="line">                    <span class="keyword">project</span>.logger.lifecycle <span class="string">&quot;Repository $&#123;repo.url&#125; replaced by $ALIYUN_JCENTER_URL.&quot;</span></span><br><span class="line">                    remove repo</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        maven &#123;</span><br><span class="line">            url ALIYUN_REPOSITORY_URL</span><br><span class="line">            url ALIYUN_JCENTER_URL</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最后的话">6. 最后的话</h2>
+<p>说句实在话，作为一个程序员，翻墙真的是基础技能，不能翻墙的话，大量的最新资讯、技术都无法第一时间获得，很多工具的使用也会变得很繁琐。希望大家能够学会如何翻墙，当然，前提是基于学习和技术研究，而不要用于一些非法的活动。总结这篇文章也是因为我的学生们很多并不知道如何翻墙，所以总结了这么一篇文章，希望能够对大家也有所帮助。</p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p><a href="https://www.jb51.net/article/200127.htm">Android Studio配置国内镜像源（利用hosts）</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p><a href="https://www.rumosky.com/archives/295.html">Gradle/Maven配置国内镜像源（以Android Studio为例）</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+]]></content>
+      <categories>
+        <category>Android</category>
+      </categories>
+      <tags>
+        <tag>镜像源</tag>
+        <tag>Android Studio</tag>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>lilypond配置</title>
+    <url>/2020/08/12/lilypond-configure/</url>
+    <content><![CDATA[<p>摘要：编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
+<a id="more"></a>
+<h2 id="配置命令行启动lilypond">1. 配置命令行启动lilypond</h2>
+<p>正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html">提示</a>，配置命令行启用lilypond。</p>
+<h3 id="创建执行脚本">1.1. 创建执行脚本</h3>
+<p>在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
+<p><figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br></pre></td></tr></table></figure> 除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
+<h3 id="添加权限">1.2. 添加权限</h3>
+<p>为上一步中创建的执行脚本添加可执行权限</p>
+<p><figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure> 同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
+<h2 id="lilypond中文乱码">2. lilypond中文乱码</h2>
+<blockquote>
+<p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
+</blockquote>
+<p>编译过程出现的错误信息如下：</p>
+<p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Converting to `玩够了没有.pdf&#x27;...</span><br><span class="line">warning: `(gs -q -dSAFER -dDEVICEWIDTHPOINTS=595.28 -dDEVICEHEIGHTPOINTS=841.89 -dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE=pdfwrite -dAutoRotatePages=/None -dPrinted=false -sOutputFile=玩够了没有.pdf -c.setpdfwrite -f/var/folders/3p/zr3fwznx0pq01hp6c6p1tscr0000gp/T//lilypond-7gvJNc)&#x27; failed (256)</span><br></pre></td></tr></table></figure> 该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
+<p><figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">&quot;<span class="variable">$@</span>&quot;</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">&quot;ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]&quot;</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">&quot;<span class="variable">$ARGS</span> <span class="variable">$i</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">&quot;<span class="variable">$FILE_PATH</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[ERROR] File not exists&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>lilypond</category>
+      </categories>
+      <tags>
+        <tag>lilypond</tag>
+        <tag>中文字体</tag>
+        <tag>Catalina</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用Docker安装MySQL</title>
     <url>/2020/08/23/install-mysql-in-docker/</url>
     <content><![CDATA[<p>摘要：本文讲解了如何在Docker中安装MySQL</p>
@@ -192,36 +294,6 @@
       <tags>
         <tag>docker</tag>
         <tag>mysql</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>lilypond配置</title>
-    <url>/2020/08/12/lilypond-configure/</url>
-    <content><![CDATA[<p>摘要：编写本文的起因是因为随着macOS更新到新版本10.15 Catalina，macOS不再支持32位软件，原来安装的lilypond不能再用，只能安装64位版本的lilypond，但是更新软件后，发现原有的乐谱内有中文的，都无法再成功编译，在查找原因的过程中走了很多弯路，在此做一下记录，顺便将lilypond的一些相关配置都记录一下。</p>
-<a id="more"></a>
-<h2 id="配置命令行启动lilypond">1. 配置命令行启动lilypond</h2>
-<p>正常情况下，安装完lilypond，虽然能够使用Frescobaldi之类的软件调用lilypon，但是直接在shell中用命令行调用lilypond是无法正常使用的。但是最近在处理lilypond出现的各种问题的时候，发现这样很不方便，因此根据官网的一些<a href="http://lilypond.org/macos-x.zh.html">提示</a>，配置命令行启用lilypond。</p>
-<h3 id="创建执行脚本">1.1. 创建执行脚本</h3>
-<p>在<code>/usr/local/bin</code>目录里创建文件<code>lilypond</code>并输入以下内容</p>
-<p><figure class="highlight bash"><figcaption><span>/usr/local/bin/lilypond</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="string">&quot;<span class="variable">$@</span>&quot;</span></span><br></pre></td></tr></table></figure> 除了<code>lilypond</code>，还有<code>lilypond-book</code>等命令，可以参照这一步骤，依次创建。</p>
-<h3 id="添加权限">1.2. 添加权限</h3>
-<p>为上一步中创建的执行脚本添加可执行权限</p>
-<p><figure class="highlight zsh"><table><tr><td class="code"><pre><span class="line">sudo chmod 755 lilypond</span><br></pre></td></tr></table></figure> 同样，为其他<code>lilypond</code>相关的可执行脚本创建可执行权限。</p>
-<h2 id="lilypond中文乱码">2. lilypond中文乱码</h2>
-<blockquote>
-<p>在执行lilypond编译乐谱的时候，发现在生成pdf的步骤，会出现错误，无法正确识别中文。这应该是由于中文字体缺失导致的，</p>
-</blockquote>
-<p>编译过程出现的错误信息如下：</p>
-<p><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">Converting to `玩够了没有.pdf&#x27;...</span><br><span class="line">warning: `(gs -q -dSAFER -dDEVICEWIDTHPOINTS=595.28 -dDEVICEHEIGHTPOINTS=841.89 -dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH -r1200 -sDEVICE=pdfwrite -dAutoRotatePages=/None -dPrinted=false -sOutputFile=玩够了没有.pdf -c.setpdfwrite -f/var/folders/3p/zr3fwznx0pq01hp6c6p1tscr0000gp/T//lilypond-7gvJNc)&#x27; failed (256)</span><br></pre></td></tr></table></figure> 该问题暂时没有找到彻底的解决方案，只能通过一个曲线救国的方法来解决，即，在编译之前，将文件名改为英文，在编译之后再把文件改回原名。考虑到使用方便，在这里做了一个启动脚本，可以完成这个过程。</p>
-<p><figure class="highlight bash"><figcaption><span>lilypond启动脚本</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">ARGS_ARRAY=(<span class="string">&quot;<span class="variable">$@</span>&quot;</span>) <span class="comment"># 获取参数列表</span></span><br><span class="line"><span class="built_in">unset</span> <span class="string">&quot;ARGS_ARRAY[<span class="variable">$&#123;#ARGS_ARRAY[@]&#125;</span>-1]&quot;</span> <span class="comment"># 删除最后一个参数，即文件名</span></span><br><span class="line">FILE_PATH=<span class="variable">$&#123;!#&#125;</span> <span class="comment"># 获取最后一个参数，即文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将参数列表转换为字符串</span></span><br><span class="line">ARGS=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="variable">$&#123;ARGS_ARRAY[@]&#125;</span>; <span class="keyword">do</span></span><br><span class="line">  ARGS=<span class="string">&quot;<span class="variable">$ARGS</span> <span class="variable">$i</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 判断文件是否存在，不存在给出提示</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">&quot;<span class="variable">$FILE_PATH</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[ERROR] File not exists&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 0</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成临时文件</span></span><br><span class="line">BASEDIR=$(dirname <span class="variable">$FILE_PATH</span>)</span><br><span class="line">FULL_FILE_NAME=$(basename <span class="variable">$FILE_PATH</span>)</span><br><span class="line">SUFFIX=<span class="variable">$&#123;FULL_FILE_NAME#*.&#125;</span></span><br><span class="line">BASE_FILE_NAME=<span class="variable">$&#123;FULL_FILE_NAME%%.*&#125;</span></span><br><span class="line"></span><br><span class="line">TMP_FILE_NAME=$(<span class="built_in">echo</span> -n <span class="variable">$BASE_FILE_NAME</span> | md5sum| awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">TMP_FILE_PATH=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$SUFFIX</span></span><br><span class="line"></span><br><span class="line">mv <span class="variable">$FILE_PATH</span> <span class="variable">$TMP_FILE_PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在这里插入调用lilypond的语句</span></span><br><span class="line">output=`<span class="built_in">exec</span> /Applications/LilyPond.app/Contents/Resources/bin/lilypond <span class="variable">$ARGS</span> <span class="variable">$TMP_FILE_PATH</span>`</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> $(ls <span class="variable">$BASEDIR</span> | grep <span class="variable">$TMP_FILE_NAME</span>); <span class="keyword">do</span></span><br><span class="line">  TMP_SUFFIX=<span class="variable">$&#123;FILE#*.&#125;</span></span><br><span class="line">  SRC=<span class="variable">$BASEDIR</span>/<span class="variable">$TMP_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  TAR=<span class="variable">$BASEDIR</span>/<span class="variable">$BASE_FILE_NAME</span>.<span class="variable">$TMP_SUFFIX</span></span><br><span class="line">  mv <span class="variable">$SRC</span> <span class="variable">$TAR</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>lilypond</category>
-      </categories>
-      <tags>
-        <tag>lilypond</tag>
-        <tag>中文字体</tag>
-        <tag>Catalina</tag>
       </tags>
   </entry>
   <entry>
@@ -375,6 +447,21 @@
 </summary>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">&quot;cn.hnpi.contentprovider&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    &lt;application</span><br><span class="line">        android:allowBackup=&quot;true&quot;</span><br><span class="line">        android:icon=&quot;@mipmap/ic_launcher&quot;</span><br><span class="line">        android:label=&quot;@string/app_name&quot;</span><br><span class="line">        android:roundIcon=&quot;@mipmap/ic_launcher_round&quot;</span><br><span class="line">        android:supportsRtl=&quot;true&quot;</span><br><span class="line">        android:theme=&quot;@style/AppTheme&quot;&gt;</span><br><span class="line">        &lt;provider</span><br><span class="line">            android:name=&quot;.MyContentProvider&quot;</span><br><span class="line">            android:authorities=&quot;cn.hnpi.contentprovider&quot;</span><br><span class="line">            android:enabled=&quot;true&quot;</span><br><span class="line">            android:exported=&quot;true&quot;&gt;<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">                <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </details>
+<h2 id="引用文献">6. 引用文献</h2>
+<figure class="highlight md"><table><tr><td class="code"><pre><span class="line">Here is a footnote reference,[^1] and another.[^longnote]</span><br><span class="line"></span><br><span class="line">[<span class="symbol">^1</span>]: <span class="link">Here is the footnote.</span></span><br><span class="line"></span><br><span class="line">[<span class="symbol">^longnote</span>]: <span class="link">Here&#x27;s one with multiple blocks.</span></span><br><span class="line"></span><br><span class="line"><span class="code">    Subsequent paragraphs are indented to show that they belong to the previous footnote.</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">This paragraph won’t be part of the note, because it isn’t indented.</span></span><br><span class="line"><span class="code"></span></span><br><span class="line"><span class="code">Here is an inline note.^[Inlines notes are easier to write.</span></span><br><span class="line"><span class="code">Since you don&#x27;t have to pick an identifier and move down to type the note.]</span></span><br></pre></td></tr></table></figure>
+<p>效果如下</p>
+<p>Here is a footnote reference,<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> and another.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>This paragraph won’t be part of the note, because it isn’t indented.</p>
+<p>Here is an inline note.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>Here is the footnote.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Here's one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they belong to the previous footnote.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>Inlines notes are easier to write. Since you don't have to pick an identifier and move down to type the note.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 ]]></content>
       <categories>
         <category>markdown</category>
